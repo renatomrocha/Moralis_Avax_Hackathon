@@ -21,9 +21,13 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
 } from '@chakra-ui/icons';
+import {useEffect, useState} from "react";
+import Moralis from "moralis";
+import {getDexList} from "../services/dexService";
 
 export default function WithSubnavigation(props: any) {
     const { isOpen, onToggle } = useDisclosure();
+
 
     return (
         <Box>
@@ -102,9 +106,9 @@ export default function WithSubnavigation(props: any) {
                 </Stack>
             </Flex>
 
-            <Collapse in={isOpen} animateOpacity>
-                <MobileNav />
-            </Collapse>
+            {/*<Collapse in={isOpen} animateOpacity>*/}
+            {/*    <MobileNav />*/}
+            {/*</Collapse>*/}
         </Box>
     );
 }
@@ -114,15 +118,22 @@ const DesktopNav = () => {
     const linkHoverColor = useColorModeValue('gray.800', 'white');
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
+    const [items, setItems] = useState<any[]>([]);
+
+    useEffect(()=> {
+        getItems()
+            .then((r:any[])=> setItems(r))
+    }, [])
+
     return (
         <Stack direction={'row'} spacing={4}>
-            {NAV_ITEMS.map((navItem) => (
+            {items.map((navItem) => (
                 <Box key={navItem.label}>
                     <Popover trigger={'hover'} placement={'bottom-start'}>
                         <PopoverTrigger>
                             <Link
                                 p={2}
-                                href={navItem.href ?? '#'}
+                                to={"dex/" + navItem.address}
                                 fontSize={'sm'}
                                 fontWeight={500}
                                 color={linkColor}
@@ -143,7 +154,7 @@ const DesktopNav = () => {
                                 rounded={'xl'}
                                 minW={'sm'}>
                                 <Stack>
-                                    {navItem.children.map((child) => (
+                                    {navItem.children.map((child:any) => (
                                         <DesktopSubNav key={child.label} {...child} />
                                     ))}
                                 </Stack>
@@ -190,68 +201,68 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
     );
 };
 
-const MobileNav = () => {
-    return (
-        <Stack
-            bg={useColorModeValue('white', 'gray.800')}
-            p={4}
-            display={{ md: 'none' }}>
-            {NAV_ITEMS.map((navItem) => (
-                <MobileNavItem key={navItem.label} {...navItem} />
-            ))}
-        </Stack>
-    );
-};
-
-const MobileNavItem = ({ label, children, href }: NavItem) => {
-    const { isOpen, onToggle } = useDisclosure();
-
-    return (
-        <Stack spacing={4} onClick={children && onToggle}>
-            <Flex
-                py={2}
-                as={Link}
-                href={href ?? '#'}
-                justify={'space-between'}
-                align={'center'}
-                _hover={{
-                    textDecoration: 'none',
-                }}>
-                <Text
-                    fontWeight={600}
-                    color={useColorModeValue('gray.600', 'gray.200')}>
-                    {label}
-                </Text>
-                {children && (
-                    <Icon
-                        as={ChevronDownIcon}
-                        transition={'all .25s ease-in-out'}
-                        transform={isOpen ? 'rotate(180deg)' : ''}
-                        w={6}
-                        h={6}
-                    />
-                )}
-            </Flex>
-
-            <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
-                <Stack
-                    mt={2}
-                    pl={4}
-                    borderLeft={1}
-                    borderStyle={'solid'}
-                    borderColor={useColorModeValue('gray.200', 'gray.700')}
-                    align={'start'}>
-                    {children &&
-                    children.map((child) => (
-                        <Link key={child.label} py={2} href={child.href}>
-                            {child.label}
-                        </Link>
-                    ))}
-                </Stack>
-            </Collapse>
-        </Stack>
-    );
-};
+// const MobileNav = () => {
+//     return (
+//         <Stack
+//             bg={useColorModeValue('white', 'gray.800')}
+//             p={4}
+//             display={{ md: 'none' }}>
+//             {NAV_ITEMS.map((navItem) => (
+//                 <MobileNavItem key={navItem.label} {...navItem} />
+//             ))}
+//         </Stack>
+//     );
+// };
+//
+// const MobileNavItem = ({ label, children, href }: NavItem) => {
+//     const { isOpen, onToggle } = useDisclosure();
+//
+//     return (
+//         <Stack spacing={4} onClick={children && onToggle}>
+//             <Flex
+//                 py={2}
+//                 as={Link}
+//                 href={href ?? '#'}
+//                 justify={'space-between'}
+//                 align={'center'}
+//                 _hover={{
+//                     textDecoration: 'none',
+//                 }}>
+//                 <Text
+//                     fontWeight={600}
+//                     color={useColorModeValue('gray.600', 'gray.200')}>
+//                     {label}
+//                 </Text>
+//                 {children && (
+//                     <Icon
+//                         as={ChevronDownIcon}
+//                         transition={'all .25s ease-in-out'}
+//                         transform={isOpen ? 'rotate(180deg)' : ''}
+//                         w={6}
+//                         h={6}
+//                     />
+//                 )}
+//             </Flex>
+//
+//             <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
+//                 <Stack
+//                     mt={2}
+//                     pl={4}
+//                     borderLeft={1}
+//                     borderStyle={'solid'}
+//                     borderColor={useColorModeValue('gray.200', 'gray.700')}
+//                     align={'start'}>
+//                     {children &&
+//                     children.map((child) => (
+//                         <Link key={child.label} py={2} href={child.href}>
+//                             {child.label}
+//                         </Link>
+//                     ))}
+//                 </Stack>
+//             </Collapse>
+//         </Stack>
+//     );
+// };
 
 interface NavItem {
     label: string;
@@ -260,43 +271,47 @@ interface NavItem {
     href?: string;
 }
 
-const NAV_ITEMS: Array<NavItem> = [
-    {
-        label: 'AVAX',
-        children: [
-            {
-                label: 'Explore Design Work',
-                subLabel: 'Trending Design to inspire you',
-                href: '#',
-            },
-            {
-                label: 'New & Noteworthy',
-                subLabel: 'Up-and-coming Designers',
-                href: '#',
-            },
-        ],
-    },
-    {
-        label: 'Tokens',
-        children: [
-            {
-                label: 'Job Board',
-                subLabel: 'Find your dream design job',
-                href: '#',
-            },
-            {
-                label: 'Freelance Projects',
-                subLabel: 'An exclusive list for contract work',
-                href: '#',
-            },
-        ],
-    },
-    {
-        label: 'DEXs',
-        href: '#',
-    },
-    {
-        label: 'Statistics',
-        href: '#',
-    },
-];
+async function getItems() {
+    return [
+        {
+            label: 'AVAX',
+            children: [
+                {
+                    label: 'Explore Design Work',
+                    subLabel: 'Trending Design to inspire you',
+                    href: '#',
+                },
+                {
+                    label: 'New & Noteworthy',
+                    subLabel: 'Up-and-coming Designers',
+                    href: '#',
+                },
+            ],
+        },
+        {
+            label: 'Tokens',
+            children: [
+                {
+                    label: 'Job Board',
+                    subLabel: 'Find your dream design job',
+                    href: '#',
+                },
+                {
+                    label: 'Freelance Projects',
+                    subLabel: 'An exclusive list for contract work',
+                    href: '#',
+                },
+            ],
+        },
+        {
+            label: 'DEXs',
+            children: [... await getDexList()]
+        },
+        {
+            label: 'Statistics',
+            href: '#',
+        },
+    ];
+}
+
+
