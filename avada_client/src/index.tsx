@@ -5,11 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {ChakraProvider, extendTheme} from "@chakra-ui/react";
 import {MoralisProvider} from "react-moralis";
+import WithSubnavigation from "./components/Navbar";
 
 
 const theme = extendTheme({
     'config': {
-        initialColorMode:'dark'
+        initialColorMode:'light'
     }
 });
 
@@ -21,7 +22,7 @@ ReactDOM.render(
   <React.StrictMode>
       <MoralisProvider appId={appId} serverUrl={serverUrl}>
       <ChakraProvider theme={theme}>
-    <App />
+          <App />
       </ChakraProvider>
       </MoralisProvider>
   </React.StrictMode>,
