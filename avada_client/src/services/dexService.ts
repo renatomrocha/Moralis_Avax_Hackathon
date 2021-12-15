@@ -17,3 +17,5 @@ export const getDexList = async () : Promise<any[]> => {
         // console.log("Name is: ", dexes[0].get("name"))
         return dexList;
     }
+
+

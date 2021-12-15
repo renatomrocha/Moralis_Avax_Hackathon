@@ -24,6 +24,7 @@ import {
 import {useEffect, useState} from "react";
 import Moralis from "moralis";
 import {getDexList} from "../services/dexService";
+import {getTokenList} from "../services/tokenService";
 
 export default function WithSubnavigation(props: any) {
     const { isOpen, onToggle } = useDisclosure();
@@ -290,18 +291,7 @@ async function getItems() {
         },
         {
             label: 'Tokens',
-            children: [
-                {
-                    label: 'Job Board',
-                    subLabel: 'Find your dream design job',
-                    href: '#',
-                },
-                {
-                    label: 'Freelance Projects',
-                    subLabel: 'An exclusive list for contract work',
-                    href: '#',
-                },
-            ],
+            children: [... await getTokenList()],
         },
         {
             label: 'DEXs',
