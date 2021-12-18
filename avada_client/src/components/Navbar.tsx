@@ -21,10 +21,11 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
 } from '@chakra-ui/icons';
-import {useEffect, useState} from "react";
+import {useEffect, useState, useCallback} from "react";
 import Moralis from "moralis";
 import {getDexList} from "../services/dexService";
 import {getTokenList} from "../services/tokenService";
+import {useNavigate, Link as ReactLink} from 'react-router-dom';
 
 export default function WithSubnavigation(props: any) {
     const { isOpen, onToggle } = useDisclosure();
@@ -118,6 +119,7 @@ const DesktopNav = () => {
     const linkColor = useColorModeValue('gray.600', 'gray.200');
     const linkHoverColor = useColorModeValue('gray.800', 'white');
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
+    // const navigate = useNavigate();
 
     const [items, setItems] = useState<any[]>([]);
 
@@ -133,8 +135,10 @@ const DesktopNav = () => {
                     <Popover trigger={'hover'} placement={'bottom-start'}>
                         <PopoverTrigger>
                             <Link
+                                as={ReactLink}
+                                to={navItem.route?navItem.route:"/"}
                                 p={2}
-                                to={"dex/" + navItem.address}
+                                // onClick={()=>navItem.route?navigate(navItem.route):null}
                                 fontSize={'sm'}
                                 fontWeight={500}
                                 color={linkColor}
@@ -171,7 +175,7 @@ const DesktopNav = () => {
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
     return (
         <Link
-            href={href}
+            // href={href}
             role={'group'}
             display={'block'}
             p={2}
@@ -291,10 +295,12 @@ async function getItems() {
         },
         {
             label: 'Tokens',
-            children: [... await getTokenList()],
+            route: '/tokens',
+            // children: [... await getTokenList()],
         },
         {
             label: 'DEXs',
+
             children: [... await getDexList()]
         },
         {

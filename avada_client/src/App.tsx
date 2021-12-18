@@ -15,8 +15,10 @@ import {
 import {useMoralis} from "react-moralis";
 import Moralis from "moralis";
 import ExampleChart from "./components/exampleChart";
+import TokenView from "./components/TokenView";
 import WithSubnavigation from "./components/Navbar";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Tokens from "./components/Tokens";
 
 
 function App() {
@@ -47,25 +49,28 @@ function App() {
 
         return (
             <div>
-            <WithSubnavigation authenticationFunction={authenticate}
-                               isAuthenticated={isAuthenticated}
-                               logout={logout}
-                               isAuthenticating={isAuthenticating}
-                               dexList = {dexList}
-            ></WithSubnavigation>
+                <BrowserRouter>
+                    <WithSubnavigation authenticationFunction={authenticate}
+                            isAuthenticated={isAuthenticated}
+                            logout={logout}
+                            isAuthenticating={isAuthenticating}
+                            />
                 <div style={{margin:"20px"}}>
-                    <BrowserRouter>
+
 
                         <Routes>
                             <Route  path="/" element={ <div><Heading>{welcomeMessage}</Heading>
                                 <ExampleChart/></div>} />
+                            <Route path="/tokens" element={<Tokens/>}/>
+                            <Route path="/tokens/:address" element={<TokenView/>}/>
 
                             <Route path="/dex/:dexId" element={<div><h2>DEX</h2></div>} />
                         </Routes>
 
 
-                    </BrowserRouter>
+
                 </div>
+                </BrowserRouter>
                 {/*<Button  onClick={()=> getDexes()}>Get DEXs</Button>*/}
             </div>
         )

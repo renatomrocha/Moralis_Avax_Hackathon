@@ -27,11 +27,3 @@ def create_new_dex(*, name, address, erc20address):
         print('Dex {} successfully created!'.format(name))
     except Exception as e:
         print("Error creating a new dex: {}".format(e))
-
-
-# def update_dex(*, name, ):
-#     try:
-#         dex_object = Dex.objects(name=name).update()
-#         return dex_object
-#     except Exception as e:
-#         print('Unable to find dex: ', e)

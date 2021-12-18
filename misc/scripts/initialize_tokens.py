@@ -1,5 +1,5 @@
 from misc.models.Token import Token
-from db_connection import connection
+
 
 tokens = [{"name": "Tether", "symbol": "USDT.e", "address": "0xc7198437980c041c805a1edcba50c1ce5db95118"},
           {"name": "USD Coin", "symbol": "USDC.e", "address": "0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664"},
