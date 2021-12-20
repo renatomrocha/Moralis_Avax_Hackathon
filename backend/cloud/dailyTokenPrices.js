@@ -24,12 +24,17 @@ Moralis.Cloud.job("CalculateDailyPrice", async (request) => {
     const averagePrice =
       priceValues.reduce((a, b) => a + b) / priceValues.length;
 
+    const minPrice = Math.min(...priceValues);
+    const maxPrice = Math.max(...priceValues);
+
     const DailyTokenPrices = Moralis.Object.extend("DailyTokenPrices");
     const newDailyPrice = new DailyTokenPrices();
 
     newDailyPrice.set("symbol", uniqueTokens[i]);
     newDailyPrice.set("date", yesterday);
     newDailyPrice.set("averagePrice", averagePrice);
+    newDailyPrice.set("minPrice", minPrice);
+    newDailyPrice.set("maxPrice", maxPrice);
 
     newDailyPrice.save().then(
       (price) => {
