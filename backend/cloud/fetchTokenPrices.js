@@ -12,6 +12,10 @@ Moralis.Cloud.define("fetchCurrentPrices", async (request) => {
   newPrice.set("tokenPrice", TokenDetails.usdPrice);
   newPrice.set("tokenSymbol", request.params.symbol);
 
+  let nowDate = new Date();
+  nowDate.setHours(0, 0, 0, 0);
+  newPrice.set("date", nowDate);
+
   newPrice.save().then(
     (price) => {
       alert("New object created with objectId: " + price.id);
