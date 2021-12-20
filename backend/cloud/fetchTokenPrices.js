@@ -1,30 +1,50 @@
-Moralis.Cloud.define("fetchCurrentPrices", async () => {
+Moralis.Cloud.define("fetchCurrentPrices", async (request) => {
+  // const logger = Moralis.Cloud.getLogger();
+  // logger.info(request.params.tokens);
   const TokenPrices = Moralis.Object.extend("TokenPrices");
 
   const newPrice = new TokenPrices();
 
-  const options = {
-    address: "0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB",
-    chain: "avalanche",
-  };
-
-  const TokenDetails = await Moralis.Web3API.token.getTokenPrice(options);
+  const TokenDetails = await Moralis.Web3API.token.getTokenPrice({
+    address: request.params.address,
+    chain: request.params.chain,
+  });
   newPrice.set("tokenPrice", TokenDetails.usdPrice);
-  newPrice.set("tokenSymbol", "ETH");
+  newPrice.set("tokenSymbol", request.params.symbol);
 
   newPrice.save().then(
     (price) => {
-      // Execute any logic that should take place after the object is saved.
       alert("New object created with objectId: " + price.id);
     },
     (error) => {
-      // Execute any logic that should take place if the save fails.
-      // error is a Moralis.Error with an error code and message.
       alert("Failed to create new object, with error code: " + error.message);
     }
   );
 });
 
 Moralis.Cloud.job("PriceFetcher", async (request) => {
-  await Moralis.Cloud.run("fetchCurrentPrices");
+  const TOKEN = Moralis.Object.extend("TokenDetails");
+  const query = new Moralis.Query(TOKEN);
+  query.select("symbol", "address", "chain");
+  const results = await query.find();
+  const tokenList = results.map((r) => {
+    return {
+      chain: r.get("chain"),
+      address: r.get("address"),
+      symbol: r.get("symbol"),
+    };
+  });
+
+  // const logger = Moralis.Cloud.getLogger();
+  // tokenList.forEach((element) => {
+  //   logger.info(element.address);
+  // });
+
+  for (i = 0; i < tokenList.length; i++) {
+    await Moralis.Cloud.run("fetchCurrentPrices", {
+      symbol: tokenList[i].symbol,
+      address: tokenList[i].address,
+      chain: tokenList[i].chain,
+    });
+  }
 });
