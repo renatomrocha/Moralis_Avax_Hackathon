@@ -1,4 +1,5 @@
 import Moralis from "moralis";
+import {getBlockFromDate} from "./miscService";
 
 export const getTokenList = async () : Promise<any[]> => {
 
@@ -14,14 +15,37 @@ export const getTokenList = async () : Promise<any[]> => {
 }
 
 
-export const getTokenPrice = async (address : string, chain: string) => {
+export const getTokenPrice = async (address : string, chain: string, to_date?: string) => {
+
     const options : any = {
         address: address,
-        chain: chain?chain:"avalanche",
+        chain: chain?chain:"avalanche"
     };
+
+    if (to_date) {
+        const blockInfo = await getBlockFromDate(to_date);
+        Object.assign(options,{to_block: blockInfo.block});
+    }
 
     const tokenPrice = await Moralis.Web3API.token.getTokenPrice(options);
     console.log(`Price for token with address ${address} is ${tokenPrice}`);
     return tokenPrice;
+}
+
+
+export const getTokenPriceHistory = async (address:string, dateInterval: string[]) => {
+    const priceHistory = [];
+    for(let date of dateInterval) {
+        console.log("Date is: ", date);
+        try {
+            const price = await getTokenPrice(address, "avalanche", date);
+            priceHistory.push(price);
+        } catch (e) {
+            console.log("Error getting price")
+        }
+
+    }
+    console.log("Price history is: ", priceHistory);
+    return priceHistory;
 }
 
