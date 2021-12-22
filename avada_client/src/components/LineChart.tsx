@@ -1,14 +1,11 @@
 import React, {useEffect, useRef} from 'react';
 import * as d3 from 'd3';
 
-// import './index.css';
-
 function LineChart(props: any) {
     const { data, width, height } = props;
     const svgRef = useRef<any>();
 
     useEffect(() => {
-        console.log("Loading with data: ", data);
         drawChart();
     }, []);
 
@@ -20,13 +17,13 @@ function LineChart(props: any) {
         const xMinValue : any = d3.min(data, (d:any) => d.label);
         const xMaxValue : any = d3.max(data, (d:any) => d.label);
         const svg = d3
-            .select(svgRef)
+            .select(svgRef.current)
             .append('svg')
             .attr('width', width + margin.left + margin.right)
             .attr('height', height + margin.top + margin.bottom)
             .append('g')
             .attr('transform', `translate(${margin.left},${margin.top})`);const tooltip = d3
-            .select(svgRef)
+            .select(svgRef.current)
             .append('div')
             .attr('class', 'tooltip');
         const xScale = d3
