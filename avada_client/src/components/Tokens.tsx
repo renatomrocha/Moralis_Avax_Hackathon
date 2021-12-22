@@ -34,10 +34,7 @@ function TokenList(props: any) {
     const navigate = useNavigate();
 
 
-    useEffect(()=>{
-        getTokenPrice("0x5947bb275c521040051d82396192181b413227a3", "avalanche")
-            .then(t=>console.log("Token price is: ", t))
-    },[])
+
 
     const handleMouseEnter = (idx:number) => {
 
@@ -55,7 +52,7 @@ function TokenList(props: any) {
         </Thead>
             <Tbody>
                 {props.tokenList.map((token: any, idx: number)=> {
-                    return(<Tr onClick={()=>navigate(`/tokens/${token.address}`)}>
+                    return(<Tr key={idx} onClick={()=>navigate(`/tokens/${token.address}`)}>
                         <Td>{token.name}</Td>
                         <Td>{token.symbol}</Td>
                         <Td>{token.address}</Td>

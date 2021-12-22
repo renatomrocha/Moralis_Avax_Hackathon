@@ -14,11 +14,12 @@ import {
 } from "@chakra-ui/react";
 import { useMoralis } from "react-moralis";
 import Moralis from "moralis";
-import ExampleChart from "./components/exampleChart";
 import TokenView from "./components/TokenView";
 import WithSubnavigation from "./components/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Tokens from "./components/Tokens";
+
+
 
 function App() {
   Moralis.initialize("3zMC9oNElQZ4Ew0pzpmSwzve9r7JTj1tajiJwQx6");
@@ -31,12 +32,15 @@ function App() {
 
   const [dexList, setDexList] = useState<any[]>([]);
 
+
   if (isAuthenticated) {
     //
     // (async () => {
     //     const welcomeMessage = await Moralis.Cloud.run("welcomeFunction",{});
     //     setWelcomeMessage(welcomeMessage);
     // })();
+
+
 
     return (
       <div>
@@ -54,7 +58,6 @@ function App() {
                 element={
                   <div>
                     <Heading>{welcomeMessage}</Heading>
-                    <ExampleChart />
                   </div>
                 }
               />
