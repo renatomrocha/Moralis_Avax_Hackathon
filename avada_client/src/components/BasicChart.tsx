@@ -20,6 +20,7 @@ const BasicChart = (props: any) => {
             .style('background', '#F5F5F5')
             .style('margin-left', '50')
             .style('overflow', 'visible');
+
         // Setup scaling
         const xScale: any = d3.scaleLinear()
             .domain([0, prices.length - 1]) // x ticks
@@ -28,12 +29,11 @@ const BasicChart = (props: any) => {
             .domain([0, 100])
             .range([height, 0])
 
+        // Setting up line
         const line = d3.line()
             .x((d, i)=> xScale(i))
             .y(yScale)
             .curve(d3.curveCardinal)
-
-
 
         // Setup the axes
         const xAxis = d3.axisBottom(xScale)
@@ -41,6 +41,8 @@ const BasicChart = (props: any) => {
             .tickFormat((i: any) => i + 1)
         const yAxis = d3.axisLeft(yScale)
             .ticks(5);
+
+
         svg.append('g')
             .call(xAxis)
             .attr('transform', `translate(0, ${height})`)
@@ -48,13 +50,13 @@ const BasicChart = (props: any) => {
             .call(yAxis)
 
         // Setup data
-        svg.select('#line')
+        svg.selectAll('.line')
             .append('path')
             .datum(data)
-            .attr('id', 'line')
-            .attr('stroke', 'black')
-            .attr('stroke-width', 2)
-            .attr('fill', 'none')
+            // .attr('id', 'line')
+            // .attr('stroke', 'black')
+            // .attr('stroke-width', 2)
+            // .attr('fill', 'none')
             .attr('d', line);
     }
 

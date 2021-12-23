@@ -38,7 +38,9 @@ export const getTokenPriceHistory = async (address:string, dateInterval: string[
     for(let date of dateInterval) {
         console.log("Date is: ", date);
         try {
-            const price = await getTokenPrice(address, "avalanche", date);
+            const price : any = await getTokenPrice(address, "avalanche", date);
+            price["date"] = new Date(date);
+            price["address"] = address;
             priceHistory.push(price);
         } catch (e) {
             console.log("Error getting price")

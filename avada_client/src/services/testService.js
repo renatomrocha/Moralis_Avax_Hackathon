@@ -1,8 +1,4 @@
-// import Moralis from "moralis";
-
-
-
-import {getBlockFromDate} from "./miscService";
+import Moralis from "moralis";
 import {getTokenPriceHistory} from "./tokenService";
 
 Date.prototype.addDays = function(days) {
@@ -25,28 +21,30 @@ const getDates = (startDate, stopDate) => {
 export const synchronizeTokenPrice = async (address) => {
 
     const startDate = new Date;
-    startDate.setMonth(startDate.getMonth() -1);
+    startDate.setMonth(startDate.getMonth() - 6);
     const dateArray = getDates(startDate, Date.now())
 
-    const priceHistory = await getTokenPriceHistory(address,dateArray);
+    const priceHistory = await getTokenPriceHistory(address, dateArray);
 
-    // console.log("Date array is: ", dateArray);
-    // const blocks = [];
-    // console.log("Starting loading blocks");
-    // for(let date of dateArray) {
-    //     // console.log("Date: ", date);
-    //     try {
-    //         const block = await getBlockFromDate(date);
-    //
-    //         blocks.push(block);
-    //     } catch (e) {
-    //         console.log(`Error fetching block at ${date}`);
-    //         console.log(e);
-    //     }
-    //
-    // }
+    const TokenPrice = Moralis.Object.extend("TokenPrices");
 
-    console.log("Price history----> ", priceHistory);
+    for (let price of priceHistory) {
+        const tokenPrice = new TokenPrice();
+        console.log("Trying to store: ", price);
+        tokenPrice.set("price", price.usdPrice);
+        tokenPrice.set("address", price.address);
+        tokenPrice.set("date", price.date);
+        tokenPrice.set("exchange", price.exchangeName);
+
+        tokenPrice.save().then(
+            (price) => {
+                console.log("Price successfully stored")
+            },
+            (error) => {
+                console.log("Failed to store price " + error.message);
+            }
+        );
+    }
 
 }
 
