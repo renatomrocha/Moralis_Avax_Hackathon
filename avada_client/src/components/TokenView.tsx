@@ -1,15 +1,7 @@
-import React, {useEffect, useState} from "react";
-import {getTokenList} from "../services/tokenService";
+import React  from "react";
 
 
 function TokenView()  {
-
-    const [tokenList, setTokenList] = useState<any>(0)
-
-    useEffect (()=> {
-        getTokenList()
-            .then((tokens)=>setTokenList(tokens));
-    },[])
 
 
     return (

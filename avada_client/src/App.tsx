@@ -1,24 +1,10 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
-import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
-  Box,
-  Button,
-  CloseButton,
-  Container,
-  Heading,
-} from "@chakra-ui/react";
-import { useMoralis } from "react-moralis";
 import Moralis from "moralis";
-import ExampleChart from "./components/exampleChart";
-import TokenView from "./components/TokenView";
-import WithSubnavigation from "./components/Navbar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import { useMoralis } from "react-moralis";
 import Tokens from "./components/Tokens";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   Moralis.initialize("3zMC9oNElQZ4Ew0pzpmSwzve9r7JTj1tajiJwQx6");
@@ -27,89 +13,29 @@ function App() {
   const { authenticate, isAuthenticating, isAuthenticated, logout, authError } =
     useMoralis();
 
-  const [welcomeMessage, setWelcomeMessage] = useState("");
+  const authVars = {authenticate, isAuthenticating, isAuthenticated, logout, authError}
 
-  const [dexList, setDexList] = useState<any[]>([]);
+  // const [welcomeMessage, setWelcomeMessage] = useState("");
 
-  if (isAuthenticated) {
-    //
-    // (async () => {
-    //     const welcomeMessage = await Moralis.Cloud.run("welcomeFunction",{});
-    //     setWelcomeMessage(welcomeMessage);
-    // })();
-
-    return (
-      <div>
-        <BrowserRouter>
-          <WithSubnavigation
-            authenticationFunction={authenticate}
-            isAuthenticated={isAuthenticated}
-            logout={logout}
-            isAuthenticating={isAuthenticating}
-          />
-          <div style={{ margin: "20px" }}>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <div>
-                    <Heading>{welcomeMessage}</Heading>
-                    <ExampleChart />
-                  </div>
-                }
-              />
-              <Route path="/tokens" element={<Tokens />} />
-              <Route path="/tokens/:address" element={<TokenView />} />
-
-              <Route
-                path="/dex/:dexId"
-                element={
-                  <div>
-                    <h2>DEX</h2>
-                  </div>
-                }
-              />
-            </Routes>
-          </div>
-        </BrowserRouter>
-        {/*<Button  onClick={()=> getDexes()}>Get DEXs</Button>*/}
-      </div>
-    );
-  }
+  // const [dexList, setDexList] = useState<any[]>([]);
 
   return (
     <div>
       <BrowserRouter>
-        <WithSubnavigation
-          authenticationFunction={authenticate}
-          isAuthenticated={isAuthenticated}
-          logout={logout}
-          isAuthenticating={isAuthenticating}
-        ></WithSubnavigation>
+        <Navbar authVars={authVars}/>
+        <Routes>
+              <Route path="/" element={<p>Placeholder1</p>} />
+              <Route path="/exploreAvalanche" element={<p>Placeholder2</p>} />
+              <Route path="/tokens" element={<Tokens />} />
+              <Route path="/token/:address" element={<p>Placeholder3</p>} />
+              <Route path="/dexes" element={<p>Placeholder4</p>} />
+              <Route path="/dex/:dexId"  element={<p>Placeholder5</p>} />
+              <Route path="/statistics"  element={<p>Placeholder6</p>} />
+        </Routes>
       </BrowserRouter>
-
-      <div style={{ margin: "20px" }}>
-        {authError && (
-          <Alert status="error">
-            <AlertIcon />
-            <Box flex="1">
-              <AlertTitle>Authentication has failed</AlertTitle>
-              <AlertDescription display="block">
-                {authError.message}
-              </AlertDescription>
-              <CloseButton
-                position="absolute"
-                right="8px"
-                top="8px"
-              ></CloseButton>
-            </Box>
-          </Alert>
-        )}
-
-        <Heading>AVADA</Heading>
-      </div>
     </div>
-  );
+  )
+  
 }
 
 export default App;

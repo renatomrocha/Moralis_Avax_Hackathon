@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Moralis from "moralis";
+// import Moralis from "moralis";
 import {getTokenList, getTokenPrice} from "../services/tokenService";
 import {Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
@@ -39,9 +39,9 @@ function TokenList(props: any) {
             .then(t=>console.log("Token price is: ", t))
     },[])
 
-    const handleMouseEnter = (idx:number) => {
+    // const handleMouseEnter = (idx:number) => {
 
-    }
+    // }
 
 
     return(<Table variant='simple'>
@@ -55,7 +55,7 @@ function TokenList(props: any) {
         </Thead>
             <Tbody>
                 {props.tokenList.map((token: any, idx: number)=> {
-                    return(<Tr onClick={()=>navigate(`/tokens/${token.address}`)}>
+                    return(<Tr key={idx} onClick={()=>navigate(`/tokens/${token.address}`)}>
                         <Td>{token.name}</Td>
                         <Td>{token.symbol}</Td>
                         <Td>{token.address}</Td>
