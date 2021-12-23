@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Moralis from "moralis";
+// import Moralis from "moralis";
 import {getTokenList, getTokenPrice} from "../services/tokenService";
 import {Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
@@ -34,11 +34,14 @@ function TokenList(props: any) {
     const navigate = useNavigate();
 
 
+    useEffect(()=>{
+        getTokenPrice("0x5947bb275c521040051d82396192181b413227a3", "avalanche")
+            .then(t=>console.log("Token price is: ", t))
+    },[])
 
+    // const handleMouseEnter = (idx:number) => {
 
-    const handleMouseEnter = (idx:number) => {
-
-    }
+    // }
 
 
     return(<Table variant='simple'>

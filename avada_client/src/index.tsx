@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {ChakraProvider, extendTheme} from "@chakra-ui/react";
 import {MoralisProvider} from "react-moralis";
-import WithSubnavigation from "./components/Navbar";
+// import WithSubnavigation from "./components/Navbar";
 
 
 const theme = extendTheme({
