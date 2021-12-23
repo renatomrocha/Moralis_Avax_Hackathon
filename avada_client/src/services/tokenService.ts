@@ -15,9 +15,9 @@ export const getTokenList = async () : Promise<any[]> => {
 }
 
 
-export const getTokenPrice = async (address : string, chain: string, to_date?: string) => {
+const getTokenPrice = async (address : any , chain: any, to_date?: any) => {
 
-    const options : any = {
+    const options  = {
         address: address,
         chain: chain?chain:"avalanche"
     };
@@ -50,4 +50,5 @@ export const getTokenPriceHistory = async (address:string, dateInterval: string[
     console.log("Price history is: ", priceHistory);
     return priceHistory;
 }
+
 

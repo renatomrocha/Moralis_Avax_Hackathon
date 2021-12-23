@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {getTokenPriceHistory} from "../services/tokenService";
 import LineChart from "./LineChart";
-import BasicChart from "./BasicChart";
 import {synchronizeTokenPrice} from "../services/testService";
 import {useParams} from "react-router-dom";
 import {Button} from "@chakra-ui/react";

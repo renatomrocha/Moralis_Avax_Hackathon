@@ -10,6 +10,7 @@ const getTokenPrice = async (address , chain, to_date) => {
         chain: chain?chain:"avalanche"
     };
 
+
     if (to_date) {
         const blockInfo = await getBlockFromDate(to_date);
         Object.assign(options,{to_block: blockInfo.block});

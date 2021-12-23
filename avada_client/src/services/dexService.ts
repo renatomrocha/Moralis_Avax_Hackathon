@@ -8,7 +8,7 @@ export const getDexList = async () : Promise<any[]> => {
         query.select("name", "id");
         const results = await query.find();
         const dexList = results.map((r)=>{
-            const dex = r;
+            // const dex = r;
             return {label:r.get("name"),address: r.get("address"),erc20: r.get("erc20address")}
         });
         console.log("Got results: ", dexList);
