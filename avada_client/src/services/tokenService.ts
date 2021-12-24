@@ -15,7 +15,7 @@ export const getTokenList = async () : Promise<any[]> => {
 }
 
 
-const getTokenPrice = async (address : any , chain: any, to_date?: any) => {
+export const getTokenPrice = async (address : any , chain: any, to_date?: any) => {
 
     const options  = {
         address: address,

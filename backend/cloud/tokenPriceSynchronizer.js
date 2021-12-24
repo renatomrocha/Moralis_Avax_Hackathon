@@ -1,7 +1,26 @@
-import Moralis from "moralis";
-import {getBlockFromDate} from "../../avada_client/src/services/miscService";
-
 const logger = Moralis.Cloud.getLogger();
+
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
+const getDates = (startDate, stopDate) => {
+    var dateArray = new Array();
+    var currentDate = startDate;
+    while (currentDate <= stopDate) {
+        const date = new Date (currentDate);
+        dateArray.push(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`);
+        currentDate = currentDate.addDays(1);
+    }
+    return dateArray;
+}
+
+const getBlockFromDate = async (date) => {
+    const block = await Moralis.Web3API.native.getDateToBlock({chain:"avalanche",date:date});
+    return block;
+}
 
 const getTokenPrice = async (address , chain, to_date) => {
 
@@ -10,18 +29,18 @@ const getTokenPrice = async (address , chain, to_date) => {
         chain: chain?chain:"avalanche"
     };
 
+    logger.info("Options");
 
     if (to_date) {
         const blockInfo = await getBlockFromDate(to_date);
         Object.assign(options,{to_block: blockInfo.block});
     }
 
+    logger.info(options);
+
     const tokenPrice = await Moralis.Web3API.token.getTokenPrice(options);
-    console.log(`Price for token with address ${address} is ${tokenPrice}`);
     return tokenPrice;
 }
-
-
 
 const getTokenPriceHistory = async (address, dateInterval) => {
     const priceHistory = [];
@@ -34,6 +53,7 @@ const getTokenPriceHistory = async (address, dateInterval) => {
             priceHistory.push(price);
         } catch (e) {
             logger.info("Unable to get price for date: ", date);
+            logger.error(e);
         }
 
     }
@@ -42,23 +62,21 @@ const getTokenPriceHistory = async (address, dateInterval) => {
     return priceHistory;
 }
 
+Moralis.Cloud.job("syncHistoricalPrices", async (request) => {
 
-
-Moralis.Cloud.define("welcomeFunction", async () => {
-
-
+    logger.info("Job Started!!");
+    logger.info("Starting sync job with request params: ", request.params);
 
     const startDate = new Date;
     startDate.setMonth(startDate.getMonth() - 6);
     const dateArray = getDates(startDate, Date.now())
 
-    const priceHistory = await getTokenPriceHistory(address, dateArray);
+    const priceHistory = await getTokenPriceHistory(request.params.address, dateArray);
 
     const TokenPrice = Moralis.Object.extend("TokenPrices");
 
     for (let price of priceHistory) {
         const tokenPrice = new TokenPrice();
-        console.log("Trying to store: ", price);
         tokenPrice.set("price", price.usdPrice);
         tokenPrice.set("address", price.address);
         tokenPrice.set("date", price.date);
@@ -66,10 +84,11 @@ Moralis.Cloud.define("welcomeFunction", async () => {
 
         tokenPrice.save().then(
             (price) => {
-                console.log("Price successfully stored")
+                logger.info("Price successfully stored")
             },
             (error) => {
-                console.log("Failed to store price " + error.message);
+                logger.error("Failed to store price ");
+                logger.info(error);
             }
         );
     }
