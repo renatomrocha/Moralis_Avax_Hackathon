@@ -13,8 +13,7 @@ Moralis.Cloud.define("fetchCurrentPrices", async (request) => {
   newPrice.set("tokenSymbol", request.params.symbol);
 
   let nowDate = new Date();
-  nowDate.setHours(0, 0, 0, 0);
-  newPrice.set("date", nowDate);
+  newPrice.set("timeStamp", nowDate.getTime());
 
   newPrice.save().then(
     (price) => {
@@ -51,4 +50,18 @@ Moralis.Cloud.job("PriceFetcher", async (request) => {
       chain: tokenList[i].chain,
     });
   }
+});
+
+Moralis.Cloud.job("timeStampUpdater", async (request) => {
+
+  const TokenPrices = Moralis.Object.extend("TokenPrices");
+  const query = new Moralis.Query(TokenPrices);
+  query.select("createdAt");
+  query.limit(5000);
+  const results = await query.find();
+
+  results.map(item => {
+    item.set("timeStamp", item.get("createdAt").getTime());
+    item.save();
+  })
 });
