@@ -1,5 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import * as d3 from "d3";
+import {transition} from "d3-transition";
+import {select, selectAll} from "d3-selection";
 
 
 const BasicChart = (props: any) => {
@@ -7,6 +9,24 @@ const BasicChart = (props: any) => {
     const {data} = props;
 
     const svgRef = useRef<any>();
+
+    function updateChart() {
+        const {
+            lineGenerator, data,
+        } = props;
+
+
+
+        const t : any = transition().duration(1000);
+
+        const line = select('#line');
+
+        line
+            .datum(data)
+            .transition(t)
+            .attr('d', lineGenerator);
+
+    }
 
     const setupLinearGraph = (prices: any[]) => {
 
@@ -26,7 +46,7 @@ const BasicChart = (props: any) => {
             .domain([0, prices.length - 1]) // x ticks
             .range([0, width]) // x width
         const yScale: any = d3.scaleLinear()
-            .domain([0, 100])
+            .domain([0, 30])
             .range([height, 0])
 
         // Setting up line
@@ -50,13 +70,13 @@ const BasicChart = (props: any) => {
             .call(yAxis)
 
         // Setup data
-        svg.selectAll('.line')
+        svg
             .append('path')
             .datum(data)
-            // .attr('id', 'line')
-            // .attr('stroke', 'black')
-            // .attr('stroke-width', 2)
-            // .attr('fill', 'none')
+            .attr('id', 'line')
+            .attr('stroke', 'black')
+            .attr('stroke-width', 2)
+            .attr('fill', 'none')
             .attr('d', line);
     }
 

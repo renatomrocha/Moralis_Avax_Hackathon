@@ -1,5 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import * as d3 from 'd3';
+import {transition} from "d3-transition";
+import {select, selectAll} from "d3-selection";
 
 function LineChart(props: any) {
     const { width, height } = props;
@@ -10,6 +12,31 @@ function LineChart(props: any) {
     useEffect(() => {
         drawChart();
     }, []);
+
+
+    function updateChart() {
+        const {
+            lineGenerator, xScale, yScale, data,
+        } = props;
+
+        const t : any = transition().duration(1000);
+
+        const line = select('#line');
+        const dot = selectAll('.circle');
+
+        line
+            .datum(data)
+            .transition(t)
+            .attr('d', lineGenerator);
+
+        // dot
+        //   .data(data)
+        //   .transition(t)
+        //   .attr('cx', (d, key) => xScale(key))
+        //   .attr('cy', d => yScale(d.count));
+    }
+
+
 
     function drawChart() {
         // Add logic to draw the chart here
@@ -50,32 +77,34 @@ function LineChart(props: any) {
                 d3.axisBottom(xScale)
                     .tickSize(-height)
                     .tickFormat(null),
-            );svg
-            .append('g')
-            .attr('class', 'grid')
-            .call(
-                d3.axisLeft(yScale)
-                    .tickSize(-width)
-                    .tickFormat(null),
             );
             svg
-            .append('g')
-            .attr('class', 'x-axis')
-            .attr('transform', `translate(0,${height})`)
-            .call(d3.axisBottom(xScale).tickSize(15));
+                .append('g')
+                .attr('class', 'grid')
+                .call(
+                    d3.axisLeft(yScale)
+                        .tickSize(-width)
+                        .tickFormat(null),
+                );
             svg
-            .append('g')
-            .attr('class', 'y-axis')
-            .call(d3.axisLeft(yScale));
+                .append('g')
+                .attr('class', 'x-axis')
+                .attr('transform', `translate(0,${height})`)
+                .call(d3.axisBottom(xScale).tickSize(15));
 
             svg
-            .append('path')
-            .datum(data)
-            .attr('fill', 'none')
-            .attr('stroke', '#000000')
-            .attr('stroke-width', 4)
-            .attr('class', 'line')
-            .attr('d', line);
+                .append('g')
+                .attr('class', 'y-axis')
+                .call(d3.axisLeft(yScale));
+
+            svg
+                .append('path')
+                .datum(data)
+                .attr('id', 'line')
+                .attr('stroke', 'black')
+                .attr('stroke-width', 2)
+                .attr('fill', 'none')
+                .attr('d', line);
 
     }
     return <svg ref={svgRef} />;
