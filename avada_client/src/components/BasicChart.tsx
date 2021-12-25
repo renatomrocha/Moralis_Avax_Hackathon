@@ -15,8 +15,6 @@ const BasicChart = (props: any) => {
             lineGenerator, data,
         } = props;
 
-
-
         const t : any = transition().duration(1000);
 
         const line = select('#line');
@@ -45,15 +43,17 @@ const BasicChart = (props: any) => {
         const xScale: any = d3.scaleLinear()
             .domain([0, prices.length - 1]) // x ticks
             .range([0, width]) // x width
+        const yMax = Math.ceil(data.reduce((a:number,b: number)=> Math.max(a,b)));
+        console.log("Y max is: ", yMax);
         const yScale: any = d3.scaleLinear()
-            .domain([0, 30])
+            .domain([0, yMax])
             .range([height, 0])
 
         // Setting up line
         const line = d3.line()
             .x((d, i)=> xScale(i))
             .y(yScale)
-            .curve(d3.curveCardinal)
+            .curve(d3.curveLinear)
 
         // Setup the axes
         const xAxis = d3.axisBottom(xScale)

@@ -1,33 +1,41 @@
 import React, {useEffect, useState} from "react";
-import {getTokenPriceHistory} from "../services/tokenService";
+import {getTokenByAddress, getTokenPriceHistory, getTokenPriceHistoryDB} from "../services/tokenService";
 import LineChart from "./LineChart";
 import {synchronizeTokenPrice} from "../services/testService";
 import {useParams} from "react-router-dom";
 import {Button} from "@chakra-ui/react";
 
 import BasicChart from "./BasicChart";
+import Title from "./Title";
 
 
 function TokenView(props:any)  {
 
-    const [tokenList, setTokenList] = useState<any>(0)
-    const [tokenPrices, setTokenPrices] = useState <any[]>([])
+    const [tokenInfo, setTokenInfo] = useState<any>(null);
+    const [tokenPrices, setTokenPrices] = useState <any[]>([]);
 
-    const {address} = useParams();
+    const {address} = useParams<string>();
 
     useEffect(()=>{
         const interval = ["2021-12-17", "2021-12-18","2021-12-19", "2021-12-20"];
 
-        getTokenPriceHistory("0x5947bb275c521040051d82396192181b413227a3", interval)
-            .then((h:any[])=> {
+        getTokenByAddress(address)
+            .then((ti)=>{
+                setTokenInfo(ti);
+            })
 
-                setTokenPrices([...h.map(r=>Math.round(r.usdPrice))]);
+        getTokenPriceHistoryDB(address, interval)
+            .then((h:any[])=> {
+                setTokenPrices([...h.map(r=>r.price)]);
                 console.log("Got price history: ", tokenPrices)})
     },[])
 
+
     return (
         <div>
-            <h1>Token</h1>
+            {/*<Title title="Token"/>*/}
+            {tokenInfo && (<div style={{margin:20}}><h2>{tokenInfo.name} / {tokenInfo.symbol}</h2></div>)}
+
             {/*/!*{tokenPrices.length && (<LineChart tokenPrices={tokenPrices} />)}*!/*/}
             {/*{render(<Chart />, document.getElementById('chart'))*/}
             {/*}*/}
