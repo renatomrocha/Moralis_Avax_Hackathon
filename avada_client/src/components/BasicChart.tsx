@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from "react";
 import * as d3 from "d3";
 import {transition} from "d3-transition";
 import {select, selectAll} from "d3-selection";
+import {axisBottom, axisLeft} from "d3";
 
 
 const BasicChart = (props: any) => {
@@ -62,12 +63,25 @@ const BasicChart = (props: any) => {
         const yAxis = d3.axisLeft(yScale)
             .ticks(5);
 
+        const tickFormat : any = "";
+
+        const xAxisGrid : any = axisBottom(xScale).tickSize(-height).tickFormat(tickFormat).ticks(10);
+        const yAxisGrid : any = axisLeft(yScale).tickSize(-width).tickFormat(tickFormat).ticks(10);
+
 
         svg.append('g')
             .call(xAxis)
             .attr('transform', `translate(0, ${height})`)
         svg.append('g')
             .call(yAxis)
+
+        svg.append('g')
+            .attr('class', 'x axis-grid')
+            .attr('transform', 'translate(0,' + height + ')')
+            .call(xAxisGrid);
+        svg.append('g')
+            .attr('class', 'y axis-grid')
+            .call(yAxisGrid);
 
         // Setup data
         svg
