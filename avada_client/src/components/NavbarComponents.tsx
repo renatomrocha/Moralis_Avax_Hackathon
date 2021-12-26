@@ -58,7 +58,7 @@ export const items = [
         {
             label: 'Statistics',
             route: "/statistics"
-        },
+        }
     ];
 
 

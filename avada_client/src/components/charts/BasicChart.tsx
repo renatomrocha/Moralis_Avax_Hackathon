@@ -112,10 +112,12 @@ const BasicChart = (props: any) => {
         const xScale: any = d3.scaleLinear()
             .domain([0, prices.length]) // x ticks
             .range([0, width]) // x width
+        const yMin = Math.round(data.reduce((a:number,b:number) => Math.min(a,b)));
         const yMax = Math.ceil(data.reduce((a:number,b: number)=> Math.max(a,b)));
         console.log("Y max is: ", yMax);
+        console.log("Y min is: ", yMin);
         const yScale: any = d3.scaleLinear()
-            .domain([0, yMax])
+            .domain([yMin, yMax])
             .range([height, 0])
 
         // Setting up line

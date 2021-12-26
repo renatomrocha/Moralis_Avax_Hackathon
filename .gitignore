@@ -27,3 +27,4 @@ yarn-error.log*
 backend/node_modules
 avada_client/node_modules
 avada_client/.idea
+misc/models/__pycache__/

@@ -4,7 +4,7 @@ from mongoengine import Document, StringField, DateTimeField
 
 
 class Token(Document):
-    meta = {'collection': 'Token'}
+    meta = {'collection': 'TokenDetails'}
     name = StringField(required=True)
     symbol = StringField(required=True)
     address = StringField(required=True)

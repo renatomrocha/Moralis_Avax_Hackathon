@@ -3,7 +3,7 @@ import {getBlockFromDate} from "./miscService";
 
 export const getTokenList = async () : Promise<any[]> => {
 
-    const TOKEN = Moralis.Object.extend("Token")
+    const TOKEN = Moralis.Object.extend("TokenDetails")
     const query = new Moralis.Query(TOKEN);
     query.select("name", "id","address","symbol");
     const results = await query.find();
@@ -41,7 +41,7 @@ export const getTokenPrice = async (address : any , chain: any, to_date?: any) =
     }
 
     const tokenPrice = await Moralis.Web3API.token.getTokenPrice(options);
-    console.log(`Price for token with address ${address} is ${tokenPrice}`);
+    console.log(`Price for token with address ${address} is ${tokenPrice.usdPrice}`);
     return tokenPrice;
 }
 
@@ -69,6 +69,7 @@ export const getTokenPriceHistoryDB = async (address : any, timeInterval? : any[
     const query = new Moralis.Query(TokenPrice);
     query.select("price", "id", "date");
     query.equalTo("address", address);
+    query.ascending("date");
     const results = await query.find();
     const tokenPrices = results.map((r)=>{
         // const dex = r;

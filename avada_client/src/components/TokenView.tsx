@@ -1,13 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {getTokenByAddress, getTokenPriceHistory, getTokenPriceHistoryDB} from "../services/tokenService";
-import LineChart from "./LineChart";
-import {synchronizeTokenPrice} from "../services/testService";
+import LineChart from "./charts/LineChart";
+import {INCREMENT_UNITS, synchronizeTokenPrice} from "../services/testService";
 import {useParams} from "react-router-dom";
 import {Button} from "@chakra-ui/react";
 
 import BasicChart from "./charts/BasicChart";
 import Title from "./Title";
 import TimescaleSelection from "./TimescaleSelection";
+import CandleStickTemplate from "./charts/candlestick/CandleStickTemplate";
+import Select from "react-select";
+
+enum CHART_TYPES {
+    LINE,
+    CANDLESTICK
+}
 
 
 function TokenView(props:any)  {
@@ -15,6 +22,7 @@ function TokenView(props:any)  {
     const [tokenInfo, setTokenInfo] = useState<any>(null);
     const [tokenPrices, setTokenPrices] = useState <any[]>([]);
     const [dates, setDates] = useState<any[]>([]);
+    const [chartType, setChartType] = useState(CHART_TYPES.LINE);
 
     const {address} = useParams<string>();
 
@@ -34,6 +42,22 @@ function TokenView(props:any)  {
     },[])
 
 
+    const displayChart = () => {
+        if(chartType === CHART_TYPES.LINE) {
+            return (<BasicChart data={tokenPrices} xDomain={dates}  width={400} height={300} />)
+        } else {
+            return (<CandleStickTemplate/>)
+        }
+    }
+
+    const options = [{ value: CHART_TYPES.LINE, label: 'Line Chart' },
+    {value: CHART_TYPES.CANDLESTICK, label: 'Candlestick chart'}]
+
+    const handleSelectionChange = (e:any) => {
+        console.log("Selection changed: ", e)
+        setChartType(e.value);
+    }
+
     return (
         <div>
             {/*<Title title="Token"/>*/}
@@ -45,11 +69,15 @@ function TokenView(props:any)  {
             {/*}*/}
             {/*<Chart/>*/}
             {/*<div id="chart"> </div>*/}
-            {tokenPrices.length && <BasicChart data={tokenPrices} xDomain={dates}  width={400} height={300} />}
+
+            <div style = {{width:100}}>
+                <Select onChange={handleSelectionChange} options={options} />
+            </div>
+            {tokenPrices.length && displayChart()}
 
                 <TimescaleSelection width={100} margin={30}/>
 
-            <Button style={{marginTop:100}} onClick={()=> synchronizeTokenPrice(address)}>Synchronize prices for {address}</Button>
+            <Button style={{marginTop:100}} onClick={()=> synchronizeTokenPrice(address, 1, INCREMENT_UNITS.HOURS, 1)}>Synchronize prices for {address}</Button>
         </div>
     );
 

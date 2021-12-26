@@ -6,6 +6,7 @@ import { useMoralis } from "react-moralis";
 import Tokens from "./components/Tokens";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TokenView from "./components/TokenView";
+import CandleStickTemplate from "./components/charts/candlestick/CandleStickTemplate";
 
 function App() {
   Moralis.initialize("3zMC9oNElQZ4Ew0pzpmSwzve9r7JTj1tajiJwQx6");
@@ -31,7 +32,8 @@ function App() {
               <Route path="/token/:address" element={<TokenView/>} />
               <Route path="/dexes" element={<p>Placeholder4</p>} />
               <Route path="/dex/:dexId"  element={<p>Placeholder5</p>} />
-              <Route path="/statistics"  element={<p>Placeholder6</p>} />
+            <Route path="/statistics"  element={<CandleStickTemplate />} />
+
         </Routes>
       </BrowserRouter>
     </div>
