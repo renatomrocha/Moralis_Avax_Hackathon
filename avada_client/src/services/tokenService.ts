@@ -72,7 +72,7 @@ export const getTokenPriceHistoryDB = async (address : any, timeInterval? : any[
     const results = await query.find();
     const tokenPrices = results.map((r)=>{
         // const dex = r;
-        return {price:r.get("price"),name: r.get("date")}
+        return {price:r.get("price"),date: r.get("date")}
     });
     console.log("Got results: ", tokenPrices);
     return tokenPrices;

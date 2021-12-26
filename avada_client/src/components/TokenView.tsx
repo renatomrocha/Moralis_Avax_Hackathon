@@ -5,14 +5,16 @@ import {synchronizeTokenPrice} from "../services/testService";
 import {useParams} from "react-router-dom";
 import {Button} from "@chakra-ui/react";
 
-import BasicChart from "./BasicChart";
+import BasicChart from "./charts/BasicChart";
 import Title from "./Title";
+import TimescaleSelection from "./TimescaleSelection";
 
 
 function TokenView(props:any)  {
 
     const [tokenInfo, setTokenInfo] = useState<any>(null);
     const [tokenPrices, setTokenPrices] = useState <any[]>([]);
+    const [dates, setDates] = useState<any[]>([]);
 
     const {address} = useParams<string>();
 
@@ -27,6 +29,7 @@ function TokenView(props:any)  {
         getTokenPriceHistoryDB(address, interval)
             .then((h:any[])=> {
                 setTokenPrices([...h.map(r=>r.price)]);
+                setDates([...h.map(h=>h.date)]);
                 console.log("Got price history: ", tokenPrices)})
     },[])
 
@@ -42,8 +45,9 @@ function TokenView(props:any)  {
             {/*}*/}
             {/*<Chart/>*/}
             {/*<div id="chart"> </div>*/}
-            {tokenPrices.length && <BasicChart data={tokenPrices}  width={400} height={300} />}
+            {tokenPrices.length && <BasicChart data={tokenPrices} xDomain={dates}  width={400} height={300} />}
 
+                <TimescaleSelection width={100} margin={30}/>
 
             <Button style={{marginTop:100}} onClick={()=> synchronizeTokenPrice(address)}>Synchronize prices for {address}</Button>
         </div>
