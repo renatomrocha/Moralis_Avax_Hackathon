@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {getTokenList, getTokenPrice} from "../services/tokenService";
 import {background, Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
-import './styles/tokenList.css';
 import Title from "./Title";
 
 function Tokens()  {

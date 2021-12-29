@@ -80,7 +80,27 @@ export const synchronizeTokenPrice = async (address, monthsBack,units, interval)
             }
         );
     }
+}
 
+const syncAllTokens = async () => {
+
+    const TOKEN = Moralis.Object.extend("TokenDetails");
+    const query = new Moralis.Query(TOKEN);
+    query.select("symbol", "address", "chain");
+    const results = await query.find();
+    const tokenList = results.map((r) => {
+        return {
+            address: r.get("address"),
+            symbol: r.get("symbol")
+        };
+    });
+
+    for (let i = 0; i < tokenList.length; i++) {
+        console.log(`Running price sync for ${tokenList[i].symbol}`);
+        await Moralis.Cloud.run("syncHistoricalPriceForToken", {
+            address: tokenList[i].address,
+        });
+    }
 }
 
 

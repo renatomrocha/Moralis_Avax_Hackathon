@@ -64,16 +64,17 @@ export const getTokenPriceHistory = async (address:any, dateInterval: string[]) 
     return priceHistory;
 }
 
-export const getTokenPriceHistoryDB = async (address : any, timeInterval? : any[]) => {
+export const getTokenPriceHistoryDB = async (address : any) => {
     const TokenPrice = Moralis.Object.extend("TokenPrices")
     const query = new Moralis.Query(TokenPrice);
-    query.select("price", "id", "date");
+    query.select("price", "id", "date","exchange");
     query.equalTo("address", address);
     query.ascending("date");
+    query.limit(5000);
     const results = await query.find();
     const tokenPrices = results.map((r)=>{
         // const dex = r;
-        return {price:r.get("price"),date: r.get("date")}
+        return {price:r.get("price"),date: r.get("date"), exchange:r.get("exchange")}
     });
     console.log("Got results: ", tokenPrices);
     return tokenPrices;

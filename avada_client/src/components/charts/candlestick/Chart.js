@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import classNames from "classnames";
 import * as d3 from "d3";
 
 import Candle from "./Candle";
 import CrossHairs from "./CrossHairs";
+import {axisBottom, axisLeft} from "d3";
 
 const Chart = props => {
     const { data, width: chart_width, height: chart_height } = props;
+
+    // console.log("Received data: ", data);
+    const svgRef = useRef();
     // let { last_bar_idx = 0, bars_wide = 40 } = props;
 
     // last_bar_idx should default to the last bar in the data, or else be sure passed-in value doesn't exceed the last bar
@@ -17,18 +21,12 @@ const Chart = props => {
         y: 0
     });
 
-    // let mouseCoords = {
-    //   x: 0,
-    //   y: 0
-    // };
-
-    // const setMouseCoords = (x, y) => {
-    //   mouseCoords = { x, y };
-    // };
 
     // find the high and low bounds of all the bars being sidplayed
     const dollar_high = d3.max(data.map(bar => bar.high)) * 1.05;
     const dollar_low = d3.min(data.map(bar => bar.low)) * 0.95;
+
+    console.log(`Highs are: high ${dollar_high} and low ${dollar_low}`);
 
     const chart_dims = {
         pixel_width: chart_width,
@@ -80,11 +78,93 @@ const Chart = props => {
     // calculate the candle width
     const candle_width = Math.floor((chart_width / data.length) * 0.7);
 
+
+    // const addGrid = (svg, xScale, yScale, height , width ) => {
+    //     const tickFormat = "";
+    //
+    //     const xAxisGrid = axisBottom(xScale).tickSize(-height).tickFormat(tickFormat).ticks(10);
+    //     const yAxisGrid = axisLeft(yScale).tickSize(-width).tickFormat(tickFormat).ticks(10);
+    //     svg.append('g')
+    //         .attr('class', 'x axis-grid')
+    //         .attr('color', '#c8a1ff')
+    //         .attr('transform', 'translate(0,' + height + ')')
+    //         .call(xAxisGrid);
+    //     svg.append('g')
+    //         .attr('class', 'y axis-grid')
+    //         .attr('color', '#c8a1ff')
+    //         .call(yAxisGrid);
+    // }
+
+    const addAxis = (svg, xScale, yScale,width, height, ticks) => {
+        // Setup the axes
+        const xAxis = d3.axisBottom(xScale)
+            .ticks(ticks)
+            .tickFormat((i) => i + 1)
+
+        const yAxis = d3.axisLeft(yScale)
+            .ticks(5);
+
+        svg.append('g')
+            .call(xAxis)
+            .attr('transform', `translate(0, ${height})`)
+
+        svg.append('g')
+            .call(yAxis)
+
+
+        svg.append("text")
+            .attr("class", "y label")
+            .attr("text-anchor", "end")
+            .attr("y", -50)
+            .attr("x",  - height/2)
+            .attr("dy", ".75em")
+            .attr("transform", "rotate(-90)")
+            .text("Price (USD)");
+
+        return [xAxis, yAxis]
+    }
+
+    const drawGraph = () => {
+
+        const xScale = d3.scaleLinear()
+            .domain([0, data.length]) // x ticks
+            .range([0, props.width]) // x width
+        const yMin = Math.round(data.reduce((a,b) => Math.min(a.close,b.close)));
+        const yMax = Math.ceil(data.reduce((a,b)=> Math.max(a.close,b.close)));
+        console.log("Y max is: ", yMax);
+        console.log("Y min is: ", yMin);
+        const yScale = d3.scaleLinear()
+            .domain([yMin, yMax])
+            .range([props.height, 0])
+
+        const ticksNumber = 10;
+
+        const svg = d3.select(svgRef.current)
+            .attr('width', props.width)
+            .attr('height', props.height)
+            .style('background', '#e4d1ff')
+            .style('margin-left', '50')
+            .style('overflow', 'visible');
+
+        const [xAxis,yAxis] = addAxis(svg,xScale,yScale, props.width,props.height,ticksNumber);
+
+
+        // addGrid(svg,xScale,yScale,props.height,props.width);
+
+    }
+
+    useEffect(() => {
+        // console.log("Setting up with prices: ", data);
+        drawGraph();
+    }, [])
+
+
+
     return (
         <svg
+            ref={svgRef}
             width={chart_width}
             height={chart_height}
-            className="chart"
             onMouseMove={onMouseMoveInside}
             onClick={onMouseClickInside}
             onMouseLeave={onMouseLeave}
@@ -102,14 +182,11 @@ const Chart = props => {
                 );
             })}
             <text x="10" y="16" fill="white" fontSize="10">
-                <tspan>
-                    Mouse: {mouseCoords.x}, {mouseCoords.y}
-                </tspan>
                 <tspan x="10" y="30">
                     Dollars: ${dollarAt(mouseCoords.y)}
                 </tspan>
             </text>
-            <CrossHairs x={mouseCoords.x} y={mouseCoords.y} chart_dims={chart_dims} />
+            <CrossHairs style={{stroke:"black",strokeWidth:2}} x={mouseCoords.x} y={mouseCoords.y} chart_dims={chart_dims} />
         </svg>
     );
 };

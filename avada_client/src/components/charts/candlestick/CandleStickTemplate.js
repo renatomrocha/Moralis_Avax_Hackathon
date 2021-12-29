@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import * as d3 from "d3";
-
 import "./styles.css";
-
 import Chart from "./Chart";
 
-export default function CandleStickTemplate() {
-    const chart_width = 500;
-    const chart_height = 300;
+
+export default function CandleStickTemplate(props) {
 
     let bars_displayed = 40;
     let last_bar_displayed = 0;
@@ -15,6 +12,44 @@ export default function CandleStickTemplate() {
     const randomOne = (weight = 1) => {
         return (Math.random() + Math.random() - 1) * weight;
     };
+
+
+
+
+    const buildCandles = () => {
+
+        const mergedPrices = [];
+        let idx = 0;
+        let candle= [];
+        props.data.map((price) => {
+            if(idx<4) {
+                candle.push(price);
+                idx +=1;
+            } else {
+                mergedPrices.push(candle);
+                candle = [];
+                idx = 0;
+            }
+        })
+
+        console.log("Candles: ", mergedPrices);
+
+        return mergedPrices.map((prices, i) => {
+            const open =prices[0];
+            const close = prices[3];
+            const high = prices.reduce((a,b)=> Math.max(a,b))
+            const low = prices.reduce((a,b)=> Math.min(a,b))
+            return {
+                time: i,
+                open,
+                high,
+                low,
+                close
+            };
+        })
+
+    }
+
 
     const generateData = () => {
         const length = Math.round(Math.random() * 90) + 10;
@@ -46,26 +81,26 @@ export default function CandleStickTemplate() {
             };
         });
     };
+    buildCandles();
 
-    const [data, setData] = useState(generateData());
-    const changeData = () => {
-        setData(generateData);
-    };
+    const [data, setData] = useState(buildCandles());
+    // const changeData = () => {
+    //     setData(generateData);
+    //
+    // };
+
 
     // const data_on_chart = data.slice()
 
     return (
-        <div className="App">
-            <h1>Demo Candlestick Chart</h1>
-            <div className="content">
+        <div style={{marginLeft: "100px", zIndex:-1}}>
+                {/*<div>*/}
+                {/*    <button onClick={changeData}>New Data</button>*/}
+                {/*</div>*/}
                 <div>
-                    <button onClick={changeData}>New Data</button>
-                </div>
-                <div>
-                    <Chart data={data} width={chart_width} height={chart_height} />
+                    <Chart data={data} width={props.width} height={props.height} />
                 </div>
                 <span>STOCK</span>
-            </div>
         </div>
     );
 }

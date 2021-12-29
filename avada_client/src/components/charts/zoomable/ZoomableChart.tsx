@@ -3,11 +3,11 @@ import * as d3 from "d3";
 import {transition} from "d3-transition";
 import {select, selectAll} from "d3-selection";
 import {axisBottom, axisLeft} from "d3";
-import CrossHairs from "./candlestick/CrossHairs";
-import {dollarAt, onMouseLeave, onMouseMoveInside} from "./utils/mouseUtils";
+import CrossHairs from "../candlestick/CrossHairs";
+import {dollarAt, onMouseLeave, onMouseMoveInside} from "../utils/mouseUtils";
 
 
-const BasicChart = (props: any) => {
+const ZoomableChart = (props: any) => {
 
     const {data, xDomain,width, height} = props;
 
@@ -49,6 +49,38 @@ const BasicChart = (props: any) => {
             .transition(t)
             .attr('d', lineGenerator);
     }
+    //
+    // const brush = d3.brushX()                 // Add the brush feature using the d3.brush function
+    //     .extent( [ [0,0], [width,height] ] ) // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
+    //     .on("end", updateChart)
+    //
+    // let idleTimeout:any;
+    // function idled() { idleTimeout = null; }
+
+    // function updateChart() {
+    //
+    //     const extent = d3.event.selection
+    //
+    //     // If no selection, back to initial coordinate. Otherwise, update X axis domain
+    //     if(!extent){
+    //         if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
+    //         x.domain([ 4,8])
+    //     }else{
+    //         x.domain([ x.invert(extent[0]), x.invert(extent[1]) ])
+    //         scatter.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
+    //     }
+    //
+    //     // Update axis and circle position
+    //     xAxis.transition().duration(1000).call(d3.axisBottom(x))
+    //     scatter
+    //         .selectAll("circle")
+    //         .transition().duration(1000)
+    //         .attr("cx", function (d:any) { return x(d.Sepal_Length); } )
+    //         .attr("cy", function (d:any) { return y(d.Petal_Length); } )
+    //
+    // }
+
+
 
 
     const setupData = (svg:any, data:any, line:any, options: any) => {
@@ -158,6 +190,13 @@ const BasicChart = (props: any) => {
         const dataOptions = {strokeColor: '#FF1493'}
         setupData(svg, data,line, dataOptions);
 
+
+        //
+        // svg.
+        // append("g")
+        //     .attr("class", "brush")
+        //     .call(brush);
+
     }
 
 
@@ -175,6 +214,9 @@ const BasicChart = (props: any) => {
                      onMouseLeave={()=>onMouseLeave(setMouseCoords)}
                      style={{marginLeft: "100px", zIndex:-1}} ref={svgRef}>
                     <text x="10" y="16" fill="white" fontSize="10">
+                        {/*<tspan>*/}
+                        {/*    Mouse: {mouseCoords.x}, {mouseCoords.y}*/}
+                        {/*</tspan>*/}
                         <tspan x="10" y="30" color="black">
                             Dollars: ${dollarAt(mouseCoords.y, chart_dims)}
                         </tspan>
@@ -187,4 +229,4 @@ const BasicChart = (props: any) => {
 
 };
 
-export default BasicChart;
+export default ZoomableChart;
