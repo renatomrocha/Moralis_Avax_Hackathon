@@ -55,7 +55,7 @@ function TokenList(props: any) {
         </Thead>
             <Tbody>
                 {props.tokenList.map((token: any, idx: number)=> {
-                    return(<Tr key={idx} onClick={()=>navigate(`/tokens/${token.address}`)}>
+                    return(<Tr key={idx} onClick={()=>navigate(`/token/${token.address}`)}>
                         <Td>{token.name}</Td>
                         <Td>{token.symbol}</Td>
                         <Td>{token.address}</Td>

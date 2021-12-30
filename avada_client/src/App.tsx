@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import { useMoralis } from "react-moralis";
 import Tokens from "./components/Tokens";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import TokenView from "./components/TokenView";
 
 function App() {
   Moralis.initialize("3zMC9oNElQZ4Ew0pzpmSwzve9r7JTj1tajiJwQx6");
@@ -27,7 +28,7 @@ function App() {
               <Route path="/" element={<p>Placeholder1</p>} />
               <Route path="/exploreAvalanche" element={<p>Placeholder2</p>} />
               <Route path="/tokens" element={<Tokens />} />
-              <Route path="/token/:address" element={<p>Placeholder3</p>} />
+              <Route path="/token/:address" element={<TokenView/>} />
               <Route path="/dexes" element={<p>Placeholder4</p>} />
               <Route path="/dex/:dexId"  element={<p>Placeholder5</p>} />
               <Route path="/statistics"  element={<p>Placeholder6</p>} />
