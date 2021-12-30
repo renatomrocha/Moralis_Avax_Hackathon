@@ -1,38 +1,47 @@
 Moralis.Cloud.define("fetchCurrentPrices", async (request) => {
-  // const logger = Moralis.Cloud.getLogger();
+  const logger = Moralis.Cloud.getLogger();
   // logger.info(request.params.tokens);
-  const TokenPrices = Moralis.Object.extend("TokenPrices");
+  const Token15Min = Moralis.Object.extend("Token15Min");
 
-  const newPrice = new TokenPrices();
+  const newPrice = new Token15Min();
 
-  const TokenDetails = await Moralis.Web3API.token.getTokenPrice({
+  const options = {
     address: request.params.address,
-    chain: request.params.chain,
-  });
-  newPrice.set("tokenPrice", TokenDetails.usdPrice);
-  newPrice.set("tokenSymbol", request.params.symbol);
+    chain: "avalanche",
+  };
 
-  let nowDate = new Date();
-  newPrice.set("timeStamp", nowDate.getTime());
+  const TokenDetails = await Moralis.Web3API.token
+    .getTokenPrice(options)
+    .catch((e) =>
+      logger.info(`Could not fetch price for token: ${request.params.symbol}`)
+    );
 
-  newPrice.save().then(
-    (price) => {
-      alert("New object created with objectId: " + price.id);
-    },
-    (error) => {
-      alert("Failed to create new object, with error code: " + error.message);
-    }
-  );
+  if (TokenDetails) {
+    newPrice.set("price", TokenDetails.usdPrice);
+    newPrice.set("symbol", request.params.symbol);
+    newPrice.set("address", request.params.address);
+
+    let nowDate = new Date();
+    newPrice.set("timeStamp", nowDate.getTime());
+
+    newPrice.save().then(
+      (price) => {
+        alert("New object created with objectId: " + price.id);
+      },
+      (error) => {
+        alert("Failed to create new object, with error code: " + error.message);
+      }
+    );
+  }
 });
 
-Moralis.Cloud.job("PriceFetcher", async (request) => {
+Moralis.Cloud.job("PriceFetcherNew", async (request) => {
   const TOKEN = Moralis.Object.extend("TokenDetails");
   const query = new Moralis.Query(TOKEN);
-  query.select("symbol", "address", "chain");
+  query.select("symbol", "address");
   const results = await query.find();
   const tokenList = results.map((r) => {
     return {
-      chain: r.get("chain"),
       address: r.get("address"),
       symbol: r.get("symbol"),
     };
@@ -44,24 +53,23 @@ Moralis.Cloud.job("PriceFetcher", async (request) => {
   // });
 
   for (i = 0; i < tokenList.length; i++) {
+    // logger.info(tokenList[i].symbol);
     await Moralis.Cloud.run("fetchCurrentPrices", {
       symbol: tokenList[i].symbol,
       address: tokenList[i].address,
-      chain: tokenList[i].chain,
     });
   }
 });
 
-Moralis.Cloud.job("timeStampUpdater", async (request) => {
-
+Moralis.Cloud.define("timeStampUpdater", async (request) => {
   const TokenPrices = Moralis.Object.extend("TokenPrices");
   const query = new Moralis.Query(TokenPrices);
   query.select("createdAt");
   query.limit(5000);
   const results = await query.find();
 
-  results.map(item => {
+  results.map((item) => {
     item.set("timeStamp", item.get("createdAt").getTime());
     item.save();
-  })
+  });
 });
