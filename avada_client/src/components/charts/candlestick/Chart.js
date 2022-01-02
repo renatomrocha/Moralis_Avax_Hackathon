@@ -79,21 +79,21 @@ const Chart = props => {
     const candle_width = Math.floor((chart_width / data.length) * 0.7);
 
 
-    // const addGrid = (svg, xScale, yScale, height , width ) => {
-    //     const tickFormat = "";
-    //
-    //     const xAxisGrid = axisBottom(xScale).tickSize(-height).tickFormat(tickFormat).ticks(10);
-    //     const yAxisGrid = axisLeft(yScale).tickSize(-width).tickFormat(tickFormat).ticks(10);
-    //     svg.append('g')
-    //         .attr('class', 'x axis-grid')
-    //         .attr('color', '#c8a1ff')
-    //         .attr('transform', 'translate(0,' + height + ')')
-    //         .call(xAxisGrid);
-    //     svg.append('g')
-    //         .attr('class', 'y axis-grid')
-    //         .attr('color', '#c8a1ff')
-    //         .call(yAxisGrid);
-    // }
+    const addGrid = (svg, xScale, yScale, height , width ) => {
+        const tickFormat = "";
+
+        const xAxisGrid = axisBottom(xScale).tickSize(-height).tickFormat(tickFormat).ticks(10);
+        const yAxisGrid = axisLeft(yScale).tickSize(-width).tickFormat(tickFormat).ticks(10);
+        svg.append('g')
+            .attr('class', 'x axis-grid')
+            .attr('color', '#c8a1ff')
+            .attr('transform', 'translate(0,' + height + ')')
+            .call(xAxisGrid);
+        svg.append('g')
+            .attr('class', 'y axis-grid')
+            .attr('color', '#c8a1ff')
+            .call(yAxisGrid);
+    }
 
     const addAxis = (svg, xScale, yScale,width, height, ticks) => {
         // Setup the axes
@@ -129,8 +129,10 @@ const Chart = props => {
         const xScale = d3.scaleLinear()
             .domain([0, data.length]) // x ticks
             .range([0, props.width]) // x width
-        const yMin = Math.round(data.reduce((a,b) => Math.min(a.close,b.close)));
-        const yMax = Math.ceil(data.reduce((a,b)=> Math.max(a.close,b.close)));
+        const highs = data.map(d=>d.high);
+        const lows = data.map(d=>d.low);
+        const yMin = Math.round(lows.reduce((a,b) => Math.min(a,b)));
+        const yMax = Math.ceil(highs.reduce((a,b)=> Math.max(a,b)));
         console.log("Y max is: ", yMax);
         console.log("Y min is: ", yMin);
         const yScale = d3.scaleLinear()
@@ -142,14 +144,14 @@ const Chart = props => {
         const svg = d3.select(svgRef.current)
             .attr('width', props.width)
             .attr('height', props.height)
-            .style('background', '#e4d1ff')
+            .style('background', 'white')
             .style('margin-left', '50')
             .style('overflow', 'visible');
 
         const [xAxis,yAxis] = addAxis(svg,xScale,yScale, props.width,props.height,ticksNumber);
 
 
-        // addGrid(svg,xScale,yScale,props.height,props.width);
+        addGrid(svg,xScale,yScale,props.height,props.width);
 
     }
 

@@ -159,6 +159,8 @@ Moralis.Cloud.define("syncHistoricalPriceForToken", async (request) => {
 
     const startDate = new Date(Date.parse("Aug 17, 2021"));
 
+    const endDate = new Date(Date.parse("Dec 30, 2021"));
+
     const dateArray = getDates(startDate, Date.now(), INCREMENT_UNITS.HOURS, 1)
 
 
@@ -179,18 +181,32 @@ Moralis.Cloud.job("syncHistoricalPrices", async (request) => {
             symbol: r.get("symbol")
         };
     });
+
+    const syncedTokens = ["0x49d5c2bdffac6ce2bfdb6640f4f80f226bc10bab","0xc7198437980c041c805a1edcba50c1ce5db95118",
+    "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7","0x8ebaf22b6f053dffeaf46f4dd9efa95d89ba8580", "0x5947bb275c521040051d82396192181b413227a3",
+    "0x63a72806098bd3d9520cc43356dd78afe5d386d9","0xd501281565bf7789224523144fe5d98e8b28f267","0x37b608519f91f70f2eeb0e5ed9af4061722e4f76",
+    "0xd24c2ad096400b6fbcd2ad8b24e7acbc21a1da64", "0xb44a9b6905af7c801311e8f4e76932ee959c663c", "0x214db107654ff987ad859f34125307783fc8e387",
+    "0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd","0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd","0x9e037de681cafa6e661e6108ed9c2bd1aa567ecd",
+    "0xc7b5d72c836e718cda8888eaf03707faef675079", "0xd6070ae98b8069de6b494332d1a1a81b6179d960","0x60781c2586d68229fde47564546784ab3faca982",
+    "0x8729438eb15e2c8b576fcc6aecda6a148776c0f5","0x961c8c0b1aad0c0b10a51fef6a867e3091bcef17","0xc38f41a296a4493ff429f1238e030924a1542e50",
+    "0xd1c3f94de7e5b45fa4edbba472491a9f4b166fc4","0x59414b3089ce2af0010e7523dea7e2b35d776ec7", "0xa7d7079b0fead91f3e65f86e8915cb59c1a4c664",
+        "0xd586e7f844cea2f87f50152665bcbc2c279d8d70","0xa32608e873f9ddef944b24798db69d80bbb4d1ed","0x0ebd9537a25f56713e34c45b38f421a1e7191469"]
+
+    const filteredTokenList = tokenList.filter(t=>!syncedTokens.includes(t.address));
+
+
     const scriptStart = Date.now();
 
-    for (let i = 0; i < tokenList.length; i++) {
+    for (let i = 0; i < filteredTokenList.length; i++) {
         const start = Date.now();
-        logger.info(`START -------------> Starting sync for ${tokenList[i].symbol}`);
+        logger.info(`START -------------> Starting sync for ${filteredTokenList[i].symbol}`);
         await Moralis.Cloud.run("syncHistoricalPriceForToken", {
-            address: tokenList[i].address,
-            symbol: tokenList[i].symbol
+            address: filteredTokenList[i].address,
+            symbol: filteredTokenList[i].symbol
         });
         var end = Date.now();
         const finishTime = (end - start) * 1000 / 60;
-        logger.info(`END -----------------> Sync for ${tokenList[i].symbol} took ${finishTime} minutes`);
+        logger.info(`END -----------------> Sync for ${filteredTokenList[i].symbol} took ${finishTime} minutes`);
     }
     const scriptEnd = Date.now();
     const finishScriptTime = (scriptEnd - scriptStart) / 1000 / 60;

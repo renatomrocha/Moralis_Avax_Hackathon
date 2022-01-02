@@ -30,3 +30,5 @@ avada_client/.idea
 misc/models/__pycache__/
 
 /misc/backups/data
+
+misc/scripts/__pycache__/

@@ -46,6 +46,18 @@ export const getTokenPrice = async (address : any , chain: any, to_date?: any) =
 }
 
 
+export const getTokenMetadata = async (address : any , chain?: any) => {
+    const options : any  = {
+        addresses: address,
+        chain: chain?chain:"avalanche"
+    };
+    const metadata = await Moralis.Web3API.token.getTokenMetadata(options);
+    return metadata;
+}
+
+
+
+
 export const getTokenPriceHistory = async (address:any, dateInterval: string[]) => {
     const priceHistory = [];
     for(let date of dateInterval) {

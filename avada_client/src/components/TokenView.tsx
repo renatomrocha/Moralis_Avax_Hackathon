@@ -1,16 +1,22 @@
 import React, {useEffect, useState} from "react";
-import {getTokenByAddress, getTokenPriceHistory, getTokenPriceHistoryDB} from "../services/tokenService";
+import {
+    getTokenByAddress,
+    getTokenMetadata,
+    getTokenPriceHistory,
+    getTokenPriceHistoryDB
+} from "../services/tokenService";
 import LineChart from "./charts/LineChart";
 import {INCREMENT_UNITS, synchronizeTokenPrice} from "../services/testService";
 import {useParams} from "react-router-dom";
-import {Button, Grid, GridItem} from "@chakra-ui/react";
+import {Button, Grid, GridItem, Radio, RadioGroup, Stack} from "@chakra-ui/react";
 
 import BasicChart from "./charts/BasicChart";
-import Title from "./Title";
-import RadioSelection from "./RadioSelection";
+import Title from "./genericComponents/Title";
+import RadioSelection from "./genericComponents/RadioSelection";
 import CandleStickTemplate from "./charts/candlestick/CandleStickTemplate";
 import Select from "react-select";
 import AvadaSpinner from "./AvadaSpinner";
+import MultipleSelection from "./genericComponents/MultipleSelection";
 
 enum CHART_TYPES_ENUM {
     LINE,
@@ -45,20 +51,27 @@ function TokenView(props:any)  {
     const [sourceExchange, setSourceExchange] = useState<any[]>([]);
     const [interval, setInterval] = useState<any>(INTERVALS_ENUM.ONE_HOUR);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [noDataAvailable, setNoDataAvailable] = useState(false);
     const {address} = useParams<string>();
 
     useEffect(()=>{
         setIsLoading(true);
 
-        getTokenByAddress(address)
-            .then((ti)=>{
-                setTokenInfo(ti);
 
+        getTokenMetadata(address)
+            .then((tmd)=> {
+                console.log("Received: ", tmd);
+                setTokenInfo(tmd[0]);
+                // console.log("Metadata is: ", to/kenInfo);
             })
+
 
         getTokenPriceHistoryDB(address)
             .then((h:any[])=> {
-                setTokenPrices([...h.map(r=>r.price)]);
+                setTokenPrices([...h.map(r=>r)]);
+                if(tokenPrices.length==0) {
+                    setNoDataAvailable(true);
+                }
                 setDates([...h.map(h=>h.date)]);
                 console.log("Got price history: ", tokenPrices)
                 setIsLoading(false);
@@ -77,17 +90,22 @@ function TokenView(props:any)  {
 
     const displayChart = () => {
         if(chartType === CHART_TYPES_ENUM.LINE) {
-            return (<BasicChart data={tokenPrices} xDomain={dates}  width={1000} height={400} />)
+            return (<BasicChart data={tokenPrices.map(d=>d.price)} dates={tokenPrices.map(d=>d.date)} xDomain={dates}  width={1000} height={400} />)
         } else {
-            return (<CandleStickTemplate data={tokenPrices} width={1000} height={400}/>)
+            return (<CandleStickTemplate data={tokenPrices.map(d=>d.price)} width={1000} height={400}/>)
         }
     }
 
 
 
-    const onChartTypeChange = (e:any) => {
+    // const onChartTypeChange = (e:any) => {
+    //     setChartType(e);
+    //     console.log("Chart type now is: ", chartType);
+    // }
+
+    const chartSelectionHandler = (e: any) => {
+        console.log("Triggered with vale: ", e);
         setChartType(e);
-        console.log("Chart type now is: ", chartType);
     }
 
     const onIntervalChange = (e:any) => {
@@ -104,8 +122,20 @@ function TokenView(props:any)  {
 
             {isLoading && <AvadaSpinner style={{width:'100%', height: "100%", marginTop:100, marginLeft:500}} message={`Loading price history`}/>}
 
+            {/*{noDataAvailable && <h2>No data available for {tokenInfo.name}</h2>}*/}
             {tokenPrices.length && <div>
-                <RadioSelection title={"Chart Type"} width={400} margin={30} onChange={onChartTypeChange} options={CHART_TYPES} value={chartType}/>
+                {/*<RadioSelection title={"Chart Type"} width={400} margin={30} onChange={onChartTypeChange} options={CHART_TYPES} value={chartType}/>*/}
+                {/*<div style={{width: 400, margin: 30}}>*/}
+                {/*    <h3>{"Chart Type"}</h3>*/}
+                {/*    <RadioGroup onChange={onChartTypeChange} value={chartType}>*/}
+                {/*        <Stack direction='row'>*/}
+                {/*            {CHART_TYPES.map((o: any) => (<Radio value={o.value}>{o.label}</Radio>))}*/}
+                {/*        </Stack>*/}
+                {/*    </RadioGroup>*/}
+                {/*</div>*/}
+
+                <MultipleSelection title={"Chart Type"} selectionHandler={chartSelectionHandler} style={{buttonColor:'pink'}} buttons={[{value:CHART_TYPES_ENUM.LINE, label:'Line chart'},{value:CHART_TYPES_ENUM.CANDLESTICK, label:'Candle chart'}]}/>
+
 
                 <RadioSelection title={"Time interval"} width={100} margin={30} onChange={onIntervalChange} options={INTERVALS} value={interval}/>
                 <div>{displayChart()}</div>

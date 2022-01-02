@@ -9,7 +9,7 @@ import {dollarAt, onMouseLeave, onMouseMoveInside} from "./utils/mouseUtils";
 
 const BasicChart = (props: any) => {
 
-    const {data, xDomain,width, height} = props;
+    const {data, dates, xDomain,width, height} = props;
 
     const [mouseCoords, setMouseCoords] = useState({
         x: 0,
@@ -82,10 +82,13 @@ const BasicChart = (props: any) => {
 
 
     const addAxis = (svg: any, xScale: any, yScale: any,width:number, height: number, ticks: number) => {
+        const dateFormat : any = d3.timeFormat('%b')
         // Setup the axes
         const xAxis = d3.axisBottom(xScale)
+        // .ticks(d3.timeMonth, 1)
+        //     .tickFormat();            // .tickValues(["A","B","C","D","E","F","G","H","I","J"])
             .ticks(ticks)
-            .tickFormat((i: any) => i + 1)
+            // .tickFormat((i: any) => i + 1)
 
         const yAxis = d3.axisLeft(yScale)
             .ticks(5);
@@ -125,7 +128,7 @@ const BasicChart = (props: any) => {
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
-            .style('background', '#e4d1ff')
+            .style('background', 'white')
             .style('margin-left', '50')
             .style('overflow', 'visible');
 
@@ -133,6 +136,12 @@ const BasicChart = (props: any) => {
         const xScale: any = d3.scaleLinear()
             .domain([0, prices.length]) // x ticks
             .range([0, width]) // x width
+        // const xType = d3.scaleUtc;
+        // const xDomain = [dates[0], dates[dates.length -1]];
+        // const xRange = [0, width];
+        // const xScale = xType(xDomain, xRange).interpolate(d3.interpolateRound);
+
+
         const yMin = Math.round(data.reduce((a:number,b:number) => Math.min(a,b)));
         const yMax = Math.ceil(data.reduce((a:number,b: number)=> Math.max(a,b)));
         console.log("Y max is: ", yMax);

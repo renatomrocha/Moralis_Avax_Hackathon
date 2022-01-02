@@ -7,10 +7,16 @@ import Tokens from "./components/Tokens";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TokenView from "./components/TokenView";
 import CandleStickTemplate from "./components/charts/candlestick/CandleStickTemplate";
+import {appId, serverUrl} from "./index";
+import Pools from "./components/Pools";
+
+
+
+
 
 function App() {
-  Moralis.initialize("3zMC9oNElQZ4Ew0pzpmSwzve9r7JTj1tajiJwQx6");
-  Moralis.serverURL = "https://1tm9bltzoknp.usemoralis.com:2053/server";
+  Moralis.initialize(appId);
+  Moralis.serverURL = serverUrl;
 
   const { authenticate, isAuthenticating, isAuthenticated, logout, authError } =
     useMoralis();
@@ -30,8 +36,8 @@ function App() {
               <Route path="/exploreAvalanche" element={<p>Placeholder2</p>} />
               <Route path="/tokens" element={<Tokens />} />
               <Route path="/token/:address" element={<TokenView/>} />
-              <Route path="/dexes" element={<p>Placeholder4</p>} />
-              <Route path="/dex/:dexId"  element={<p>Placeholder5</p>} />
+              <Route path="/pools" element={<Pools />} />
+              <Route path="/pool/:token0/:token1"  element={<p>Placeholder5</p>} />
             <Route path="/statistics"  element={<CandleStickTemplate />} />
 
         </Routes>
