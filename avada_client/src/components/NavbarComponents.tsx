@@ -52,13 +52,13 @@ export const items = [
             route: '/tokens',
         },
         {
-            label: 'DEXs',
-            route: "/dexes",
+            label: 'Pools',
+            route: "/pools",
         },
         {
             label: 'Statistics',
             route: "/statistics"
-        },
+        }
     ];
 
 

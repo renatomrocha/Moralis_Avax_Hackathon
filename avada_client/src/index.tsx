@@ -14,9 +14,10 @@ const theme = extendTheme({
     }
 });
 
-const appId = "3zMC9oNElQZ4Ew0pzpmSwzve9r7JTj1tajiJwQx6";
-const serverUrl = "https://1tm9bltzoknp.usemoralis.com:2053/server";
-
+export const appId = "3zMC9oNElQZ4Ew0pzpmSwzve9r7JTj1tajiJwQx6";
+export const serverUrl = "https://1tm9bltzoknp.usemoralis.com:2053/server";
+// export const serverUrl = "https://dwphjko0r4hx.usemoralis.com:2053/server";
+// export const appId = "Mgs7zi861Gx6HwE30jwiGuVBsP7LXybNW0x4UscU";
 
 ReactDOM.render(
   <React.StrictMode>

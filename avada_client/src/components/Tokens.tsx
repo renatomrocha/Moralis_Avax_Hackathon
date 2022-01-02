@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
-// import Moralis from "moralis";
 import {getTokenList, getTokenPrice} from "../services/tokenService";
-import {Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
+import {background, Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
-
+import Title from "./genericComponents/Title";
 
 function Tokens()  {
 
@@ -20,7 +19,7 @@ function Tokens()  {
 
     return (
         <div>
-            <h1>Tokens</h1>
+            <Title title="Tokens"/>
             {tokenList.length>0 &&
                 <TokenList tokenList={tokenList}/>
             }
@@ -31,17 +30,14 @@ function Tokens()  {
 
 function TokenList(props: any) {
 
+
     const navigate = useNavigate();
 
+    const [selected, setSelected] = useState<number | null>(null);
 
-    useEffect(()=>{
-        getTokenPrice("0x5947bb275c521040051d82396192181b413227a3", "avalanche")
-            .then(t=>console.log("Token price is: ", t))
-    },[])
-
-    // const handleMouseEnter = (idx:number) => {
-
-    // }
+    const handleHover = (e: any, idx: number) => {
+        setSelected(idx);
+    }
 
 
     return(<Table variant='simple'>
@@ -55,7 +51,7 @@ function TokenList(props: any) {
         </Thead>
             <Tbody>
                 {props.tokenList.map((token: any, idx: number)=> {
-                    return(<Tr key={idx} onClick={()=>navigate(`/token/${token.address}`)}>
+                    return(<Tr key={idx} style={selected==idx?{backgroundColor:'#FFB6C1', borderRadius:"10px", cursor:'pointer'}:{}} onMouseEnter={(e)=> handleHover(e, idx)} onClick={()=>navigate(`/token/${token.address}`)}>
                         <Td>{token.name}</Td>
                         <Td>{token.symbol}</Td>
                         <Td>{token.address}</Td>
