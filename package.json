@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/gurukamath/Moralis_Avax_Hackathon#readme",
   "dependencies": {
+    "mongoose": "^6.1.4",
     "moralis-admin-cli": "^2.1.16"
   }
 }
