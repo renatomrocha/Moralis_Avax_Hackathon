@@ -1,4 +1,5 @@
 import pytz
+import json
 from datetime import datetime
 
 TokenDetails = [
@@ -36,6 +37,38 @@ TokenDetails = [
     {"symbol": "WBTC.e", "address": "0x50b7545627a5162f82a992c33b87adc75187b218"},
 ]
 
+TraderJoePairCreatedEventABI = json.dumps({
+  "anonymous": False,
+  "inputs": [
+    {
+      "indexed": True,
+      "internalType": "address",
+      "name": "token0",
+      "type": "address"
+    },
+    {
+      "indexed": True,
+      "internalType": "address",
+      "name": "token1",
+      "type": "address"
+    },
+    {
+      "indexed": False,
+      "internalType": "address",
+      "name": "pair",
+      "type": "address"
+    },
+    {
+      "indexed": False,
+      "internalType": "uint256",
+      "name": "",
+      "type": "uint256"
+    }
+  ],
+  "name": "PairCreated",
+  "type": "event"
+})
+
 
 def get_next_timestamp(summary_type, ts):
     if summary_type == "Token1Day":
@@ -68,3 +101,18 @@ def adjust_timestamp(timestamp, summary_type):
         )
 
     return _ts
+
+
+def make_dictionary(collection, primary_key_field, secondary_key_fields):
+    results = collection.find({})
+
+    primary_dict = {}
+    for item in results:
+        secondary_dict = {}
+        for field in secondary_key_fields:
+            secondary_dict[field] = item[field]
+        
+        primary_dict[item[primary_key_field]] = secondary_dict
+    
+    return primary_dict
+
