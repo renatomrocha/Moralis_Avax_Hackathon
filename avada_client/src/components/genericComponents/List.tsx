@@ -11,7 +11,7 @@ function List(props: any)  {
     useEffect (()=> {
         props.getter()
             .then((entities : any)=>{
-                console.log("Tokens: ", entities);
+                console.log("Entities: ", entities);
                 setEntityList(entities)
             });
     },[])
@@ -44,21 +44,16 @@ function EntityList(props: any) {
         <Thead>
             <Tr>
                 {props.entityProps.map((ep:any)=> {
-                    <Th>{ep.name}</Th>
+                    return(<Th>{ep.name}</Th>)
                 })}
-                {/*<Th>Name</Th>*/}
-                {/*<Th>Symbol</Th>*/}
-                {/*<Th>Current Price</Th>*/}
-                {/*<Th>Market Cap</Th>*/}
             </Tr>
         </Thead>
         <Tbody>
-            {/*onClick={()=>navigate(`/token/${token.address}`)}*/}
             {props.entityList.map((entity: any, idx: number)=> {
                 return(<Tr key={idx} style={selected==idx?{backgroundColor:'#FFB6C1', borderRadius:"10px", cursor:'pointer'}:{}}
                            onMouseEnter={(e)=> handleHover(e, idx)} >
-                    {props.entityProps.map((ep:any)=> {
-                        <Th>{entity[ep.value]}</Th>
+                    {props.entityProps.map((ep:any,i:number)=> {
+                        return(<Th key={i}>{ep.postProcess?ep.postProcess(entity[ep.value]):entity[ep.value]}</Th>)
                     })}
                 </Tr>)
             })}

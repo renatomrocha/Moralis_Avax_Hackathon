@@ -11,6 +11,8 @@ const BasicChart = (props: any) => {
 
     const {data, dates, xDomain,width, height} = props;
 
+    const [lineGenerator, setLineGenerator] = useState<any>(undefined);
+
     const [mouseCoords, setMouseCoords] = useState({
         x: 0,
         y: 0
@@ -28,7 +30,9 @@ const BasicChart = (props: any) => {
         dollar_delta: dollar_high - dollar_low
     };
 
-
+    useEffect(()=>{
+        console.log("Data changed to: ", data.length);
+    }, data)
 
 
     // console.log("Domain is: ", xDomain);
@@ -37,13 +41,28 @@ const BasicChart = (props: any) => {
 
     function updateChart() {
         const {
-            lineGenerator, data,
+             data,
         } = props;
 
         const t : any = transition().duration(1000);
 
         const line = select('#line');
 
+        const xScale: any = d3.scaleLinear()
+            .domain([0, data.length]) // x ticks
+            .range([0, width]) // x width
+
+        const yMin = Math.round(data.reduce((a:number,b:number) => Math.min(a,b)));
+        const yMax = Math.ceil(data.reduce((a:number,b: number)=> Math.max(a,b)));
+        const yScale: any = d3.scaleLinear()
+            .domain([yMin, yMax])
+            .range([height, 0])
+
+        const lineGenerator = d3.line()
+            .x((d, i)=> xScale(i))
+            .y(yScale)
+            .curve(d3.curveLinear)
+        console.log("Line generator is: ", lineGenerator);
         line
             .datum(data)
             .transition(t)
@@ -101,13 +120,6 @@ const BasicChart = (props: any) => {
             .call(yAxis)
 
 
-        // svg.append("text")
-        //     .attr("class", "x label")
-        //     .attr("text-anchor", "end")
-        //     .attr("x", width/2)
-        //     .attr("y", height)
-        //     .text("Date");
-
         svg.append("text")
             .attr("class", "y label")
             .attr("text-anchor", "end")
@@ -119,6 +131,7 @@ const BasicChart = (props: any) => {
 
         return [xAxis, yAxis]
     }
+
 
     const setupLinearGraph = (prices: any[]) => {
 
@@ -155,6 +168,7 @@ const BasicChart = (props: any) => {
             .x((d, i)=> xScale(i))
             .y(yScale)
             .curve(d3.curveLinear)
+        // setLineGenerator(line);
 
         const ticksNumber = 10;
 
@@ -166,16 +180,23 @@ const BasicChart = (props: any) => {
 
         const dataOptions = {strokeColor: '#FF1493'}
         setupData(svg, data,line, dataOptions);
-
+        return line;
     }
 
 
+    useEffect(()=>{
+
+        setupLinearGraph(data);
+    },[])
 
 
     useEffect(() => {
             console.log("Setting up with prices: ", data);
-            setupLinearGraph(data);
-        }, [])
+            // setupLinearGraph(data);
+        // removeChart();
+        // setupLinearGraph(data);
+        updateChart()
+        }, data)
 
 
         return (
@@ -183,7 +204,7 @@ const BasicChart = (props: any) => {
                 <svg onMouseMove={(e)=>onMouseMoveInside(e, setMouseCoords)}
                      onMouseLeave={()=>onMouseLeave(setMouseCoords)}
                      style={{marginLeft: "100px", zIndex:-1}} ref={svgRef}>
-                    <text x="10" y="16" fill="white" fontSize="10">
+                    <text x="10" y="16" fill="black" fontSize="20">
                         <tspan x="10" y="30" color="black">
                             Dollars: ${dollarAt(mouseCoords.y, chart_dims)}
                         </tspan>

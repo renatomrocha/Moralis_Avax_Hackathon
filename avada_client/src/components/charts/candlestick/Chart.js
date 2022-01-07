@@ -5,6 +5,7 @@ import * as d3 from "d3";
 import Candle from "./Candle";
 import CrossHairs from "./CrossHairs";
 import {axisBottom, axisLeft} from "d3";
+import {dollarAt, onMouseLeave, onMouseMoveInside} from "../utils/mouseUtils";
 
 const Chart = props => {
     const { data, width: chart_width, height: chart_height } = props;
@@ -167,10 +168,18 @@ const Chart = props => {
             ref={svgRef}
             width={chart_width}
             height={chart_height}
-            onMouseMove={onMouseMoveInside}
+            // onMouseMove={onMouseMoveInside}
             onClick={onMouseClickInside}
-            onMouseLeave={onMouseLeave}
-        >
+            // onMouseLeave={onMouseLeave}
+
+            onMouseMove={(e)=>onMouseMoveInside(e, setMouseCoords)}
+            onMouseLeave={()=>onMouseLeave(setMouseCoords)}
+            style={{marginLeft: "100px", zIndex:-1}} ref={svgRef}>
+            <text x="10" y="16" fill="black" fontSize="20">
+                <tspan x="10" y="30" color="black">
+                    Dollars: ${dollarAt(mouseCoords.y, chart_dims)}
+                </tspan>
+            </text>
             {data.map((bar, i) => {
                 const candle_x = (chart_width / (data.length + 1)) * (i + 1);
                 return (

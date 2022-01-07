@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import * as d3 from "d3";
 import "./styles.css";
 import Chart from "./Chart";
@@ -88,6 +88,11 @@ export default function CandleStickTemplate(props) {
     //     setData(generateData);
     //
     // };
+
+    useEffect(()=>{
+        console.log("Building candles");
+        setData(buildCandles());
+    },props.data)
 
 
     // const data_on_chart = data.slice()

@@ -97,3 +97,15 @@ export const getTokenPriceHistoryDB = async (address : any, dateInterval? : any)
 }
 
 
+export const getTokenLogoUrl = async (address: string) : Promise<string>  => {
+    const TokenLogo = Moralis.Object.extend("TokenLogos")
+    const query = new Moralis.Query(TokenLogo);
+    query.select("address", "logoUrl");
+    query.equalTo("address", address);
+    const token = await query.first();
+    if(token)
+        return  token.get("logoUrl");
+    return "";
+
+}
+

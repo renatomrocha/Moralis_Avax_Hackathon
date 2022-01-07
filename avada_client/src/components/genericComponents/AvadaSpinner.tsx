@@ -1,6 +1,6 @@
 import {SpinnerCircularSplit} from "spinners-react";
 import React from "react";
-import {ColorPalette} from "./styles/color_palette";
+import {ColorPalette} from "../styles/color_palette";
 
 
 const NFTicketSpinner = (props:any) => {

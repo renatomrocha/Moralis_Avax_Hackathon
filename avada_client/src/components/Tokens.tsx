@@ -1,8 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import {getTokenList, getTokenPrice} from "../services/tokenService";
-import {background, Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
+import React, {ReactNode, useEffect, useState} from 'react';
+import {getTokenList, getTokenLogoUrl, getTokenPrice} from "../services/tokenService";
+import {
+    background, Box, DrawerBody,
+    DrawerCloseButton,
+    DrawerContent, DrawerHeader,
+    DrawerOverlay,
+    Table,
+    Tbody,
+    Td,
+    Th,
+    Thead,
+    Tr, useDisclosure
+} from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
 import Title from "./genericComponents/Title";
+
+function Drawer(props: { isFullHeight: boolean, placement: string, onClose: any, isOpen: any, children: ReactNode }) {
+    return null;
+}
 
 function Tokens()  {
 
@@ -18,12 +33,12 @@ function Tokens()  {
 
 
     return (
-        <div>
+        <div >
             <Title title="Tokens"/>
             {tokenList.length>0 &&
-                <TokenList tokenList={tokenList}/>
-            }
+                <TokenList tokenList={tokenList}/>}
         </div>
+
     );
 }
 
@@ -49,10 +64,10 @@ function TokenList(props: any) {
                 <Th>Market Cap</Th>
             </Tr>
         </Thead>
-            <Tbody>
+            <Tbody style={{overflow:"auto"}}>
                 {props.tokenList.map((token: any, idx: number)=> {
                     return(<Tr key={idx} style={selected==idx?{backgroundColor:'#FFB6C1', borderRadius:"10px", cursor:'pointer'}:{}} onMouseEnter={(e)=> handleHover(e, idx)} onClick={()=>navigate(`/token/${token.address}`)}>
-                        <Td>{token.name}</Td>
+                        <Td></Td>
                         <Td>{token.symbol}</Td>
                         <Td>{token.address}</Td>
                         <Td>MCap</Td>

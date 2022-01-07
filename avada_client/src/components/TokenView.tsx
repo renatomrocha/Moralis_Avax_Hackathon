@@ -5,15 +5,13 @@ import {
     getTokenPriceHistory,
     getTokenPriceHistoryDB
 } from "../services/tokenService";
-import LineChart from "./charts/LineChart";
-import {INCREMENT_UNITS, synchronizeTokenPrice} from "../services/testService";
 import {useParams} from "react-router-dom";
 import {Button, Grid, GridItem, Radio, RadioGroup, Stack} from "@chakra-ui/react";
 
 import BasicChart from "./charts/BasicChart";
 import RadioSelection from "./genericComponents/RadioSelection";
 import CandleStickTemplate from "./charts/candlestick/CandleStickTemplate";
-import AvadaSpinner from "./AvadaSpinner";
+import AvadaSpinner from "./genericComponents/AvadaSpinner";
 import MultipleSelection from "./genericComponents/MultipleSelection";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
