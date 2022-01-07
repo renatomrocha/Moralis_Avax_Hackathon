@@ -54,11 +54,11 @@ function App() {
               {/*To make screen movable with sidenav opening and closing (remove colSpans)*/}
               {/*<GridItem sytle={{position:"absolute"}} >*/}
 
-              <GridItem sytle={{position:"absolute"}} >
+              <GridItem clsSpan={2}>
               <Sidebar navSize={navSize} setNavSize={setNavSize}/>
         </GridItem>
             {/*<div style={{marginLeft:navSize=='large'?'250px':'100px', height:"1vh"}}>*/}
-          <GridItem style={{marginLeft:20}}>
+          <GridItem colSpan={7} style={{marginLeft:20}}>
               <Routes>
               <Route path="/" element={<Dashboard/>} />
               <Route path="/exploreAvalanche" element={<Dashboard/>} />

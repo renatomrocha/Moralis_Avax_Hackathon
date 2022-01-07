@@ -3,6 +3,7 @@ import {Link as ReactLink} from 'react-router-dom';
 import dashboard from "../../images/dashboard.png";
 import {NavHoverBox} from "./NavHoverBox";
 import {useState} from "react";
+import {ColorPalette} from "../styles/color_palette";
 
 
 export function NavItem({navSize, icon, title, route, active, description}:any) {
@@ -22,7 +23,7 @@ export function NavItem({navSize, icon, title, route, active, description}:any) 
                     backgroundColor={active && '#FFB6C1'}
                     p={3}
                     borderRadius={8}
-                    _hover={{textDecor:'none', backgroundColor:'#FFB6C1'}}
+                    _hover={{textDecor:'none', backgroundColor:ColorPalette.secondaryColor}}
                     w={navSize == 'large'?'100%':''}
 
                 >

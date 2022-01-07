@@ -27,7 +27,7 @@ export function Sidebar({navSize, setNavSize}:any) {
             marginTop="0"
             // boxShadow="0 4px 12px 0 rgba(0,0,0,0.05)"
             borderRadius={navSize=='small'?"5px":"10px"}
-            backgroundColor={ColorPalette.secondaryColor}
+            backgroundColor={ColorPalette.mainColor}
             w={navSize=='small'?"100px":"250px"}
             flexDir="column"
             justifyContent="space-between"
