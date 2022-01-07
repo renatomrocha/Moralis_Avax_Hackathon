@@ -5,25 +5,24 @@ export const getTokenList = async () : Promise<any[]> => {
 
     const TOKEN = Moralis.Object.extend("TokenDetails")
     const query = new Moralis.Query(TOKEN);
-    query.select("name", "id","address","symbol");
+    query.select("name", "id","address","symbol","logoUrl");
     const results = await query.find();
     const tokenList = results.map((r)=>{
-        return {name:r.get("name"),address: r.get("address"),symbol: r.get("symbol")}
+        return {name:r.get("name"),address: r.get("address"),symbol: r.get("symbol"), logoUrl: r.get("logoUrl")}
     });
     console.log("Got results: ", tokenList);
     return tokenList;
 }
 
 export const getTokenByAddress = async (address: any) => {
-    const TOKEN = Moralis.Object.extend("Token")
+    const TOKEN = Moralis.Object.extend("TokenDetails")
     const query = new Moralis.Query(TOKEN);
-    query.select("name", "id","address","symbol");
+    query.select("name", "id","address","symbol","logoUrl");
     query.equalTo("address", address);
     const results = await query.find();
     const tokenInfo = results.map((r)=>{
-        return {name:r.get("name"),address: r.get("address"),symbol: r.get("symbol")}
+        return {name:r.get("name"),address: r.get("address"),symbol: r.get("symbol"), logoUrl: r.get("logoUrl")}
     });
-    console.log("Token info: ", tokenInfo);
     return tokenInfo[0];
 }
 
@@ -109,4 +108,9 @@ export const getTokenLogoUrls = async () : Promise<any[]>  => {
     return urls;
 
 }
+
+
+
+
+
 

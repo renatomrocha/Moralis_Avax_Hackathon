@@ -58,11 +58,11 @@ function TokenView(props:any)  {
         setIsLoading(true);
 
 
-        getTokenMetadata(address)
-            .then((tmd)=> {
-                console.log("Received: ", tmd);
-                setTokenInfo(tmd[0]);
-                // console.log("Metadata is: ", to/kenInfo);
+        getTokenByAddress(address)
+            .then((t)=> {
+                console.log("Received: ", t);
+                setTokenInfo(t);
+
             })
 
 
@@ -136,7 +136,11 @@ function TokenView(props:any)  {
     return (
         <div>
             <Grid templateColumns='repeat(5, 1fr)' gap={4}>
-                <GridItem style={{height: 50, borderColor:'pink', borderWidth:1, borderRadius:5}} colSpan={2} >{tokenInfo && (<div style={{margin:20, fontSize:'1.3em', fontWeight:'bold'}}><h2>{tokenInfo.name} / {tokenInfo.symbol}</h2></div>)}</GridItem>
+                <GridItem style={{height: 50, borderColor:'pink', borderWidth:1, borderRadius:5}} colSpan={2} >
+                    {tokenInfo && (<div style={{margin:20, fontSize:'1.3em', fontWeight:'bold'}}>
+                        <img src={tokenInfo.logoUrl} style={{width:100, height:100}}/>
+                        <h2>{tokenInfo.name} / {tokenInfo.symbol}</h2></div>)}
+                </GridItem>
                 <GridItem style={{height: 50, borderColor:'pink', borderWidth:1, borderRadius:5}} colStart={4} colEnd={6}>{tokenInfo && (<div style={{margin:20}}><h2>Source: {sourceExchange.join("/")}</h2></div>)}</GridItem>
             </Grid>
 

@@ -1,10 +1,7 @@
 import React, {ReactNode, useEffect, useState} from 'react';
-import {getTokenList, getTokenLogoUrl, getTokenLogoUrls, getTokenPrice} from "../services/tokenService";
+import {getTokenList, getTokenLogoUrls, getTokenPrice} from "../services/tokenService";
 import {
-    background, Box, DrawerBody,
-    DrawerCloseButton,
-    DrawerContent, DrawerHeader,
-    DrawerOverlay,
+
     Table,
     Tbody,
     Td,
@@ -30,17 +27,10 @@ function Tokens()  {
                 console.log("Tokens: ", tokens);
                 setTokenList(tokens)
 
-                // getTokenLogoUrls()
-                //     .then((urls)=>{
-                //         urls.map((url)=>{
-                //             const idx = tokens.indexOf("address", url.address)
-                //         })
-                //
-                //
-                //
-                //     })
             });
     },[])
+
+
 
 
     return (
@@ -85,7 +75,7 @@ function TokenList(props: any) {
                                onMouseEnter={(e)=> handleHover(e, idx)}
                                onMouseLeave={()=>handleLeave()}
                                onClick={()=>navigate(`/token/${token.address}`)}>
-                        <Td></Td>
+                        <Td><img style={{width:64, height:64}} src={token.logoUrl}/></Td>
                         <Td>{token.symbol}</Td>
                         <Td>{token.address}</Td>
                         <Td>MCap</Td>
