@@ -37,37 +37,61 @@ TokenDetails = [
     {"symbol": "WBTC.e", "address": "0x50b7545627a5162f82a992c33b87adc75187b218"},
 ]
 
-TraderJoePairCreatedEventABI = json.dumps({
-  "anonymous": False,
-  "inputs": [
+TraderJoePairCreatedEventABI = json.dumps(
     {
-      "indexed": True,
-      "internalType": "address",
-      "name": "token0",
-      "type": "address"
-    },
-    {
-      "indexed": True,
-      "internalType": "address",
-      "name": "token1",
-      "type": "address"
-    },
-    {
-      "indexed": False,
-      "internalType": "address",
-      "name": "pair",
-      "type": "address"
-    },
-    {
-      "indexed": False,
-      "internalType": "uint256",
-      "name": "",
-      "type": "uint256"
+        "anonymous": False,
+        "inputs": [
+            {
+                "indexed": True,
+                "internalType": "address",
+                "name": "token0",
+                "type": "address",
+            },
+            {
+                "indexed": True,
+                "internalType": "address",
+                "name": "token1",
+                "type": "address",
+            },
+            {
+                "indexed": False,
+                "internalType": "address",
+                "name": "pair",
+                "type": "address",
+            },
+            {
+                "indexed": False,
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256",
+            },
+        ],
+        "name": "PairCreated",
+        "type": "event",
     }
-  ],
-  "name": "PairCreated",
-  "type": "event"
-})
+)
+
+TraderJoeSyncEventABI = json.dumps(
+    {
+        "anonymous": False,
+        "inputs": [
+            {
+                "indexed": False,
+                "internalType": "uint112",
+                "name": "reserve0",
+                "type": "uint112",
+            },
+            {
+                "indexed": False,
+                "internalType": "uint112",
+                "name": "reserve1",
+                "type": "uint112",
+            },
+        ],
+        "name": "Sync",
+        "type": "event",
+    }
+)
 
 
 def get_next_timestamp(summary_type, ts):
@@ -111,8 +135,7 @@ def make_dictionary(collection, primary_key_field, secondary_key_fields):
         secondary_dict = {}
         for field in secondary_key_fields:
             secondary_dict[field] = item[field]
-        
-        primary_dict[item[primary_key_field]] = secondary_dict
-    
-    return primary_dict
 
+        primary_dict[item[primary_key_field]] = secondary_dict
+
+    return primary_dict
