@@ -10,7 +10,6 @@ export const getTokenList = async () : Promise<any[]> => {
     const tokenList = results.map((r)=>{
         return {name:r.get("name"),address: r.get("address"),symbol: r.get("symbol"), logoUrl: r.get("logoUrl")}
     });
-    console.log("Got results: ", tokenList);
     return tokenList;
 }
 
@@ -75,10 +74,16 @@ export const getTokenPriceHistory = async (address:any, dateInterval: string[]) 
     return priceHistory;
 }
 
-export const getTokenPriceHistoryDB = async (address : any, dateInterval? : any) => {
-    const TokenPrice = Moralis.Object.extend("Token15Min")
+export const getTokenPriceHistoryDB = async (address : any, interval: string ,dateInterval? : any) : Promise<any>=> {
+    let TokenPrice = Moralis.Object.extend(interval);
     const query = new Moralis.Query(TokenPrice);
-    query.select("price", "id", "timeStamp","exchange");
+
+    const fetchFromAverage = (interval=="Token1Day" || interval=="Token4Hour" || interval=="Token1Hour");
+    console.log(`Making request for address ${address} with dateInterval ${interval} before ${dateInterval}`);
+
+
+    const priceKey = fetchFromAverage?"averagePrice":"price";
+    query.select(priceKey, "id", "timeStamp","exchange", "symbol", "pctChange");
     query.equalTo("address", address);
     if(dateInterval) {
         query.greaterThan("timeStamp", dateInterval)
@@ -88,9 +93,12 @@ export const getTokenPriceHistoryDB = async (address : any, dateInterval? : any)
     const results = await query.find();
     const tokenPrices = results.map((r)=>{
         // const dex = r;
-        return {price:r.get("price"),timestamp: r.get("timeStamp"), exchange:r.get("exchange")}
+        const obj = {price:fetchFromAverage?r.get("averagePrice"):r.get("price"),timestamp: r.get("timeStamp"), exchange:r.get("exchange"), symbol: r.get("symbol")};
+        if(interval!=='Token15Min')
+            Object.assign(obj,{pctChange: r.get("pctChange")})
+
+        return obj;
     });
-    console.log("Got results: ", tokenPrices);
     return tokenPrices;
 
 }
@@ -106,10 +114,39 @@ export const getTokenLogoUrls = async () : Promise<any[]>  => {
         return{'logoUrl': tu.get("logoUrl"), 'address': tu.get('address')}
     })
     return urls;
+}
 
+export const getTokenLogoUrlForAddress = async (address: string) : Promise<any>  => {
+    const TokenLogo = Moralis.Object.extend("TokenLogos")
+    const query = new Moralis.Query(TokenLogo);
+    query.select("address", "logoUrl");
+    query.equalTo("address", address);
+    const tokenUrl = await query.find();
+    return tokenUrl[0];
 }
 
 
+
+
+
+export const fetchTokensForHeatMap = async (intervalStep : any, interval : any) => {
+
+    const tokens = await getTokenList();
+    const tokenPricesForHeat : any[] = [];
+    await Promise.all(tokens.map(async (t) => {
+        const prices = await getTokenPriceHistoryDB(t.address, intervalStep, interval)
+        console.log("Prices: ", prices);
+        // Format is [{timestamp:val, address: addr, price: price}, {...}...]
+        const freshRecord: { timestamp: any; symbol: any; price: any; }[] = [];
+        prices.map((p:any)=>{
+            freshRecord.push({"timestamp":p.timestamp,"symbol":p.symbol, "price":p.price});
+        });
+        tokenPricesForHeat.push(...freshRecord);
+    }))
+    console.log("Got token prices for heat: ", tokenPricesForHeat.length);
+    return tokenPricesForHeat;
+
+}
 
 
 

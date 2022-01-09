@@ -6,7 +6,17 @@ import {
     getTokenPriceHistoryDB
 } from "../services/tokenService";
 import {useParams} from "react-router-dom";
-import {Button, Grid, GridItem, Radio, RadioGroup, Stack} from "@chakra-ui/react";
+import {
+    Button,
+    Grid,
+    GridItem,
+    Radio,
+    RadioGroup,
+    RangeSlider, RangeSliderFilledTrack, RangeSliderThumb,
+    RangeSliderTrack,
+    Select,
+    Stack
+} from "@chakra-ui/react";
 
 import BasicChart from "./charts/BasicChart";
 import RadioSelection from "./genericComponents/RadioSelection";
@@ -15,6 +25,7 @@ import AvadaSpinner from "./genericComponents/AvadaSpinner";
 import MultipleSelection from "./genericComponents/MultipleSelection";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {ColorPalette} from "./styles/color_palette";
 
 enum CHART_TYPES_ENUM {
     LINE,
@@ -29,10 +40,10 @@ enum INTERVALS_ENUM {
 }
 
 const INTERVALS = [
-    { value: INTERVALS_ENUM.ONE_DAY, label: '1d' },
-    { value: INTERVALS_ENUM.FOUR_HOURS, label: '4h' },
-    { value: INTERVALS_ENUM.ONE_HOUR, label: '1h' },
-    {value: INTERVALS_ENUM.FIFTEEN_MINS, label: '15m'}
+    { value: "Token1Day", label: '1d' },
+    { value: "Token4Hour", label: '4h' },
+    { value: "Token1Hour", label: '1h' },
+    {value: "Token15Min", label: '15m'}
 ]
 
 const CHART_TYPES = [{ value: CHART_TYPES_ENUM.LINE, label: 'Line Chart' },
@@ -51,7 +62,7 @@ function TokenView(props:any)  {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [noDataAvailable, setNoDataAvailable] = useState(false);
     const {address} = useParams<string>();
-
+    const [intervalStep, setIntervalStep] = useState<string>("Token1Day");
     const [startDate, setStartDate] = useState<any>(new Date());
 
     useEffect(()=>{
@@ -66,7 +77,7 @@ function TokenView(props:any)  {
             })
 
 
-        getTokenPriceHistoryDB(address)
+        getTokenPriceHistoryDB(address, intervalStep, interval)
             .then((h:any[])=> {
                 setTokenPrices([...h.map(r=>r)]);
                 if(tokenPrices.length==0) {
@@ -97,12 +108,18 @@ function TokenView(props:any)  {
     }
 
 
+    const onChangeInterval = async (interval: any) => {
+        console.log("Interval changed to: ", interval);
+
+    }
+
+
 
     const onChangeDate = async (date:any) => {
         setStartDate(date);
         console.log("Date change to: ", Math.round(date.getTime()/1000));
 
-        getTokenPriceHistoryDB(address, Math.round(date.getTime()/1000))
+        getTokenPriceHistoryDB(address, intervalStep,Math.round(date.getTime()/1000))
             .then((h:any[])=> {
                 setTokenPrices([...h.map(r=>r)]);
                 if(tokenPrices.length==0) {
@@ -120,9 +137,8 @@ function TokenView(props:any)  {
                 setSourceExchange(sources);
                 console.log("Sources: ", sources);
             })
-
-
     }
+
 
     const chartSelectionHandler = (e: any) => {
         console.log("Triggered with vale: ", e);
@@ -133,49 +149,48 @@ function TokenView(props:any)  {
         setInterval(e);
     }
 
+    useEffect(()=>console.log("INtervale stap change to: ", intervalStep),[intervalStep])
+
     return (
         <div>
-            <Grid templateColumns='repeat(5, 1fr)' gap={4}>
-                <GridItem style={{height: 50, borderColor:'pink', borderWidth:1, borderRadius:5}} colSpan={2} >
-                    {tokenInfo && (<div style={{margin:20, fontSize:'1.3em', fontWeight:'bold'}}>
-                        <img src={tokenInfo.logoUrl} style={{width:100, height:100}}/>
-                        <h2>{tokenInfo.name} / {tokenInfo.symbol}</h2></div>)}
-                </GridItem>
-                <GridItem style={{height: 50, borderColor:'pink', borderWidth:1, borderRadius:5}} colStart={4} colEnd={6}>{tokenInfo && (<div style={{margin:20}}><h2>Source: {sourceExchange.join("/")}</h2></div>)}</GridItem>
-            </Grid>
-
+            {tokenInfo && (<div style={{margin:20, fontSize:'1.3em', fontWeight:'bold' , alignItems:'center'}}>
+                <img src={tokenInfo.logoUrl} style={{width:100, height:100}}/>
+                <h2>{tokenInfo.name} / {tokenInfo.symbol}</h2></div>)}
 
             {isLoading && <AvadaSpinner style={{width:'100%', height: "100%", marginTop:100, marginLeft:500}} message={`Loading price history`}/>}
 
-            {/*{noDataAvailable && <h2>No data available for {tokenInfo.name}</h2>}*/}
-            {tokenPrices.length && <div>
-                {/*<RadioSelection title={"Chart Type"} width={400} margin={30} onChange={onChartTypeChange} options={CHART_TYPES} value={chartType}/>*/}
-                {/*<div style={{width: 400, margin: 30}}>*/}
-                {/*    <h3>{"Chart Type"}</h3>*/}
-                {/*    <RadioGroup onChange={onChartTypeChange} value={chartType}>*/}
-                {/*        <Stack direction='row'>*/}
-                {/*            {CHART_TYPES.map((o: any) => (<Radio value={o.value}>{o.label}</Radio>))}*/}
-                {/*        </Stack>*/}
-                {/*    </RadioGroup>*/}
-                {/*</div>*/}
+            {(!isLoading && tokenPrices.length) && <div>
 
-                <MultipleSelection title={"Chart Type"} selectionHandler={chartSelectionHandler} style={{buttonColor:'pink'}} buttons={[{value:CHART_TYPES_ENUM.LINE, label:'Line chart'},{value:CHART_TYPES_ENUM.CANDLESTICK, label:'Candle chart'}]}/>
-
-
-                <RadioSelection title={"Time interval"} width={100} margin={30} onChange={onIntervalChange} options={INTERVALS} value={interval}/>
                 <div>{displayChart()}</div>
+                <MultipleSelection title={"Chart Type"} selectionHandler={chartSelectionHandler} style={{buttonColor:'pink'}} buttons={[{value:CHART_TYPES_ENUM.LINE, label:'Line chart'},{value:CHART_TYPES_ENUM.CANDLESTICK, label:'Candle chart'}]}/>
+                {/*<RadioSelection title={"Time interval"} width={100} margin={30} onChange={onIntervalChange} options={INTERVALS} value={interval}/>*/}
+                <Select
+                    onChange={onChangeInterval}
+                    w={150}
+                    bg={ColorPalette.secondaryColor}
+                    borderColor={ColorPalette.secondaryColor}
+                    color='white'
+                    placeholder='Time interval'
+                >
+                    {INTERVALS.map(i=>{
+                        return (<option onClick={()=>setIntervalStep(i.value)}>{i.label}</option>)
+                    })}
+                </Select>
+                <div>
+                    <RangeSlider defaultValue={[120, 240]} min={0} max={300} step={30}>
+                        <RangeSliderTrack bg={ColorPalette.secondaryColor}>
+                            <RangeSliderFilledTrack bg={ColorPalette.secondaryColor} />
+                        </RangeSliderTrack>
+                        <RangeSliderThumb boxSize={6} index={0} />
+                        <RangeSliderThumb boxSize={6} index={1} />
+                    </RangeSlider>
+
+                </div>
                 <div style={{margin:50}}>
                     <span>Start date</span>
                     <DatePicker selected={startDate} onChange={onChangeDate} /></div>
             </div>}
 
-
-            {/*<div style = {{width:100,margin:30}}>*/}
-            {/*    <span>Chart type</span>*/}
-            {/*    <Select onChange={onChartTypeChange} options={options} />*/}
-            {/*</div>*/}
-
-            {/*<Button style={{marginTop:100}} onClick={()=> synchronizeTokenPrice(address, 1, INCREMENT_UNITS.HOURS, 1)}>Synchronize prices for {address}</Button>*/}
         </div>
     );
 

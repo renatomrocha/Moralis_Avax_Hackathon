@@ -21,7 +21,7 @@ function List(props: any)  {
         <div>
             <Title title={props.title}/>
             {entityList.length>0 &&
-            <EntityList entityList={entityList} entityProps={props.entityProps}/>
+            <EntityList entityList={entityList} entityProps={props.entityProps} noHead={props.noHead}/>
             }
         </div>
     );
@@ -41,17 +41,21 @@ function EntityList(props: any) {
 
 
     return(<Table variant='simple'>
-        <Thead>
-            <Tr>
-                {props.entityProps.map((ep:any)=> {
-                    return(<Th>{ep.name}</Th>)
-                })}
-            </Tr>
-        </Thead>
+        {!props.noHead && (
+            <Thead>
+                <Tr>
+                    {props.entityProps.map((ep:any)=> {
+                        return(<Th>{ep.name}</Th>)
+                    })}
+                </Tr>
+            </Thead>
+        )}
         <Tbody>
             {props.entityList.map((entity: any, idx: number)=> {
                 return(<Tr key={idx} style={selected==idx?{backgroundColor:'#FFB6C1', borderRadius:"10px", cursor:'pointer'}:{}}
-                           onMouseEnter={(e)=> handleHover(e, idx)} >
+                           onMouseEnter={(e)=> handleHover(e, idx)} onMouseLeave={()=> setSelected(null)} >
+                    {props.imageProp && <img src={entity[props.imageProp]}/>}
+
                     {props.entityProps.map((ep:any,i:number)=> {
                         return(<Th key={i}>{ep.postProcess?ep.postProcess(entity[ep.value]):entity[ep.value]}</Th>)
                     })}

@@ -1,10 +1,12 @@
-import {Avatar, Divider, Flex, Grid, GridItem, Heading, IconButton, Text} from "@chakra-ui/react";
+import {Avatar, Divider, Flex, Grid, GridItem, Heading, HStack, IconButton, Text} from "@chakra-ui/react";
 import {FiMenu} from "react-icons/all";
 import {useState} from "react";
 import {NavItem} from "./NavItem";
 import dashboard from '../../images/dashboard.png';
 import tokens from '../../images/tokens.png';
 import coins from '../../images/coins.png';
+import pools from '../../images/pools.png';
+import charts from '../../images/charts.png';
 
 import {ColorPalette} from "../styles/color_palette";
 
@@ -13,10 +15,6 @@ export function Sidebar({navSize, setNavSize}:any) {
 
 
     // https://toppng.com/uploads/preview/dashboard-svg-icon-free-dashboard-icon-11553444664o1utwdkesz.png
-
-    const DashboardIcon = () => {
-        return (<img style={{width:50, height:50}} src={dashboard}/>)
-    }
 
 
     return(
@@ -40,26 +38,27 @@ export function Sidebar({navSize, setNavSize}:any) {
                 alignItems="flex-start"
                 as="nav"
             >
-                <Grid templateColumns='repeat(5, 1fr)' alignItems="center" style={{marginTop:20}}>
-                    <GridItem colSpan={3}>
-                <IconButton
+              <HStack spacing='8px' margin={5}>
+                  <Text display={ navSize=='large'?'flex':'none'} fontWeight={'bold'} fontSize='2xl' color="white">AVADA</Text>
+
+                  <IconButton
                     aria-label='Search database'
                     background="none"
+                    color="white"
                     // mt={5}
                     _hover={{background:"none"}}
                     icon={<FiMenu/>}
                     onClick={()=>{
                         navSize=='large'?setNavSize('small'):setNavSize('large')
                     }}
-                /></GridItem>
-                    <GridItem colSpan={2} display={ navSize=='large'?'flex':'none'}>
-                        <Text as={"h1"}>AVADA</Text>
-                    </GridItem>
-                </Grid>
+                />
 
-                <NavItem navSize={navSize} title="Dashboard" route="/" icon={dashboard}/>
-                <NavItem navSize={navSize} title="Single Coin" route="/tokens" icon={tokens}/>
-                <NavItem navSize={navSize} title="Coins" route="/tokens" icon={coins}/>
+              </HStack>
+
+                <NavItem navSize={navSize} title="Dashboard" route="/" icon={charts}/>
+                <NavItem navSize={navSize} title="Coins" route="/tokens" icon={tokens}/>
+                <NavItem navSize={navSize} title="Multiple coins" route="/multiTokens" icon={coins}/>
+                <NavItem navSize={navSize} title="Pools" route="/pools" icon={pools}/>
 
             </Flex>
 

@@ -22,6 +22,7 @@ import {
     GridItem, Input,
     useDisclosure
 } from "@chakra-ui/react";
+import {MultipleTokens} from "./components/MultipleTokens";
 
 
 
@@ -63,7 +64,9 @@ function App() {
               <Route path="/" element={<Dashboard/>} />
               <Route path="/exploreAvalanche" element={<Dashboard/>} />
               <Route path="/tokens" element={<Tokens />} />
+                  <Route path="/multiTokens" element={<MultipleTokens/>} />
               <Route path="/token/:address" element={<TokenView/>} />
+
               <Route path="/pools" element={<Pools />} />
               <Route path="/pool/:token0/:token1"  element={<p>Placeholder5</p>} />
             <Route path="/statistics"  element={<CandleStickTemplate />} />

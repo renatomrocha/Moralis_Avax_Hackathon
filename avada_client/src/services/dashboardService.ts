@@ -7,7 +7,7 @@ export const getTopGainers = async () => {
     const query = new Moralis.Query(TokenPrice);
     query.select("pctChange", "id", "timeStamp","exchange", "symbol");
     const currentDate = new Date();
-    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() -1, 0, 0,0,0).getTime() / 1000;
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() -2, 22, 0,0,0).getTime() / 1000;
     console.log("Checking prices greater than ",date);
     query.greaterThanOrEqualTo("timeStamp", date);
     query.descending("pctChange");
@@ -25,7 +25,7 @@ export const getTopLosers = async () => {
     const query = new Moralis.Query(TokenPrice);
     query.select("pctChange", "id", "timeStamp","exchange", "symbol");
     const currentDate = new Date();
-    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() -1, 0, 0,0,0).getTime() / 1000;
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() -2, 22, 0,0,0).getTime() / 1000;
     console.log("Checking prices greater than ",date);
     query.greaterThanOrEqualTo("timeStamp", date);
     query.ascending("pctChange");
@@ -43,9 +43,10 @@ export const getTopLosers = async () => {
 export const getTopMCap = async () => {
     const TokenPrice = Moralis.Object.extend("Token1Day")
     const query = new Moralis.Query(TokenPrice);
+
     query.select("marketCap", "id", "timeStamp","exchange", "symbol");
     const currentDate = new Date();
-    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() -1, 0, 0,0,0).getTime() / 1000;
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() -2, 22, 0,0,0).getTime() / 1000;
     console.log("Checking prices greater than ",date);
     query.greaterThanOrEqualTo("timeStamp", date);
     query.descending("marketCap");
@@ -53,6 +54,9 @@ export const getTopMCap = async () => {
     const gainers = results.map((r)=>{
         return {marketCap: r.get("marketCap"), symbol: r.get("symbol")}
     })
-
-    return gainers.slice(0,5);
+    const top5 = gainers.slice(0,5);
+    return top5.map((t:any)=> {
+        return{'marketCap':(t.marketCap/(10**9)).toFixed(3)+ 'B$', symbol: t.symbol
+    }
+    });
 }

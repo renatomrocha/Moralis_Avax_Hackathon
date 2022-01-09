@@ -1,8 +1,8 @@
 
-
+import {Text} from '@chakra-ui/react';
 
 export default function Title(props: any) {
     return(<div style={{margin:20}}>
-        <h1>{props.title}</h1>
+        <Text fontSize='2xl'>{props.title}</Text>
     </div>)
 }
