@@ -1,9 +1,21 @@
-import React, {useEffect, useState} from 'react';
-// import Moralis from "moralis";
-import {getTokenList, getTokenPrice} from "../services/tokenService";
-import {Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
-import {useNavigate} from "react-router-dom";
+import React, {ReactNode, useEffect, useState} from 'react';
+import {getTokenList, getTokenLogoUrls, getTokenPrice} from "../services/tokenService";
+import {
 
+    Table,
+    Tbody,
+    Td,
+    Th,
+    Thead,
+    Tr, useDisclosure
+} from "@chakra-ui/react";
+import {useNavigate} from "react-router-dom";
+import Title from "./genericComponents/Title";
+import {ColorPalette} from "./styles/color_palette";
+
+function Drawer(props: { isFullHeight: boolean, placement: string, onClose: any, isOpen: any, children: ReactNode }) {
+    return null;
+}
 
 function Tokens()  {
 
@@ -14,34 +26,38 @@ function Tokens()  {
             .then((tokens)=>{
                 console.log("Tokens: ", tokens);
                 setTokenList(tokens)
+
             });
     },[])
 
 
+
+
     return (
-        <div>
-            <h1>Tokens</h1>
+        <div >
+            <Title title="Tokens"/>
             {tokenList.length>0 &&
-                <TokenList tokenList={tokenList}/>
-            }
+                <TokenList tokenList={tokenList}/>}
         </div>
+
     );
 }
 
 
 function TokenList(props: any) {
 
+
     const navigate = useNavigate();
 
+    const [selected, setSelected] = useState<number | null>(null);
 
-    useEffect(()=>{
-        getTokenPrice("0x5947bb275c521040051d82396192181b413227a3", "avalanche")
-            .then(t=>console.log("Token price is: ", t))
-    },[])
+    const handleHover = (e: any, idx: number) => {
+        setSelected(idx);
+    }
 
-    // const handleMouseEnter = (idx:number) => {
-
-    // }
+    const handleLeave = () => {
+        setSelected(null);
+    }
 
 
     return(<Table variant='simple'>
@@ -53,10 +69,13 @@ function TokenList(props: any) {
                 <Th>Market Cap</Th>
             </Tr>
         </Thead>
-            <Tbody>
+            <Tbody style={{overflow:"auto"}}>
                 {props.tokenList.map((token: any, idx: number)=> {
-                    return(<Tr key={idx} onClick={()=>navigate(`/token/${token.address}`)}>
-                        <Td>{token.name}</Td>
+                    return(<Tr key={idx} style={selected==idx?{backgroundColor:ColorPalette.highlight, borderRadius:10, cursor:'pointer'}:{}}
+                               onMouseEnter={(e)=> handleHover(e, idx)}
+                               onMouseLeave={()=>handleLeave()}
+                               onClick={()=>navigate(`/token/${token.address}`)}>
+                        <Td><img style={{width:64, height:64}} src={token.logoUrl}/></Td>
                         <Td>{token.symbol}</Td>
                         <Td>{token.address}</Td>
                         <Td>MCap</Td>

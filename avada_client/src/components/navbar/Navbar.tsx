@@ -25,7 +25,7 @@ function Navbar(props: any) {
                         </Stack>
                     </Flex>
                 </Flex>
-                <AuthButton authVars={props.authVars} />
+                <AuthButton setUser={props.setUser} authVars={props.authVars} />
             </Flex>
             {!props.authVars.isAuthenticated &&
             <AuthError authError={props.authVars.authError}/>}

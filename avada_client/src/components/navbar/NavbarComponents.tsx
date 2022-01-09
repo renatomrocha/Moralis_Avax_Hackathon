@@ -52,13 +52,13 @@ export const items = [
             route: '/tokens',
         },
         {
-            label: 'DEXs',
-            route: "/dexes",
+            label: 'Pools',
+            route: "/pools",
         },
         {
             label: 'Statistics',
             route: "/statistics"
-        },
+        }
     ];
 
 
@@ -94,8 +94,11 @@ export const AuthButton = (props:any) => {
     return (
         <Button
             isLoading={!props.authVars.isAuthenticated && props.authVars.isAuthenticating}
-            onClick={!props.authVars.isAuthenticated ? 
-                        props.authVars.authenticate :
+            onClick={!props.authVars.isAuthenticated ?
+                async ()=> {
+                const user = await props.authVars.authenticate();
+                props.setUser(user);
+            } :
                         props.authVars.logout}
             display={{ base: 'none', md: 'inline-flex' }}
             fontSize={'sm'}

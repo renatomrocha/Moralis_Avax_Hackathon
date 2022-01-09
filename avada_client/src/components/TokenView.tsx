@@ -1,37 +1,196 @@
 import React, {useEffect, useState} from "react";
-import {getTokenPriceHistory} from "../services/tokenService";
-import LineChart from "./LineChart";
-import {synchronizeTokenPrice} from "../services/testService";
+import {
+    getTokenByAddress,
+    getTokenMetadata,
+    getTokenPriceHistory,
+    getTokenPriceHistoryDB
+} from "../services/tokenService";
 import {useParams} from "react-router-dom";
-import {Button} from "@chakra-ui/react";
+import {
+    Button,
+    Grid,
+    GridItem,
+    Radio,
+    RadioGroup,
+    RangeSlider, RangeSliderFilledTrack, RangeSliderThumb,
+    RangeSliderTrack,
+    Select,
+    Stack
+} from "@chakra-ui/react";
+
+import BasicChart from "./charts/BasicChart";
+import RadioSelection from "./genericComponents/RadioSelection";
+import CandleStickTemplate from "./charts/candlestick/CandleStickTemplate";
+import AvadaSpinner from "./genericComponents/AvadaSpinner";
+import MultipleSelection from "./genericComponents/MultipleSelection";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import {ColorPalette} from "./styles/color_palette";
+
+enum CHART_TYPES_ENUM {
+    LINE,
+    CANDLESTICK
+}
+
+enum INTERVALS_ENUM {
+    FIFTEEN_MINS,
+    ONE_HOUR,
+    FOUR_HOURS,
+    ONE_DAY
+}
+
+const INTERVALS = [
+    { value: "Token1Day", label: '1d' },
+    { value: "Token4Hour", label: '4h' },
+    { value: "Token1Hour", label: '1h' },
+    {value: "Token15Min", label: '15m'}
+]
+
+const CHART_TYPES = [{ value: CHART_TYPES_ENUM.LINE, label: 'Line Chart' },
+    {value: CHART_TYPES_ENUM.CANDLESTICK, label: 'Candlestick chart'}]
+
 
 
 function TokenView(props:any)  {
 
-    const [tokenList, setTokenList] = useState<any>(0)
-    const [tokenPrices, setTokenPrices] = useState <any[]>([])
-
-    const {address} = useParams();
+    const [tokenInfo, setTokenInfo] = useState<any>(null);
+    const [tokenPrices, setTokenPrices] = useState <any[]>([]);
+    const [dates, setDates] = useState<any[]>([]);
+    const [chartType, setChartType] = useState(CHART_TYPES_ENUM.LINE);
+    const [sourceExchange, setSourceExchange] = useState<any[]>([]);
+    const [interval, setInterval] = useState<any>(INTERVALS_ENUM.ONE_HOUR);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [noDataAvailable, setNoDataAvailable] = useState(false);
+    const {address} = useParams<string>();
+    const [intervalStep, setIntervalStep] = useState<string>("Token1Day");
+    const [startDate, setStartDate] = useState<any>(new Date());
 
     useEffect(()=>{
-        const interval = ["2021-12-17", "2021-12-18","2021-12-19", "2021-12-20"];
+        setIsLoading(true);
 
-        getTokenPriceHistory("0x5947bb275c521040051d82396192181b413227a3", interval)
+
+        getTokenByAddress(address)
+            .then((t)=> {
+                console.log("Received: ", t);
+                setTokenInfo(t);
+
+            })
+
+
+        getTokenPriceHistoryDB(address, intervalStep, interval)
             .then((h:any[])=> {
+                setTokenPrices([...h.map(r=>r)]);
+                if(tokenPrices.length==0) {
+                    setNoDataAvailable(true);
+                }
+                setDates([...h.map(h=>h.date)]);
+                console.log("Got price history: ", tokenPrices)
+                setIsLoading(false);
+                const sources : any[] = [];
+                h.map((p)=>{
+                    if(!sources.includes(p.exchange)) {
+                        sources.push(p.exchange);
+                    }
+                })
+                setSourceExchange(sources);
+                console.log("Sources: ", sources);
+            })
 
-                setTokenPrices([...h.map(r=>Math.round(r.usdPrice))]);
-                console.log("Got price history: ", tokenPrices)})
     },[])
 
 
+    const displayChart = () => {
+        if(chartType === CHART_TYPES_ENUM.LINE) {
+            return (<BasicChart data={tokenPrices.map(d=>d.price)} dates={tokenPrices.map(d=>d.date)} xDomain={dates}  width={1000} height={400} />)
+        } else {
+            return (<CandleStickTemplate data={tokenPrices.map(d=>d.price)} width={1000} height={400}/>)
+        }
+    }
+
+
+    const onChangeInterval = async (interval: any) => {
+        console.log("Interval changed to: ", interval);
+
+    }
+
+
+
+    const onChangeDate = async (date:any) => {
+        setStartDate(date);
+        console.log("Date change to: ", Math.round(date.getTime()/1000));
+
+        getTokenPriceHistoryDB(address, intervalStep,Math.round(date.getTime()/1000))
+            .then((h:any[])=> {
+                setTokenPrices([...h.map(r=>r)]);
+                if(tokenPrices.length==0) {
+                    setNoDataAvailable(true);
+                }
+                setDates([...h.map(h=>h.date)]);
+                console.log("Got price history: ", tokenPrices)
+                setIsLoading(false);
+                const sources : any[] = [];
+                h.map((p)=>{
+                    if(!sources.includes(p.exchange)) {
+                        sources.push(p.exchange);
+                    }
+                })
+                setSourceExchange(sources);
+                console.log("Sources: ", sources);
+            })
+    }
+
+
+    const chartSelectionHandler = (e: any) => {
+        console.log("Triggered with vale: ", e);
+        setChartType(e);
+    }
+
+    const onIntervalChange = (e:any) => {
+        setInterval(e);
+    }
+
+    useEffect(()=>console.log("INtervale stap change to: ", intervalStep),[intervalStep])
+
     return (
         <div>
-            <h1>Token</h1>
-            {/*{tokenPrices.length && (<LineChart tokenPrices={tokenPrices} />)}*/}
-            <div>
-            {tokenPrices.length && <LineChart  width={400} height={300} />}
-            </div>
-            <Button style={{marginTop:100}} onClick={()=> synchronizeTokenPrice(address)}>Synchronize prices for {address}</Button>
+            {tokenInfo && (<div style={{margin:20, fontSize:'1.3em', fontWeight:'bold' , alignItems:'center'}}>
+                <img src={tokenInfo.logoUrl} style={{width:100, height:100}}/>
+                <h2>{tokenInfo.name} / {tokenInfo.symbol}</h2></div>)}
+
+            {isLoading && <AvadaSpinner style={{width:'100%', height: "100%", marginTop:100, marginLeft:500}} message={`Loading price history`}/>}
+
+            {(!isLoading && tokenPrices.length) && <div>
+
+                <div>{displayChart()}</div>
+                <MultipleSelection title={"Chart Type"} selectionHandler={chartSelectionHandler} style={{buttonColor:'pink'}} buttons={[{value:CHART_TYPES_ENUM.LINE, label:'Line chart'},{value:CHART_TYPES_ENUM.CANDLESTICK, label:'Candle chart'}]}/>
+                {/*<RadioSelection title={"Time interval"} width={100} margin={30} onChange={onIntervalChange} options={INTERVALS} value={interval}/>*/}
+                <Select
+                    onChange={onChangeInterval}
+                    w={150}
+                    bg={ColorPalette.secondaryColor}
+                    borderColor={ColorPalette.secondaryColor}
+                    color='white'
+                    placeholder='Time interval'
+                >
+                    {INTERVALS.map(i=>{
+                        return (<option onClick={()=>setIntervalStep(i.value)}>{i.label}</option>)
+                    })}
+                </Select>
+                <div>
+                    <RangeSlider defaultValue={[120, 240]} min={0} max={300} step={30}>
+                        <RangeSliderTrack bg={ColorPalette.secondaryColor}>
+                            <RangeSliderFilledTrack bg={ColorPalette.secondaryColor} />
+                        </RangeSliderTrack>
+                        <RangeSliderThumb boxSize={6} index={0} />
+                        <RangeSliderThumb boxSize={6} index={1} />
+                    </RangeSlider>
+
+                </div>
+                <div style={{margin:50}}>
+                    <span>Start date</span>
+                    <DatePicker selected={startDate} onChange={onChangeDate} /></div>
+            </div>}
+
         </div>
     );
 

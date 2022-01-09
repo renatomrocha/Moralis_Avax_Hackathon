@@ -18,3 +18,20 @@ export const getDexList = async () : Promise<any[]> => {
     }
 
 
+export const getPoolList = async () : Promise<any[]> => {
+    const POOL = Moralis.Object.extend("Pools")
+    const query = new Moralis.Query(POOL);
+    query.select("name", "token0","token1","exchange");
+    const results = await query.find();
+    const poolList = results.map((r)=>{
+        // const dex = r;
+        return {name:r.get("name"),token0: r.get("token0"),token1: r.get("token1"), exchange: r.get("exchange")}
+    });
+    console.log("Got results: ", poolList);
+
+    // console.log("Name is: ", dexes[0].get("name"))
+    return poolList;
+
+}
+
+
