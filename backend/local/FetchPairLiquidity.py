@@ -51,6 +51,9 @@ if __name__ == "__main__":
     control_class = pymongo.MongoClient(os.getenv("PROD_REMOTE_CONNECTION_STRING"))[
         "parse"
     ]["DexTokenPairControl"]
+    price_class = pymongo.MongoClient(os.getenv("PROD_REMOTE_CONNECTION_STRING"))[
+        "parse"
+    ]["Token1Day"]
     target_class = pymongo.MongoClient(os.getenv("PROD_REMOTE_CONNECTION_STRING"))[
         "parse"
     ]["DexTokenPairLiquidity"]
@@ -73,6 +76,23 @@ if __name__ == "__main__":
             if reserve0 != -999:
                 pair["reserve0"] = reserve0 / (10 ** pair["decimal0"])
                 pair["reserve1"] = reserve1 / (10 ** pair["decimal1"])
+
+            try:
+                pair["price0"] = price_class.find_one(
+                    {"symbol": pair["symbol0"], "timeStamp": curr_time}
+                )["averagePrice"]
+                pair["price1"] = price_class.find_one(
+                    {"symbol": pair["symbol1"], "timeStamp": curr_time}
+                )["averagePrice"]
+
+                pair["tvl0"] = pair["reserve0"] * pair["price0"]
+                pair["tvl1"] = pair["reserve1"] * pair["price1"]
+            except:
+                print(
+                    "No price found for {} or {} for timestamp {}".format(
+                        pair["symbol0"], pair["symbol1"], curr_time
+                    )
+                )
 
             pair["timeStamp"] = curr_time
 
