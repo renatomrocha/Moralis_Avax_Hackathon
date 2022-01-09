@@ -4,7 +4,7 @@ import pymongo
 from datetime import datetime
 from dotenv import load_dotenv
 import pandas as pd
-from itertools import product
+from itertools import combinations
 
 load_dotenv()
 
@@ -28,7 +28,7 @@ tokens = pd.unique(df["symbol"])
 
 df_T = df.pivot_table(index="timeStamp", columns="symbol", values="averagePrice")
 
-for token0, token1 in product(tokens, repeat=2):
+for token0, token1 in combinations(tokens, 2):
     obj = {
         "updatedAt": datetime.now(),
         "createdAt": datetime.now(),
