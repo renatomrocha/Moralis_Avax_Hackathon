@@ -19,9 +19,9 @@ function List(props: any)  {
 
     return (
         <div>
-            <Title title={props.title}/>
+            {props.title && (<Title title={props.title}/>)}
             {entityList.length>0 &&
-            <EntityList entityList={entityList} entityProps={props.entityProps} noHead={props.noHead}/>
+            <EntityList tableStyle={props.tableStyle} entityList={entityList} entityProps={props.entityProps} noHead={props.noHead}/>
             }
         </div>
     );
@@ -40,12 +40,12 @@ function EntityList(props: any) {
     }
 
 
-    return(<Table variant='simple'>
+    return(<Table style={{...props.tableStyle}} variant='simple'>
         {!props.noHead && (
             <Thead>
                 <Tr>
-                    {props.entityProps.map((ep:any)=> {
-                        return(<Th>{ep.name}</Th>)
+                    {props.entityProps.map((ep:any, idx:number)=> {
+                        return(<Th key={idx}>{ep.name}</Th>)
                     })}
                 </Tr>
             </Thead>

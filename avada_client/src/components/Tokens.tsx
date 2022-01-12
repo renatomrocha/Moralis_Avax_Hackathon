@@ -1,7 +1,6 @@
 import React, {ReactNode, useEffect, useState} from 'react';
 import {getTokenList, getTokenLogoUrls, getTokenPrice} from "../services/tokenService";
 import {
-
     Table,
     Tbody,
     Td,
@@ -17,29 +16,24 @@ function Drawer(props: { isFullHeight: boolean, placement: string, onClose: any,
     return null;
 }
 
-function Tokens()  {
+function Tokens(props:any)  {
 
     const [tokenList, setTokenList] = useState<any>(0)
 
     useEffect (()=> {
         getTokenList()
             .then((tokens)=>{
-                console.log("Tokens: ", tokens);
-                setTokenList(tokens)
-
+                setTokenList(tokens);
             });
     },[])
 
 
-
-
     return (
-        <div >
+        <div style={{...props.style,height:'100vh', overflow:"auto"}}>
             <Title title="Tokens"/>
             {tokenList.length>0 &&
                 <TokenList tokenList={tokenList}/>}
         </div>
-
     );
 }
 
@@ -69,7 +63,7 @@ function TokenList(props: any) {
                 <Th>Market Cap</Th>
             </Tr>
         </Thead>
-            <Tbody style={{overflow:"auto"}}>
+            <Tbody>
                 {props.tokenList.map((token: any, idx: number)=> {
                     return(<Tr key={idx} style={selected==idx?{backgroundColor:ColorPalette.highlight, borderRadius:10, cursor:'pointer'}:{}}
                                onMouseEnter={(e)=> handleHover(e, idx)}

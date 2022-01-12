@@ -9,7 +9,7 @@ import {dollarAt, onMouseLeave, onMouseMoveInside} from "./utils/mouseUtils";
 
 const BasicChart = (props: any) => {
 
-    const {data, dates, xDomain,width, height} = props;
+    const {data,width, height} = props;
 
     const [lineGenerator, setLineGenerator] = useState<any>(undefined);
 
@@ -104,8 +104,8 @@ const BasicChart = (props: any) => {
         const dateFormat : any = d3.timeFormat('%b')
         // Setup the axes
         const xAxis = d3.axisBottom(xScale)
+            // .tickValues()
         // .ticks(d3.timeMonth, 1)
-        //     .tickFormat();            // .tickValues(["A","B","C","D","E","F","G","H","I","J"])
             .ticks(ticks)
             // .tickFormat((i: any) => i + 1)
 
@@ -146,8 +146,12 @@ const BasicChart = (props: any) => {
             .style('overflow', 'visible');
 
         // Setup scaling
-        const xScale: any = d3.scaleLinear()
-            .domain([0, prices.length]) // x ticks
+
+        const xScale: any = d3.scaleTime()
+            // @ts-ignore
+            .domain(d3.extent(data, function(d : any) {
+                return new Date(d.date);
+            })) // x ticks
             .range([0, width]) // x width
         // const xType = d3.scaleUtc;
         // const xDomain = [dates[0], dates[dates.length -1]];
@@ -191,10 +195,7 @@ const BasicChart = (props: any) => {
 
 
     useEffect(() => {
-            console.log("Setting up with prices: ", data);
-            // setupLinearGraph(data);
-        // removeChart();
-        // setupLinearGraph(data);
+        console.log("Prices got updated!!!!!!!!!!!!!!!!!!!!!!!!");
         updateChart()
         }, data)
 

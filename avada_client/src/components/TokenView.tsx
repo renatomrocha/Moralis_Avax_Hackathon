@@ -9,7 +9,7 @@ import {useParams} from "react-router-dom";
 import {
     Button,
     Grid,
-    GridItem,
+    GridItem, HStack,
     Radio,
     RadioGroup,
     RangeSlider, RangeSliderFilledTrack, RangeSliderThumb,
@@ -40,10 +40,10 @@ enum INTERVALS_ENUM {
 }
 
 const INTERVALS = [
-    { value: "Token1Day", label: '1d' },
-    { value: "Token4Hour", label: '4h' },
-    { value: "Token1Hour", label: '1h' },
-    {value: "Token15Min", label: '15m'}
+    { value: "Token1Day", label: 'Token1Day' },
+    { value: "Token4Hour", label: 'Token4Hour' },
+    { value: "Token1Hour", label: 'Token1Hour' },
+    {value: "Token15Min", label: 'Token15Min'}
 ]
 
 const CHART_TYPES = [{ value: CHART_TYPES_ENUM.LINE, label: 'Line Chart' },
@@ -109,39 +109,50 @@ function TokenView(props:any)  {
 
 
     const onChangeInterval = async (interval: any) => {
-        console.log("Interval changed to: ", interval);
-
-    }
-
-
-
-    const onChangeDate = async (date:any) => {
-        setStartDate(date);
-        console.log("Date change to: ", Math.round(date.getTime()/1000));
-
-        getTokenPriceHistoryDB(address, intervalStep,Math.round(date.getTime()/1000))
+        console.log("Interval changed to: ", interval.target.value);
+        getTokenPriceHistoryDB(address, interval.target.value,Date.now() - (30*24*60*60*1000))
             .then((h:any[])=> {
                 setTokenPrices([...h.map(r=>r)]);
+                console.log("Prices now is: ", tokenPrices);
                 if(tokenPrices.length==0) {
                     setNoDataAvailable(true);
                 }
                 setDates([...h.map(h=>h.date)]);
                 console.log("Got price history: ", tokenPrices)
                 setIsLoading(false);
-                const sources : any[] = [];
-                h.map((p)=>{
-                    if(!sources.includes(p.exchange)) {
-                        sources.push(p.exchange);
-                    }
-                })
-                setSourceExchange(sources);
-                console.log("Sources: ", sources);
             })
+    }
+
+    const fetchLineChartData = (date: any) => {
+        console.log("Changing date with intervalStep: ", intervalStep);
+        getTokenPriceHistoryDB(address, intervalStep,Math.round(date.getTime()/1000))
+            .then((h:any[])=> {
+                setTokenPrices([...h.map(r=>r)]);
+                console.log("Prices now is: ", tokenPrices);
+                if(tokenPrices.length==0) {
+                    setNoDataAvailable(true);
+                }
+                setDates([...h.map(h=>h.date)]);
+                console.log("Got price history: ", tokenPrices)
+                setIsLoading(false);
+            })
+    }
+
+    const onChangeDate = async (date:any) => {
+        setStartDate(date);
+        console.log("Date change to: ", Math.round(date.getTime()/1000));
+        await fetchLineChartData(date);
+
     }
 
 
     const chartSelectionHandler = (e: any) => {
         console.log("Triggered with vale: ", e);
+        if(chartType === CHART_TYPES_ENUM.CANDLESTICK) {
+            console.log("Will fetch candle chart type");
+        } else {
+            console.log("Will fetch regular chart")
+        }
         setChartType(e);
     }
 
@@ -152,16 +163,25 @@ function TokenView(props:any)  {
     useEffect(()=>console.log("INtervale stap change to: ", intervalStep),[intervalStep])
 
     return (
-        <div>
+        <div style={{alignItems:'center'}}>
             {tokenInfo && (<div style={{margin:20, fontSize:'1.3em', fontWeight:'bold' , alignItems:'center'}}>
-                <img src={tokenInfo.logoUrl} style={{width:100, height:100}}/>
-                <h2>{tokenInfo.name} / {tokenInfo.symbol}</h2></div>)}
+                <HStack style={{margin:40}}>
+                    <img src={tokenInfo.logoUrl} style={{width:60, height:60, margin:10}}/>
+                    <h2>{tokenInfo.name} / {tokenInfo.symbol}</h2>
+                </HStack>
+                </div>)}
 
-            {isLoading && <AvadaSpinner style={{width:'100%', height: "100%", marginTop:100, marginLeft:500}} message={`Loading price history`}/>}
+            {isLoading && <div style={{alignItems:'center'}}><AvadaSpinner style={{width:'100%', height: "100%", marginTop:100, marginLeft:500}} message={`Loading price history`}/></div>}
 
             {(!isLoading && tokenPrices.length) && <div>
 
-                <div>{displayChart()}</div>
+                <div>
+                    {/*{chartType === CHART_TYPES_ENUM.LINE && <BasicChart data={tokenPrices.map(d=>d.price)} dates={tokenPrices.map(d=>d.date)} xDomain={dates}  width={1000} height={400} />}*/}
+                    {/*{chartType === CHART_TYPES_ENUM.CANDLESTICK && <CandleStickTemplate data={tokenPrices.map(d=>d.price)} width={1000} height={400}/>}*/}
+                    {displayChart()}
+
+
+                </div>
                 <MultipleSelection title={"Chart Type"} selectionHandler={chartSelectionHandler} style={{buttonColor:'pink'}} buttons={[{value:CHART_TYPES_ENUM.LINE, label:'Line chart'},{value:CHART_TYPES_ENUM.CANDLESTICK, label:'Candle chart'}]}/>
                 {/*<RadioSelection title={"Time interval"} width={100} margin={30} onChange={onIntervalChange} options={INTERVALS} value={interval}/>*/}
                 <Select

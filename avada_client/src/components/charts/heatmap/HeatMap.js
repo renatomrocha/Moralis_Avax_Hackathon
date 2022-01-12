@@ -1,6 +1,7 @@
 import * as d3 from "d3";
 import {useEffect} from "react";
-import {Checkbox, Stack} from "@chakra-ui/react";
+import {Checkbox, HStack, Stack} from "@chakra-ui/react";
+import {dateFromTimeStamp} from "../../../utils/dateUtils";
 
 
 export function HeatMap(props) {
@@ -9,6 +10,9 @@ export function HeatMap(props) {
 
 
     useEffect(()=>{
+
+
+
         console.log("Received data: ", data);
         const margin = {top: 80, right: 25, bottom: 30, left: 40},
             width = 1000 - margin.left - margin.right,
@@ -34,11 +38,11 @@ export function HeatMap(props) {
             .range([ 0, width ])
             .domain(myGroups)
             .padding(0.05);
-        svg.append("g")
-            .style("font-size", 15)
-            .attr("transform", `translate(0, ${height})`)
-            .call(d3.axisBottom(x).tickSize(0))
-            .select(".domain").remove()
+        // svg.append("g")
+        //     .style("font-size", 15)
+        //     .attr("transform", `translate(0, ${height})`)
+        //     .call(d3.axisBottom(x).tickValues(myGroups[0], myGroups[myGroups.length -1 ]).tickSize(0))
+        //     .select(".domain").remove()
 
         // Build Y scales and axis:
         const y = d3.scaleBand()
@@ -51,9 +55,20 @@ export function HeatMap(props) {
             .select(".domain").remove()
 
         // Build color scale
-        const myColor = d3.scaleSequential()
+        const pctgColor = d3.scaleSequential()
             .interpolator(d3.interpolateInferno)
-            .domain([1,100])
+            .domain([-0.1,0.1])
+
+        const btcColor = d3.scaleSequential()
+            .interpolator(d3.interpolateInferno)
+            .domain([1,100000])
+
+
+        const ethColor = d3.scaleSequential()
+            .interpolator(d3.interpolateInferno)
+            .domain([1,10000])
+
+
 
         // create a tooltip
         const tooltip = d3.select("#my_dataviz")
@@ -76,11 +91,14 @@ export function HeatMap(props) {
         }
         const mousemove = function(event,d) {
             tooltip
-                .html("The exact value of<br>this cell is: " + d.price)
-                .style("left", (event.x)/2 + "px")
-                .style("top", (event.y)/2 + "px")
+                .html(d.symbol + ' changed ' +(d.pctChange * 100).toFixed(2)  + '% @ ' + dateFromTimeStamp(d.timestamp))
+                .style("position", "absolute")
+                .style("left", (event.clientX + 10) + "px")
+                .style("top", (event.clientY - 60) + "px")
+
         }
         const mouseleave = function(event,d) {
+
             tooltip
                 .style("opacity", 0)
             d3.select(this)
@@ -98,7 +116,10 @@ export function HeatMap(props) {
             .attr("ry", 4)
             .attr("width", x.bandwidth() )
             .attr("height", y.bandwidth() )
-            .style("fill", function(d) { return myColor(d.price)} )
+            .style("fill", function(d) {
+                return pctgColor(d.pctChange);
+
+            } )
             .style("stroke-width", 4)
             .style("stroke", "none")
             .style("opacity", 0.8)
@@ -106,24 +127,6 @@ export function HeatMap(props) {
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave)
 
-
-// // Add title to graph
-//         svg.append("text")
-//             .attr("x", 0)
-//             .attr("y", -50)
-//             .attr("text-anchor", "left")
-//             .style("font-size", "22px")
-//             .text("");
-//
-// // Add subtitle to graph
-//         svg.append("text")
-//             .attr("x", 0)
-//             .attr("y", -20)
-//             .attr("text-anchor", "left")
-//             .style("font-size", "14px")
-//             .style("fill", "grey")
-//             .style("max-width", 400)
-//             .text("A short description of the take-away message of this chart.");
     },[])
 
 
@@ -133,15 +136,7 @@ export function HeatMap(props) {
 
     return (<>
 
-        <Stack spacing={[1, 32]} direction={['column', 'row']}>
-            {tokensList.map(t=>{
-                return(<Checkbox size='sm'>
-                    {t.address}
-                </Checkbox>)
-            })}
-        </Stack>
-
-        <div id="my_dataviz" style={{width: 1000, height: 1000}}/>
+        <div id="my_dataviz" style={{width: 800, height: 800}}/>
 
     </>)
 

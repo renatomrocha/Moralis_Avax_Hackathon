@@ -62,6 +62,7 @@ export const getTokenPriceHistory = async (address:any, dateInterval: string[]) 
         console.log("Date is: ", date);
         try {
             const price : any = await getTokenPrice(address, "avalanche", date);
+            console.log("Timestamp date : ", date);
             price["date"] = new Date(date);
             price["address"] = address;
             priceHistory.push(price);
@@ -74,25 +75,21 @@ export const getTokenPriceHistory = async (address:any, dateInterval: string[]) 
     return priceHistory;
 }
 
-export const getTokenPriceHistoryDB = async (address : any, interval: string ,dateInterval? : any) : Promise<any>=> {
+export const getTokenPriceHistoryDB = async (address : any, interval: string, dateInterval? : any) : Promise<any>=> {
+    console.log("Received class name: ", interval);
     let TokenPrice = Moralis.Object.extend(interval);
     const query = new Moralis.Query(TokenPrice);
-
     const fetchFromAverage = (interval=="Token1Day" || interval=="Token4Hour" || interval=="Token1Hour");
-    console.log(`Making request for address ${address} with dateInterval ${interval} before ${dateInterval}`);
-
-
     const priceKey = fetchFromAverage?"averagePrice":"price";
     query.select(priceKey, "id", "timeStamp","exchange", "symbol", "pctChange");
     query.equalTo("address", address);
     if(dateInterval) {
         query.greaterThan("timeStamp", dateInterval)
     }
-    query.ascending("date");
+    query.ascending("timeStamp");
     query.limit(5000);
     const results = await query.find();
     const tokenPrices = results.map((r)=>{
-        // const dex = r;
         const obj = {price:fetchFromAverage?r.get("averagePrice"):r.get("price"),timestamp: r.get("timeStamp"), exchange:r.get("exchange"), symbol: r.get("symbol")};
         if(interval!=='Token15Min')
             Object.assign(obj,{pctChange: r.get("pctChange")})
@@ -136,10 +133,29 @@ export const fetchTokensForHeatMap = async (intervalStep : any, interval : any) 
     await Promise.all(tokens.map(async (t) => {
         const prices = await getTokenPriceHistoryDB(t.address, intervalStep, interval)
         console.log("Prices: ", prices);
-        // Format is [{timestamp:val, address: addr, price: price}, {...}...]
-        const freshRecord: { timestamp: any; symbol: any; price: any; }[] = [];
+        const freshRecord: { timestamp: any; symbol: any; price: any; pctChange: any }[] = [];
         prices.map((p:any)=>{
-            freshRecord.push({"timestamp":p.timestamp,"symbol":p.symbol, "price":p.price});
+            freshRecord.push({"timestamp":p.timestamp,"symbol":p.symbol, "price":p.price, "pctChange": p.pctChange});
+        });
+        tokenPricesForHeat.push(...freshRecord);
+    }))
+    console.log("Got token prices for heat: ", tokenPricesForHeat.length);
+    return tokenPricesForHeat;
+
+}
+
+
+
+export const fetchTokensPercentageChangeForHeatMap = async (intervalStep : any, interval : any) => {
+
+    const tokens = await getTokenList();
+    const tokenPricesForHeat : any[] = [];
+    await Promise.all(tokens.map(async (t) => {
+        const prices = await getTokenPriceHistoryDB(t.address, intervalStep, interval)
+        console.log("Prices: ", prices);
+        const freshRecord: { timestamp: any; symbol: any; price: any; pctChange: any }[] = [];
+        prices.map((p:any)=>{
+            freshRecord.push({"timestamp":p.timestamp,"symbol":p.symbol, "price":p.price, "pctChange": p.pctChange});
         });
         tokenPricesForHeat.push(...freshRecord);
     }))
