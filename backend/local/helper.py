@@ -93,6 +93,25 @@ TraderJoeSyncEventABI = json.dumps(
     }
 )
 
+ERC20TotalSupply = json.dumps({
+  "abi": [
+    {
+      "inputs": [],
+      "name": "totalSupply",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "params": {}
+})
+
 
 def get_next_timestamp(summary_type, ts):
     if summary_type == "Token1Day":
