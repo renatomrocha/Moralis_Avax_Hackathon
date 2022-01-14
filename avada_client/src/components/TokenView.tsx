@@ -106,7 +106,7 @@ function TokenView(props:any)  {
         setIntervalStep(interval.target.value);
         console.log("Interval step changed to: ", intervalStep);
 
-        getTokenPriceHistoryDB(address, interval.target.value,Date.now() - (30*24*60*60*1000))
+        getTokenPriceHistoryDB(address, interval.target.value,offsetIntoPast)
             .then((h:any[])=> {
                 setTokenPrices([...h.map(r=>r)]);
                 if(tokenPrices.length==0) {
