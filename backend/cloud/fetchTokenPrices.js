@@ -29,15 +29,16 @@ Moralis.Cloud.job("FetchTokenDetails", async (request) => {
       }
 
       try{
-        const strAbi = JSON.parse(r.get("abi").toString().replaceAll("'",'"').replaceAll("False",'"False"').replaceAll("True",'"True"'))
+        const strAbi = [{"inputs": [],"name": "totalSupply","outputs": [{"internalType": "uint256","name": "","type": "uint256"}],"stateMutability": "view","type": "function"}]
+        // const strAbi = JSON.parse(r.get("abi").toString().replaceAll("'",'"').replaceAll("False",'"False"').replaceAll("True",'"True"'))
         const mcapOptions = {chain: "avalanche", address: r.get("address"), function_name: "totalSupply", abi: strAbi};
-        totalSupply = parseInt(await Moralis.Web3API.native.runContractFunction(mcapOptions));
+        totalSupply = parseInt(await Moralis.Web3API.native.runContractFunction(mcapOptions)) / 10**r.get("decimals");
       } catch (e) {
         // logger.error(`${e}`);
         // logger.info(`Failed to fetch totalSupply for token: ${r.get("symbol")}`);
       }
 
-      marketCap = (totalSupply / 10**r.get("decimals")) * price;
+      marketCap = totalSupply  * price;
 
       const Token15Min = Moralis.Object.extend("Token15Min");
       const newTokenDetail = new Token15Min();
