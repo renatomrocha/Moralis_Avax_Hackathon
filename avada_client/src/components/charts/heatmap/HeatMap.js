@@ -2,11 +2,14 @@ import * as d3 from "d3";
 import {useEffect} from "react";
 import {Checkbox, HStack, Stack} from "@chakra-ui/react";
 import {dateFromTimeStamp} from "../../../utils/dateUtils";
+import {ColorPalette} from "../../styles/color_palette";
 
 
 export function HeatMap(props) {
 
     const {data, tokensList} = props;
+
+    useEffect(()=>console.log("Prices updated!!"),[data])
 
 
     useEffect(()=>{
@@ -56,7 +59,7 @@ export function HeatMap(props) {
 
         // Build color scale
         const pctgColor = d3.scaleSequential()
-            .interpolator(d3.interpolateInferno)
+            .interpolator(d3.interpolate(ColorPalette.red,ColorPalette.green))
             .domain([-0.1,0.1])
 
         const btcColor = d3.scaleSequential()

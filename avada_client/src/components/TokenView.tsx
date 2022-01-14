@@ -32,18 +32,12 @@ enum CHART_TYPES_ENUM {
     CANDLESTICK
 }
 
-enum INTERVALS_ENUM {
-    FIFTEEN_MINS,
-    ONE_HOUR,
-    FOUR_HOURS,
-    ONE_DAY
-}
 
 const INTERVALS = [
-    { value: "Token1Day", label: 'Token1Day' },
-    { value: "Token4Hour", label: 'Token4Hour' },
-    { value: "Token1Hour", label: 'Token1Hour' },
-    {value: "Token15Min", label: 'Token15Min'}
+    { value: "Token1Day", label: '1 Day' },
+    { value: "Token4Hour", label: '4 Hours' },
+    { value: "Token1Hour", label: '1 Hour' },
+    {value: "Token15Min", label: '15 Mins'}
 ]
 
 const CHART_TYPES = [{ value: CHART_TYPES_ENUM.LINE, label: 'Line Chart' },
@@ -58,12 +52,12 @@ function TokenView(props:any)  {
     const [dates, setDates] = useState<any[]>([]);
     const [chartType, setChartType] = useState(CHART_TYPES_ENUM.LINE);
     const [sourceExchange, setSourceExchange] = useState<any[]>([]);
-    const [interval, setInterval] = useState<any>(INTERVALS_ENUM.ONE_HOUR);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [noDataAvailable, setNoDataAvailable] = useState(false);
     const {address} = useParams<string>();
-    const [intervalStep, setIntervalStep] = useState<string>("Token1Day");
-    const [startDate, setStartDate] = useState<any>(new Date());
+    const [intervalStep, setIntervalStep] = useState<any>(INTERVALS[0]);
+    const [offsetIntoPast, setOffsetIntoPast] = useState((Date.now() - 30*24*60*60*1000)/1000);
+    const [startDate, setStartDate] = useState<any>((new Date(Date.now() - 30*24*60*60*1000) ));
 
     useEffect(()=>{
         setIsLoading(true);
@@ -76,8 +70,7 @@ function TokenView(props:any)  {
 
             })
 
-
-        getTokenPriceHistoryDB(address, intervalStep, interval)
+        getTokenPriceHistoryDB(address, intervalStep.value, offsetIntoPast)
             .then((h:any[])=> {
                 setTokenPrices([...h.map(r=>r)]);
                 if(tokenPrices.length==0) {
@@ -109,23 +102,24 @@ function TokenView(props:any)  {
 
 
     const onChangeInterval = async (interval: any) => {
-        console.log("Interval changed to: ", interval.target.value);
+        console.log("Received interval: ", interval.target.value);
+        setIntervalStep(interval.target.value);
+        console.log("Interval step changed to: ", intervalStep);
+
         getTokenPriceHistoryDB(address, interval.target.value,Date.now() - (30*24*60*60*1000))
             .then((h:any[])=> {
                 setTokenPrices([...h.map(r=>r)]);
-                console.log("Prices now is: ", tokenPrices);
                 if(tokenPrices.length==0) {
                     setNoDataAvailable(true);
                 }
                 setDates([...h.map(h=>h.date)]);
-                console.log("Got price history: ", tokenPrices)
                 setIsLoading(false);
             })
     }
 
     const fetchLineChartData = (date: any) => {
-        console.log("Changing date with intervalStep: ", intervalStep);
-        getTokenPriceHistoryDB(address, intervalStep,Math.round(date.getTime()/1000))
+
+        getTokenPriceHistoryDB(address, intervalStep.value,Math.round(date.getTime()/1000))
             .then((h:any[])=> {
                 setTokenPrices([...h.map(r=>r)]);
                 console.log("Prices now is: ", tokenPrices);
@@ -139,6 +133,8 @@ function TokenView(props:any)  {
     }
 
     const onChangeDate = async (date:any) => {
+
+
         setStartDate(date);
         console.log("Date change to: ", Math.round(date.getTime()/1000));
         await fetchLineChartData(date);
@@ -160,7 +156,7 @@ function TokenView(props:any)  {
         setInterval(e);
     }
 
-    useEffect(()=>console.log("INtervale stap change to: ", intervalStep),[intervalStep])
+    useEffect(()=>console.log("INtervale stap change to: ", intervalStep.value),[intervalStep])
 
     return (
         <div style={{alignItems:'center'}}>
@@ -178,6 +174,8 @@ function TokenView(props:any)  {
                 <div>
                     {/*{chartType === CHART_TYPES_ENUM.LINE && <BasicChart data={tokenPrices.map(d=>d.price)} dates={tokenPrices.map(d=>d.date)} xDomain={dates}  width={1000} height={400} />}*/}
                     {/*{chartType === CHART_TYPES_ENUM.CANDLESTICK && <CandleStickTemplate data={tokenPrices.map(d=>d.price)} width={1000} height={400}/>}*/}
+
+                    <span>{intervalStep.label}</span>
                     {displayChart()}
 
 
@@ -192,8 +190,9 @@ function TokenView(props:any)  {
                     color='white'
                     placeholder='Time interval'
                 >
+
                     {INTERVALS.map(i=>{
-                        return (<option onClick={()=>setIntervalStep(i.value)}>{i.label}</option>)
+                        return (<option value={i.value}>{i.label}</option>)
                     })}
                 </Select>
                 <div>
@@ -208,7 +207,8 @@ function TokenView(props:any)  {
                 </div>
                 <div style={{margin:50}}>
                     <span>Start date</span>
-                    <DatePicker selected={startDate} onChange={onChangeDate} /></div>
+                    <DatePicker selected={startDate} onChange={onChangeDate} />
+                </div>
             </div>}
 
         </div>

@@ -22,10 +22,15 @@ export default function     MiniChartContainer ({address, width, height}:any) {
 
     const [pctChange, setPctChange] = useState(0);
 
+    const [plotColor, setPlotColor] = useState("");
+
     useEffect(()=>{
         setIsLoading(true);
         get24HourPercentageChange(address)
-            .then((pct)=> setPctChange(pct));
+            .then((pct)=> {
+                setPctChange(pct)
+                setPlotColor(pct>0?ColorPalette.green:ColorPalette.red)
+            });
 
 
         getTokenByAddress(address)
@@ -45,23 +50,23 @@ export default function     MiniChartContainer ({address, width, height}:any) {
         return parseFloat((pctChange * 100).toFixed(2));
     }
 
-    return (<div onMouseEnter={()=>setBorderColor(ColorPalette.backgroundColor)} onMouseLeave={()=>setBorderColor('gray.200')}>
+    return (<div onMouseEnter={()=>setBorderColor(pctChange > 0 ? ColorPalette.green : ColorPalette.red)} onMouseLeave={()=>setBorderColor('gray.200')}>
 
             {isLoading && (<Box border="1px" borderColor={borderColor} borderRadius={30} padding={5} >
                 <AvadaSpinner/>
             </Box>)}
 
-        {data && (
-            <Box border="1px" borderColor={borderColor} borderRadius={30} padding={5} onClick={()=>navigate(`/token/${address}`)}>
+        {(data && plotColor) && (
+            <Box border="2px" borderColor={borderColor} borderRadius={30} padding={5} onClick={()=>navigate(`/token/${address}`)}>
                 {tokenInfo && (<><HStack>
                         <img style={{width:30, height:30}} src={tokenInfo.logoUrl}/>
                         <span>{tokenInfo.symbol}</span>
-                        {pctChange!==0 && (<span style={{marginRight: 30, color: (getPercentage() < 0)? 'red': 'green'}}>{getPercentage() + '% (24h)'}</span>)}
+                        {pctChange!==0 && (<span style={{marginRight: 30, color: (getPercentage() < 0)? ColorPalette.red: ColorPalette.green}}>{getPercentage() + '% (24h)'}</span>)}
                     </HStack>
-                    <span style={{margin:40}}>{data[data.length-1].price.toFixed(2) + '$'}</span>
+                    <span style={{margin:40}}>{'$ ' + data[data.length-1].price.toFixed(2)}</span>
                     </>
                 )}
-                <MiniChart data={data}  width={width} height={height}/>
+                <MiniChart data={data}  width={width} height={height} color={plotColor}/>
 
             </Box>
         )}

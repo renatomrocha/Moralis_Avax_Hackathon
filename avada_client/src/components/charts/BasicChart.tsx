@@ -30,10 +30,6 @@ const BasicChart = (props: any) => {
         dollar_delta: dollar_high - dollar_low
     };
 
-    useEffect(()=>{
-        console.log("Data changed to: ", data.length);
-    }, data)
-
 
     // console.log("Domain is: ", xDomain);
 
@@ -63,6 +59,7 @@ const BasicChart = (props: any) => {
             .y(yScale)
             .curve(d3.curveLinear)
         console.log("Line generator is: ", lineGenerator);
+        console.log("Updating chart with date: ", data);
         line
             .datum(data)
             .transition(t)
@@ -197,7 +194,7 @@ const BasicChart = (props: any) => {
     useEffect(() => {
         console.log("Prices got updated!!!!!!!!!!!!!!!!!!!!!!!!");
         updateChart()
-        }, data)
+        }, [data])
 
 
         return (

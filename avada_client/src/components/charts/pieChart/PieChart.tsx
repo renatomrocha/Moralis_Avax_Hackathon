@@ -22,7 +22,7 @@ const PieChart = ({data}:any)=> {
         var outerRadius = radius - 10,
             innerRadius = radius - 80;
 
-        var color : any = d3.scaleOrdinal().range([ColorPalette.mainColor, ColorPalette.backgroundColor, ColorPalette.secondaryColor, ColorPalette.highlight, ColorPalette.green]);//Constructs a new ordinal scale with an empty domain and the specified range. If a range is not specified, it defaults to the empty array; an ordinal scale always returns undefined until a non-empty range is defined.
+        var color : any = d3.scaleOrdinal().range([ColorPalette.mainColor, ColorPalette.red, ColorPalette.secondaryColor, ColorPalette.highlight, ColorPalette.green]);//Constructs a new ordinal scale with an empty domain and the specified range. If a range is not specified, it defaults to the empty array; an ordinal scale always returns undefined until a non-empty range is defined.
 
 
         //add svg with margin !important

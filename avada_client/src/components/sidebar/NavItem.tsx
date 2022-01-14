@@ -4,9 +4,18 @@ import dashboard from "../../images/dashboard.png";
 import {NavHoverBox} from "./NavHoverBox";
 import {useState} from "react";
 import {ColorPalette} from "../styles/color_palette";
+import {deletePopupMessage, renderPopupMessage} from "./PopupMessage";
 
 
 export function NavItem({navSize, icon, title, route, active, description}:any) {
+
+    const [hoverOject, setHoverObject] = useState<any>(null);
+    const [popupTimerOn, setPopupTimerOn] = useState<boolean>(false);
+    const [popupActivated, setPopupActivated] = useState(false);
+
+    const activatePopupTimer = () => {
+        setPopupActivated(true);
+    }
 
 
     return(
@@ -24,6 +33,23 @@ export function NavItem({navSize, icon, title, route, active, description}:any) 
                     p={3}
                     borderRadius={8}
                     _hover={{textDecor:'none', backgroundColor:ColorPalette.secondaryColor}}
+                    // onMouseEnter={()=>{
+                    //     activatePopupTimer();
+                    //     console.log("popup timer on is now: ", popupTimerOn);
+                    //     setTimeout(()=> {
+                    //         console.log("Entered timeout with popuptimer: ", popupTimerOn);
+                    //         if(popupTimerOn) {
+                    //             console.log("Activated!!")
+                    //             setPopupActivated(true);
+                    //         }
+                    //     }, 3000)
+                    // }}
+                    //
+                    // onMouseLeave={()=>{
+                    //     console.log("Setting false");
+                    //     setPopupTimerOn(false);
+                    //     setPopupActivated(false);
+                    // }}
                     w={navSize == 'large'?'100%':''}
                 >
 
@@ -38,6 +64,8 @@ export function NavItem({navSize, icon, title, route, active, description}:any) 
                 </Link>
 
             </Menu>
+            {popupActivated && (<div>Hey</div>)}
+
 
         </Flex>
     )

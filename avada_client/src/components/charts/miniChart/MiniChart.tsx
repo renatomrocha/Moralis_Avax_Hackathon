@@ -7,7 +7,7 @@ import {getTokenPriceHistoryDB} from "../../../services/tokenService";
 import {ColorPalette} from "../../styles/color_palette";
 
 
-const MiniChart = ({data, width, height}:any) => {
+const MiniChart = ({data, width, height,color}:any) => {
 
     const svgRef = useRef<any>();
 
@@ -59,7 +59,7 @@ const MiniChart = ({data, width, height}:any) => {
             .curve(d3.curveLinear)
 
 
-        const dataOptions = {strokeColor: '#FF1493'}
+        const dataOptions = {strokeColor: color}
         setupData(svg,line, dataOptions);
         return line;
     }
