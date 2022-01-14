@@ -36,11 +36,16 @@ while curr_time + interval < end_time:
         try:
             _total_supply = contract_function.functions.totalSupply().call(block_identifier=block)
         except:
-            _total_supply = None
+            _total_supply = -999
 
         for obj in objects:
-            obj['totalSupply'] = _total_supply / 10 ** token['decimals']
-            obj['marketCap'] = _total_supply * obj['price'] 
+            if _total_supply != -999:
+                obj['totalSupply'] = _total_supply / 10 ** token['decimals']
+                obj['marketCap'] = _total_supply * obj['price']      
+            else:
+                obj['totalSupply'] = -999
+                obj['marketCap'] = -999
+
             _from.replace_one({'_id': obj['_id']}, obj)
 
     print('Updated timestamp {}'.format(curr_time))
