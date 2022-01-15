@@ -118,8 +118,12 @@ if __name__ == "__main__":
                 },
             ]
 
-            _obj = list(source_collection.aggregate(pipeline))[0]
-            cnt = _obj["countRecords"]
+            _list = list(source_collection.aggregate(pipeline))
+            if len(_list) > 0:
+                _obj = _list[0]
+                cnt = _obj["countRecords"]
+            else:
+                cnt = 0
 
             if cnt > 0:
 
