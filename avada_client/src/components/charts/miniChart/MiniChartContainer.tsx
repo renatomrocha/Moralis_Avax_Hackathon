@@ -63,10 +63,12 @@ export default function     MiniChartContainer ({address, width, height}:any) {
                         <span>{tokenInfo.symbol}</span>
                         {pctChange!==0 && (<span style={{marginRight: 30, color: (getPercentage() < 0)? ColorPalette.red: ColorPalette.green}}>{getPercentage() + '% (24h)'}</span>)}
                     </HStack>
-                    <span style={{margin:40}}>{'$ ' + data[data.length-1].price.toFixed(2)}</span>
+                        {data[data.length-1] && <span style={{margin:40}}>{'$ ' + data[data.length-1].price.toFixed(2)}</span>}
+
                     </>
                 )}
-                <MiniChart data={data}  width={width} height={height} color={plotColor}/>
+                {data.length >0 && <MiniChart data={data}  width={width} height={height} color={plotColor}/>}
+
 
             </Box>
         )}

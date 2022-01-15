@@ -1,27 +1,27 @@
 import * as d3 from "d3";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {Checkbox, HStack, Stack} from "@chakra-ui/react";
 import {dateFromTimeStamp} from "../../../utils/dateUtils";
 import {ColorPalette} from "../../styles/color_palette";
+import {transition} from "d3-transition";
+import {select} from "d3-selection";
 
 
 export function HeatMap(props) {
 
     const {data, tokensList} = props;
 
-    useEffect(()=>console.log("Prices updated!!"),[data])
+
+    const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState(0);
 
 
-    useEffect(()=>{
-
-
-
-        console.log("Received data: ", data);
+    const buildHeatMap = () => {
         const margin = {top: 80, right: 25, bottom: 30, left: 40},
-            width = 1000 - margin.left - margin.right,
+            width = 1200 - margin.left - margin.right,
             height = 800 - margin.top - margin.bottom;
 
-// append the svg object to the body of the page
+
         const svg = d3.select("#my_dataviz")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -121,14 +121,58 @@ export function HeatMap(props) {
             .attr("height", y.bandwidth() )
             .style("fill", function(d) {
                 return pctgColor(d.pctChange);
+            })
 
-            } )
             .style("stroke-width", 4)
             .style("stroke", "none")
             .style("opacity", 0.8)
             .on("mouseover", mouseover)
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave)
+
+    }
+
+
+
+    const updateChart = () => {
+        // const t = transition().duration(1000);
+        //
+        // const chart = select('#my_dataviz');
+        //
+        // const xScale = d3.scaleLinear()
+        //     .domain([0, data.length]) // x ticks
+        //     .range([0, width]) // x width
+        //
+        // const yMin = Math.round(data.reduce((a,b) => Math.min(a,b)));
+        // const yMax = Math.ceil(data.reduce((a,b)=> Math.max(a,b)));
+        // const yScale = d3.scaleLinear()
+        //     .domain([yMin, yMax])
+        //     .range([height, 0])
+        //
+        // const lineGenerator = d3.line()
+        //     .x((d, i)=> xScale(i))
+        //     .y(yScale)
+        //     .curve(d3.curveLinear)
+        //
+        // chart
+        //     .datum(data)
+        //     .transition(t)
+        //     .attr('d', lineGenerator);
+
+
+        // d3.selectAll("g > *").remove()
+
+        buildHeatMap();
+
+
+    }
+
+
+    //
+    useEffect(()=>{
+
+        buildHeatMap();
+
 
     },[])
 
@@ -137,9 +181,18 @@ export function HeatMap(props) {
 
 
 
+    // useEffect(()=>updateChart(),[data])
+
+
+
+
+
+
+
+
     return (<>
 
-        <div id="my_dataviz" style={{width: 800, height: 800}}/>
+        <div id="my_dataviz" style={{width: 1000, height: 800}}/>
 
     </>)
 

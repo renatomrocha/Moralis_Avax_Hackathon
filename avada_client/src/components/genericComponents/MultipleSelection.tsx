@@ -17,8 +17,7 @@ export default function MultipleSelection(props: any) {
 
 
     return (
-        <div style={{alignContent:'center'}}>
-            <div style={{margin:20, marginBottom:0}}>{props.title}</div>
+        <div >
 
             <Stack direction='row'>
                 {

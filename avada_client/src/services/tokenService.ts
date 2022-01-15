@@ -75,7 +75,7 @@ export const getTokenPriceHistory = async (address:any, dateInterval: string[]) 
     return priceHistory;
 }
 
-export const getTokenPriceHistoryDB = async (address : any, interval: string, since? : any) : Promise<any>=> {
+export const getTokenPriceHistoryDB = async (address : any, interval: string, since? : any, upTo? : any) : Promise<any>=> {
     console.log("Received class name: ", interval);
     console.log("Asking prices previous to: ", since);
     let TokenPrice = Moralis.Object.extend(interval);
@@ -86,6 +86,9 @@ export const getTokenPriceHistoryDB = async (address : any, interval: string, si
     query.equalTo("address", address);
     if(since) {
         query.greaterThan("timeStamp", since)
+    }
+    if (upTo) {
+        query.lessThan("timeStamp", upTo);
     }
     query.ascending("timeStamp");
     query.limit(5000);

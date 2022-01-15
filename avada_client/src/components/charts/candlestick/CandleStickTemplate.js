@@ -98,14 +98,12 @@ export default function CandleStickTemplate(props) {
     // const data_on_chart = data.slice()
 
     return (
-        <div style={{marginLeft: "100px", zIndex:-1}}>
-                {/*<div>*/}
-                {/*    <button onClick={changeData}>New Data</button>*/}
-                {/*</div>*/}
+        <div>
+
                 <div>
                     <Chart data={data} width={props.width} height={props.height} />
                 </div>
-                <span>STOCK</span>
+
         </div>
     );
 }

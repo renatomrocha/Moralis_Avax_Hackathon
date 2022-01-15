@@ -20,7 +20,7 @@ import {
     DrawerOverlay,
     Grid, Drawer,
     GridItem, Input,
-    useDisclosure
+    useDisclosure, Flex
 } from "@chakra-ui/react";
 import {MultipleTokens} from "./components/MultipleTokens";
 
@@ -46,37 +46,35 @@ function App() {
   // const [dexList, setDexList] = useState<any[]>([]);
 
   return (
-    <div>
+    <Flex>
 
-        <BrowserRouter>
-        {/*<Navbar user={user} setUser={setUser} authVars={authVars}/>*/}
-          <Grid h="100vh" templateColumns='repeat(10, 1fr)'>
+        <BrowserRouter >
 
-              {/*To make screen movable with sidenav opening and closing (remove colSpans)*/}
-              {/*<GridItem sytle={{position:"absolute"}} >*/}
+          <Grid h="95vh" w='99vw' templateColumns='repeat(10, 1fr)'>
 
-              <GridItem clsSpan={2}>
-              <Sidebar navSize={navSize} setNavSize={setNavSize}/>
-        </GridItem>
-            {/*<div style={{marginLeft:navSize=='large'?'250px':'100px', height:"1vh"}}>*/}
-          <GridItem colSpan={7} style={{marginLeft:20}}>
-              <Routes>
-              <Route path="/" element={<Dashboard/>} />
-              <Route path="/exploreAvalanche" element={<Dashboard style={{width:'100%', marginLeft:100}}/>} />
-              <Route path="/tokens" element={<Tokens style={{ marginLeft:100}}/>} />
-                  <Route path="/multiTokens" element={<MultipleTokens style={{marginLeft: 100}}/>} />
-              <Route path="/token/:address" element={<TokenView/>} />
 
-              <Route path="/pools" element={<Pools />} />
-              <Route path="/pool/:token0/:token1"  element={<p>Placeholder5</p>} />
-            <Route path="/statistics"  element={<CandleStickTemplate />} />
 
-                </Routes>
-          </GridItem>
+                <GridItem clsSpan={2} style={{height:"100vh"}}>
+                  <Sidebar navSize={navSize} setNavSize={setNavSize}/>
+                </GridItem>
+
+                <GridItem colSpan={9} style={{marginLeft:20, width:'100%',overflow:'auto'}}>
+                      <Routes>
+                      <Route path="/" element={<Dashboard/>} />
+                      <Route path="/tokens" element={<Tokens/>} />
+                      <Route path="/multiTokens" element={<MultipleTokens />} />
+                      <Route path="/token/:address" element={<TokenView/>} />
+
+                      <Route path="/pools" element={<Pools />} />
+                      <Route path="/pool/:token0/:token1"  element={<p>Placeholder5</p>} />
+                    <Route path="/statistics"  element={<CandleStickTemplate />} />
+
+                    </Routes>
+                </GridItem>
           </Grid>
           {/*</div>*/}
       </BrowserRouter>
-    </div>
+    </Flex>
   )
   
 }

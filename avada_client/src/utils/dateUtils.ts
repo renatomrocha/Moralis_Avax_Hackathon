@@ -2,6 +2,6 @@
 
 export const dateFromTimeStamp = (timestamp : number) => {
     const date = new Date(timestamp * 1000)
-    return date.getDate() + '-' + date.getMonth() + '-' + date.getFullYear()
-
+    const month = parseInt(date.getMonth().toString()) + 1;
+    return date.getDate() + '-' + month + '-' + date.getFullYear()
 }

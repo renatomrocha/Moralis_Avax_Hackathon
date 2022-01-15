@@ -29,7 +29,7 @@ function Tokens(props:any)  {
 
 
     return (
-        <div style={{...props.style,height:'100vh', overflow:"auto"}}>
+        <div style={{...props.style}}>
             <Title title="Tokens"/>
             {tokenList.length>0 &&
                 <TokenList tokenList={tokenList}/>}

@@ -5,6 +5,7 @@ import {select, selectAll} from "d3-selection";
 import {axisBottom, axisLeft} from "d3";
 import CrossHairs from "./candlestick/CrossHairs";
 import {dollarAt, onMouseLeave, onMouseMoveInside} from "./utils/mouseUtils";
+import {ColorPalette} from "../styles/color_palette";
 
 
 const BasicChart = (props: any) => {
@@ -58,8 +59,7 @@ const BasicChart = (props: any) => {
             .x((d, i)=> xScale(i))
             .y(yScale)
             .curve(d3.curveLinear)
-        console.log("Line generator is: ", lineGenerator);
-        console.log("Updating chart with date: ", data);
+
         line
             .datum(data)
             .transition(t)
@@ -87,12 +87,12 @@ const BasicChart = (props: any) => {
         const yAxisGrid : any = axisLeft(yScale).tickSize(-width).tickFormat(tickFormat).ticks(10);
         svg.append('g')
             .attr('class', 'x axis-grid')
-            .attr('color', '#c8a1ff')
+            .attr('color', ColorPalette.secondaryColor)
             .attr('transform', 'translate(0,' + height + ')')
             .call(xAxisGrid);
         svg.append('g')
             .attr('class', 'y axis-grid')
-            .attr('color', '#c8a1ff')
+            .attr('color', ColorPalette.secondaryColor)
             .call(yAxisGrid);
     }
 
@@ -179,7 +179,7 @@ const BasicChart = (props: any) => {
         addGrid(svg,xScale,yScale,height,width);
 
 
-        const dataOptions = {strokeColor: '#FF1493'}
+        const dataOptions = {strokeColor: ColorPalette.highlight}
         setupData(svg, data,line, dataOptions);
         return line;
     }
@@ -192,7 +192,6 @@ const BasicChart = (props: any) => {
 
 
     useEffect(() => {
-        console.log("Prices got updated!!!!!!!!!!!!!!!!!!!!!!!!");
         updateChart()
         }, [data])
 

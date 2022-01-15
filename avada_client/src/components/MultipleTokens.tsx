@@ -40,11 +40,10 @@ export function MultipleTokens(props:any) {
 
 
     return(
-        <Flex>
+        <div>
 
-            <div style={{...props.style,height:'100vh', width: '100%',overflow:"auto"}}>
+            <div style={{...props.style}}>
                 <Title title="Multiple Token analysis"></Title>
-                {isLoading && <AvadaSpinner style={{width:'100%', height: "100%", marginTop:100, marginLeft:500}} message={`Loading price history`}/>}
 
                 <Tabs variant='enclosed'>
                     <TabList>
@@ -53,19 +52,25 @@ export function MultipleTokens(props:any) {
                     </TabList>
                     <TabPanels>
                         <TabPanel>
-                            {tokenPrices.length && (<div>
+
+                            {tokenPrices.length && (<HStack style={{alignItems:"center"}}>
 
 
-                                {tokenList && <div>
-
-                                    {tokenList.map((t:any, idx: number) => <Checkbox defaultIsChecked onChange={(e)=>handleCheckBoxChange(e, idx)}>{t.symbol}</Checkbox>)}
+                                {tokenList && <div style={{width:'15%', borderColor:ColorPalette.thirdColor, borderWidth:1, borderRadius: 20, padding:10}}>
+                                    <div>Tokens</div>
+                                    {tokenList.map((t:any, idx: number) => <Checkbox style={{margin:5}} defaultIsChecked onChange={(e)=>handleCheckBoxChange(e, idx)}>{t.symbol}</Checkbox>)}
 
                                 </div>}
 
+                                <div style={{marginLeft:30}}>
+                                    <HeatMap tokensList={tokenList} data={tokenPrices}/>
+                                </div>
+                            </HStack>)}
 
-                                <HeatMap tokensList={tokenList} data={tokenPrices}/>
 
-                            </div>)}
+
+                            {isLoading && <AvadaSpinner style={{width:'100%', height: "100%", marginTop:100, marginLeft:500}} message={`Loading price history`}/>}
+
                         </TabPanel>
                         <TabPanel>
                             <p>Correlation!</p>
@@ -74,7 +79,7 @@ export function MultipleTokens(props:any) {
                 </Tabs>
 
                 </div>
-        </Flex>
+        </div>
 
     )
 }

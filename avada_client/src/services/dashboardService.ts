@@ -60,7 +60,7 @@ export const getTopMCap = async () => {
 }
 
 
-export const get24HourPercentageChange =  async (address:string) => {
+export const get24HourPercentageChange =  async (address:string | undefined) => {
 
     const TokenPrice = Moralis.Object.extend("Token1Day")
     const query = new Moralis.Query(TokenPrice);
