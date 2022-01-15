@@ -9,12 +9,14 @@ from web3 import Web3
 
 from helper import ERC20TotalSupply, block_number_getter, TokenDetails
 
+logging.basicConfig(filename="MarketCap.log",level=logging.INFO,format="%(levelname)s:%(asctime)s:%(funcName)s:%(message)s",)
+
 load_dotenv()
 
 w3 = Web3(Web3.HTTPProvider(os.getenv('SPEEDY_NODE')))
 
 
-_from = pymongo.MongoClient(os.getenv('KONS'))['parse']['Token15Min']
+_from = pymongo.MongoClient(os.getenv('PROD'))['parse']['Token15Min']
 
 
 start_time = 1629417600
@@ -33,22 +35,29 @@ while curr_time + interval < end_time:
 
         contract_function = w3.eth.contract(address=Web3.toChecksumAddress(token['address']), abi=ERC20TotalSupply)
 
-        try:
-            _total_supply = contract_function.functions.totalSupply().call(block_identifier=block)
-        except:
-            _total_supply = -999
+        parse_successful = False
+        count = 0
+        max_count = 5
+        while (not parse_successful) and count < max_count:
+            count += 1
+            try:
+                _total_supply = contract_function.functions.totalSupply().call(block_identifier=block)
+                parse_successful = True
+            except:
+                _total_supply = -999
 
         for obj in objects:
             if _total_supply != -999:
                 obj['totalSupply'] = _total_supply / 10 ** token['decimals']
-                obj['marketCap'] = _total_supply * obj['price']      
+                obj['marketCap'] = obj['totalSupply'] * obj['price']      
             else:
                 obj['totalSupply'] = -999
                 obj['marketCap'] = -999
-
+            
             _from.replace_one({'_id': obj['_id']}, obj)
+            # print(obj['symbol'],obj['timeStamp'],obj['totalSupply'],obj['price'], obj['marketCap'])
 
-    print('Updated timestamp {}'.format(curr_time))
+    logging.info('Updated timestamp {}'.format(curr_time))
 
 
     curr_time = curr_time + interval
