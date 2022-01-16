@@ -8,6 +8,7 @@ import MiniChart from "../charts/miniChart/MiniChart";
 import MiniChartContainer from "../charts/miniChart/MiniChartContainer";
 import PieChart from "../charts/pieChart/PieChart";
 import {getTopMCap} from "../../services/dashboardService";
+import BarRaceChart from "../charts/barRaceChart/BarRaceChart"
 
 
 export function Dashboard(props:any) {
@@ -30,6 +31,8 @@ export function Dashboard(props:any) {
             <Gainers style={{width:400,  alignItems:'center', marginLeft:50}}/>
             <Losers style={{width:400,  alignItems:'center', margin:20}}/>
         </HStack>
+
+        <BarRaceChart />
 
     </div>)
 }
