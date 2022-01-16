@@ -41,3 +41,6 @@ backend/local/__pycache__
 backend/local/.env
 backend/local/others
 backend/nohup.out
+
+
+MoralisHackathon.pem
