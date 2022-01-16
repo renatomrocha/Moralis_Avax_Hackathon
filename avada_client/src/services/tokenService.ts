@@ -26,7 +26,7 @@ export const getTokenByAddress = async (address: any) => {
 }
 
 
-export const getTokenPrice = async (address : any , chain: any, to_date?: any) => {
+export const getTokenPrice = async (address : any , chain?: any, to_date?: any) => {
 
     const options  = {
         address: address,
@@ -42,6 +42,22 @@ export const getTokenPrice = async (address : any , chain: any, to_date?: any) =
     console.log(`Price for token with address ${address} is ${tokenPrice.usdPrice}`);
     return tokenPrice;
 }
+
+
+export const getTokenPriceFromDB = async (address : any) => {
+    const TokenPrice = Moralis.Object.extend("Token15Min")
+    const query = new Moralis.Query(TokenPrice);
+
+    query.select("timeStamp","price");
+
+    query.equalTo("address", address);
+    query.descending("timeStamp");
+    query.limit(1);
+    const result = await query.find();
+    return result[0]?.get("price");
+}
+
+
 
 
 export const getTokenMetadata = async (address : any , chain?: any) => {
@@ -77,7 +93,7 @@ export const getTokenPriceHistory = async (address:any, dateInterval: string[]) 
 
 export const getTokenPriceHistoryDB = async (address : any, interval: string, since? : any, upTo? : any) : Promise<any>=> {
     console.log("Received class name: ", interval);
-    console.log("Asking prices previous to: ", since);
+    // console.log("Asking prices previous to: ", since);
     let TokenPrice = Moralis.Object.extend(interval);
     const query = new Moralis.Query(TokenPrice);
     const fetchFromAverage = (interval=="Token1Day" || interval=="Token4Hour" || interval=="Token1Hour");

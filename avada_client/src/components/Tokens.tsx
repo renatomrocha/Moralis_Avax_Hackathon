@@ -1,5 +1,5 @@
 import React, {ReactNode, useEffect, useState} from 'react';
-import {getTokenList, getTokenLogoUrls, getTokenPrice} from "../services/tokenService";
+import {getTokenList, getTokenLogoUrls, getTokenPrice, getTokenPriceFromDB} from "../services/tokenService";
 import {
     Table,
     Tbody,
@@ -18,12 +18,24 @@ function Drawer(props: { isFullHeight: boolean, placement: string, onClose: any,
 
 function Tokens(props:any)  {
 
-    const [tokenList, setTokenList] = useState<any>(0)
+    const [tokenList, setTokenList] = useState<any[]>([])
 
     useEffect (()=> {
         getTokenList()
             .then((tokens)=>{
-                setTokenList(tokens);
+                const temporaryList : any[] = [];
+
+                Promise.all(tokens.map(async (token)=>{
+                    const price = await getTokenPriceFromDB(token.address);
+                    temporaryList.push({...token, price})
+                })).then(()=> {
+                    setTokenList(temporaryList);
+
+                    console.log("Token list: ", tokenList);
+                })
+
+
+
             });
     },[])
 
@@ -71,7 +83,7 @@ function TokenList(props: any) {
                                onClick={()=>navigate(`/token/${token.address}`)}>
                         <Td><img style={{width:64, height:64}} src={token.logoUrl}/></Td>
                         <Td>{token.symbol}</Td>
-                        <Td>{token.address}</Td>
+                        <Td>{token.price}</Td>
                         <Td>MCap</Td>
                     </Tr>)
                 })}

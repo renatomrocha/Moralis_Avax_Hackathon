@@ -72,6 +72,6 @@ export const get24HourPercentageChange =  async (address:string | undefined) => 
     query.limit(5000);
     const result = await query.find();
     console.log("Result has timestamp: ", result[0]?.get("timeStamp"));
-    return result[0]?.get("pctChange");
+    return result[0]?.get("pctChange").toFixed(2);
 
 }
