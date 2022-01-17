@@ -1,5 +1,6 @@
 #!/home/ubuntu/backend/venv/bin/python
-import sys, os
+import sys
+import os
 import pymongo
 from datetime import datetime
 from helper import TokenDetails, get_next_timestamp, adjust_timestamp
@@ -28,7 +29,8 @@ def update_control_class(symmary_type, symbol, timestamp):
 def get_timestamps(summary_type, symbol):
 
     _collection1 = db["SummaryControl"]
-    _object1 = _collection1.find_one({"summaryType": summary_type, "symbol": symbol})
+    _object1 = _collection1.find_one(
+        {"summaryType": summary_type, "symbol": symbol})
 
     _collection2 = db["Token15Min"]
     _pipeline = [
@@ -55,7 +57,8 @@ def get_timestamps(summary_type, symbol):
         _ts_max = _object2[0]["maxTS"]
     else:
         _ts_max = 0
-        logging.warning("Token {} skipped because there is no data".format(symbol))
+        logging.warning(
+            "Token {} skipped because there is no data".format(symbol))
 
     return _ts, _ts_max
 
@@ -114,6 +117,7 @@ if __name__ == "__main__":
                         "closePrice": {"$last": "$price"},
                         "totalSupply": {"$avg": "$totalSupply"},
                         "marketCap": {"$avg": "$marketCap"},
+                        "geckoMarketCap": {"$avg": "$geckoMarketCap"},
                     }
                 },
             ]
@@ -134,7 +138,8 @@ if __name__ == "__main__":
                 _obj["symbol"] = _symbol
                 _obj["address"] = _address
                 _obj["timeStamp"] = curr_time
-                _obj["priceRange"] = _obj["maximumPrice"] - _obj["minimumPrice"]
+                _obj["priceRange"] = _obj["maximumPrice"] - \
+                    _obj["minimumPrice"]
                 if _obj["openPrice"] != 0:
                     _obj["pctChange"] = (_obj["closePrice"] - _obj["openPrice"]) / _obj[
                         "openPrice"

@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 source venv/bin/activate
 
 echo "calculating daily price summary..."
