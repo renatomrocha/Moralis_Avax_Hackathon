@@ -58,7 +58,7 @@ start_time = max(last_update - 2 * interval, 1629417600)
 
 curr_time = start_time
 
-while curr_time + interval < end_time:
+while curr_time < end_time:
 
     # block = block_number_getter('avalanche', curr_time)
 
