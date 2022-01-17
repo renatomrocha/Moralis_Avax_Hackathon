@@ -8,7 +8,7 @@ Moralis.Cloud.job("FetchTokenDetails", async (request) => {
 
   const TOKEN = Moralis.Object.extend("TokenDetails");
   const query = new Moralis.Query(TOKEN);
-  query.select("symbol", "address", 'abi', 'decimals', 'canFetchTokenDetails');
+  query.select("symbol", "address", 'abi', 'decimals', 'canFetchTokenDetails', 'gecko_id');
   const results = await query.find();
 
   // logger.info(`Total number of tokens: ${results.length}`)
@@ -19,6 +19,7 @@ Moralis.Cloud.job("FetchTokenDetails", async (request) => {
       let price;
       let totalSupply;
       let marketCap;
+      let geckoMarketCap;
       try{
         const priceOptions = {address: r.get("address"), chain: "avalanche",};
         const priceResult = await Moralis.Web3API.token.getTokenPrice(priceOptions)
@@ -38,6 +39,18 @@ Moralis.Cloud.job("FetchTokenDetails", async (request) => {
         // logger.info(`Failed to fetch totalSupply for token: ${r.get("symbol")}`);
       }
 
+      if (r.get('gecko_id') !== '') {
+
+        const dateObj = new Date();
+        const date_string = dateObj.getDate().toString() + '-' + (dateObj.getMonth() + 1).toString() + '-' + dateObj.getFullYear().toString();
+        const url = "https://api.coingecko.com/api/v3/coins/" + r.get('gecko_id') + "/history?date=" + date_string;
+        const response = await Moralis.Cloud.httpRequest({url: url})
+                                            .catch((e) => {
+                                              logger.info(`Gecko request failed for token: ${r.get("symbol")}` + e.status);
+                                            })
+        geckoMarketCap = JSON.parse(response.text)['market_data']['market_cap']['usd'];
+
+      }
       marketCap = totalSupply  * price;
 
       const Token15Min = Moralis.Object.extend("Token15Min");
@@ -49,6 +62,7 @@ Moralis.Cloud.job("FetchTokenDetails", async (request) => {
       newTokenDetail.set('price', price);
       newTokenDetail.set('totalSupply', totalSupply);
       newTokenDetail.set('marketCap', marketCap);
+      newTokenDetail.set('geckoMarketCap', geckoMarketCap);
 
       newTokenDetail.save()
     }
