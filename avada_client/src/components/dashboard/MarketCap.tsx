@@ -5,6 +5,7 @@ import {SetStateAction, useEffect, useState} from "react";
 import PieChart from "../charts/pieChart/PieChart";
 import {Grid, GridItem, HStack} from "@chakra-ui/react";
 import Title from "../genericComponents/Title";
+import BarRaceChart from "../charts/barRaceChart/BarRaceChart";
 
 
 export function MarketCap(props: any) {
@@ -32,7 +33,6 @@ export function MarketCap(props: any) {
 
             <HStack spacing={"5%"}>
                 {pieChartData.length > 0 && (<PieChart data={pieChartData}/>)}
-
                 <List getter={getTopMCap} tableStyle={{width:300}}  entityProps={[{name:"Symbol",value:"symbol"},{name:"M Cap (B$)", value: "marketCap"}]}/>
             </HStack>
     </div>)

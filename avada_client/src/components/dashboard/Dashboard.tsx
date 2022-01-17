@@ -19,7 +19,9 @@ export function Dashboard(props:any) {
 
 
 
-        <HStack style={{marginTop:50}} spacing={10}>
+        <HStack  spacing={10}>
+
+            {/*<BarRaceChart/>*/}
                 <MiniChartContainer address="0x50b7545627a5162f82a992c33b87adc75187b218"   width={300} height={150}/>
                 <MiniChartContainer address="0x49d5c2bdffac6ce2bfdb6640f4f80f226bc10bab"   width={300} height={150}/>
                 <MiniChartContainer address="0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7"  width={300} height={150}/>
@@ -32,7 +34,6 @@ export function Dashboard(props:any) {
             <Losers style={{width:400,  alignItems:'center', margin:20}}/>
         </HStack>
 
-        <BarRaceChart />
 
     </div>)
 }

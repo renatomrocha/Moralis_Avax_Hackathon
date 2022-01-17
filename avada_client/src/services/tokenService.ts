@@ -48,14 +48,16 @@ export const getTokenPriceFromDB = async (address : any) => {
     const TokenPrice = Moralis.Object.extend("Token15Min")
     const query = new Moralis.Query(TokenPrice);
 
-    query.select("timeStamp","price");
+    query.select("timeStamp","price", "address", "marketCap");
 
     query.equalTo("address", address);
     query.descending("timeStamp");
     query.limit(1);
     const result = await query.find();
-    return result[0]?.get("price");
+    return {price: result[0]?.get("price").toFixed(2), address: result[0]?.get("address"), marketCap: result[0]?.get("marketCap")};
 }
+
+
 
 
 

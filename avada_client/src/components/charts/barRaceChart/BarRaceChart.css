@@ -1,19 +1,19 @@
 .barRaceChart {
-    width: 75%;
-    margin: 12% auto;
+    width: 60%;
+    /*margin: 12% auto;*/
 }
 
 #iframeId {
     width:100%;
-    height:600px;
+    height:400px;
 }
 
-#divId {
-    width:100%!;
-    margin-top:4px!important;
-    text-align:right!important;
-}
+/*#divId {*/
+/*    width:100%!;*/
+/*    margin-top:4px!important;*/
+/*    text-align:right!important;*/
+/*}*/
 
-#aId {
-    text-decoration:none!important;
-}
+/*#aId {*/
+/*    text-decoration:none!important;*/
+/*}*/

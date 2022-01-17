@@ -6,6 +6,7 @@ import AvadaSpinner from "./genericComponents/AvadaSpinner";
 import {ColorPalette} from "./styles/color_palette";
 import Title from "./genericComponents/Title";
 import { Checkbox, CheckboxGroup } from '@chakra-ui/react'
+import BarRaceChart from "./charts/barRaceChart/BarRaceChart";
 
 export function MultipleTokens(props:any) {
 
@@ -49,6 +50,7 @@ export function MultipleTokens(props:any) {
                     <TabList>
                         <Tab>Percentage Change</Tab>
                         <Tab>Correlation</Tab>
+                        <Tab>Market Cap</Tab>
                     </TabList>
                     <TabPanels>
                         <TabPanel>
@@ -74,6 +76,9 @@ export function MultipleTokens(props:any) {
                         </TabPanel>
                         <TabPanel>
                             <p>Correlation!</p>
+                        </TabPanel>
+                        <TabPanel>
+                            <BarRaceChart />
                         </TabPanel>
                     </TabPanels>
                 </Tabs>
