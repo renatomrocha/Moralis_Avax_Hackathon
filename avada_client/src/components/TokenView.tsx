@@ -103,7 +103,7 @@ function TokenView(props:any)  {
                 if(tokenPrices.length==0) {
                     setNoDataAvailable(true);
                 }
-                setDates([...h.map(h=>h.date)]);
+                setDates([...h.map(h=>h.timestamp)]);
                 console.log("Got price history: ", tokenPrices)
                 setIsLoading(false);
                 const sources : any[] = [];
@@ -121,7 +121,7 @@ function TokenView(props:any)  {
 
     const displayChart = () => {
         if(chartType === CHART_TYPES_ENUM.LINE) {
-            return (<BasicChart data={tokenPrices.map(d=>d.price)} dates={tokenPrices.map(d=>d.date)} xDomain={dates}  width={1200} height={450} />)
+            return (<BasicChart data={tokenPrices.map(d=>d.price)} dates={dates} xDomain={dates}  width={1200} height={450} />)
         } else {
             return (<CandleStickTemplate data={tokenPrices.map(d=>d.price)} width={1200} height={450}/>)
         }
@@ -139,7 +139,7 @@ function TokenView(props:any)  {
                 if(tokenPrices.length==0) {
                     setNoDataAvailable(true);
                 }
-                setDates([...h.map(h=>h.date)]);
+                setDates([...h.map(h=>h.timestamp)]);
                 setIsLoading(false);
             })
     }

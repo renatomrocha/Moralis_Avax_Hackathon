@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {background, Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
+import {Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
 import Title from "./genericComponents/Title";
 import {getPoolList} from "../services/dexService";
-import SteamGraph from "./charts/steamChart/SteamGraph";
 
 function Pools()  {
 
@@ -24,7 +23,6 @@ function Pools()  {
             {poolList.length>0 &&
             <PoolList poolList={poolList}/>
             }
-            <SteamGraph/>
         </div>
     );
 }
@@ -45,7 +43,7 @@ function PoolList(props: any) {
     return(<Table variant='simple'>
         <Thead>
             <Tr>
-                <Th>Name</Th>
+                {/*<Th>Name</Th>*/}
                 <Th>Pair</Th>
                 <Th>Exchange</Th>
                 <Th>Volume (24h)</Th>
@@ -56,10 +54,10 @@ function PoolList(props: any) {
             {props.poolList.map((pool: any, idx: number)=> {
                 return(<Tr key={idx} style={selected==idx?{backgroundColor:'#FFB6C1', borderRadius:"10px", cursor:'pointer'}:{}} onMouseEnter={(e)=> handleHover(e, idx)}
                            onClick={()=>navigate(`/pool/${pool.token0}/${pool.token1}`)}>
-                    <Td>{pool.name}</Td>
+                    {/*<Td>{pool.name}</Td>*/}
                     <Td>{pool.token0 + '/' + pool.token1}</Td>
                     {/*<Td>{pool.token1}</Td>*/}
-                    <Td>{pool.exchange}</Td>
+                    <Td>{pool.name}</Td>
                     <Td>Volume</Td>
                 </Tr>)
             })}

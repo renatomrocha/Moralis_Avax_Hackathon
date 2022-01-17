@@ -23,6 +23,7 @@ import {
     useDisclosure, Flex
 } from "@chakra-ui/react";
 import {MultipleTokens} from "./components/MultipleTokens";
+import PoolView from "./components/PoolView";
 
 
 
@@ -66,7 +67,7 @@ function App() {
                       <Route path="/token/:address" element={<TokenView/>} />
 
                       <Route path="/pools" element={<Pools />} />
-                      <Route path="/pool/:token0/:token1"  element={<p>Placeholder5</p>} />
+                      <Route path="/pool/:token0/:token1"  element={<PoolView/>} />
                     <Route path="/statistics"  element={<CandleStickTemplate />} />
 
                     </Routes>

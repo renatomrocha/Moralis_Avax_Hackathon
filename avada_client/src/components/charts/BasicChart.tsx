@@ -10,7 +10,7 @@ import {ColorPalette} from "../styles/color_palette";
 
 const BasicChart = (props: any) => {
 
-    const {data,width, height} = props;
+    const {data,width, height, dates} = props;
 
     const [lineGenerator, setLineGenerator] = useState<any>(undefined);
 
@@ -45,8 +45,13 @@ const BasicChart = (props: any) => {
 
         const line = select('#line');
 
-        const xScale: any = d3.scaleLinear()
-            .domain([0, data.length]) // x ticks
+        console.log("Dates is: ", dates.length);
+        console.log("Date is: ", data.length);
+        // const xScale: any = d3.scaleTime().domain([Date.now(), Date.now() + 24 * 60 * 60 * 1000]).width(0,width)
+
+        const xScale = d3.scaleLinear()
+            // .domain([dates[0],dates[dates.length -1]]) // x ticks
+            .domain([0,data.length -1]) // x ticks
             .range([0, width]) // x width
 
         const yMin = Math.round(data.reduce((a:number,b:number) => Math.min(a,b)));
@@ -100,18 +105,31 @@ const BasicChart = (props: any) => {
     const addAxis = (svg: any, xScale: any, yScale: any,width:number, height: number, ticks: number) => {
         const dateFormat : any = d3.timeFormat('%b')
         // Setup the axes
-        const xAxis = d3.axisBottom(xScale)
-            // .tickValues()
-        // .ticks(d3.timeMonth, 1)
-            .ticks(ticks)
+
+
+
+        // const xAxis = d3.axisBottom(xScale)
+        //     .tickValues()
+        // // .ticks(d3.timeMonth, 1)
+        //     .ticks(ticks)
             // .tickFormat((i: any) => i + 1)
 
         const yAxis = d3.axisLeft(yScale)
             .ticks(5);
 
+        const xAxis = d3.axisBottom(xScale)
+            .ticks(5);
+
+        // svg.append('g')
+        //     .call(xAxis)
+        //     .attr('transform', `translate(0, ${height})`)
+        // svg.append("g")
+        //     // .attr("transform", "translate(0," + height + ")")
+        //     .call(d3.axisBottom(xScale).tickValues([dates[0], dates[dates.length -1]]))
+                // .tickValues([Date.now() / 1000 - 1000, Date.now() / 1000]))
+
         svg.append('g')
             .call(xAxis)
-            .attr('transform', `translate(0, ${height})`)
 
         svg.append('g')
             .call(yAxis)
@@ -126,7 +144,7 @@ const BasicChart = (props: any) => {
             .attr("transform", "rotate(-90)")
             .text("Price (USD)");
 
-        return [xAxis, yAxis]
+
     }
 
 
@@ -173,7 +191,8 @@ const BasicChart = (props: any) => {
 
         const ticksNumber = 10;
 
-        const [xAxis,yAxis] = addAxis(svg,xScale,yScale, width,height,ticksNumber);
+        console.log("Before building axis, xScale is: ", xScale);
+        addAxis(svg,xScale,yScale, width,height,ticksNumber);
 
 
         addGrid(svg,xScale,yScale,height,width);

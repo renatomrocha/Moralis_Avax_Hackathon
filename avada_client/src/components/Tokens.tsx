@@ -36,16 +36,23 @@ function Tokens(props:any)  {
                 console.log("FIltered tokens: ", filteredTokens);
                 setTokenList(filteredTokens);
 
-                fetchTokenProps(tokenList);
+                // fetchTokenProps(tokenList);
 
             });
     },[])
 
+    useEffect(()=> {
+        fetchTokenProps(tokenList);
+    },[tokenList])
+
 
     const fetchTokenProps = (tokens: any[]) => {
+        console.log("Will start props fetching!!");
         tokens.map((token)=> {
+            console.log("Fetching for: ", token.address);
             getTokenPriceFromDB(token.address)
                 .then((t)=>{
+                    console.log("Received that...");
                     const updatedTokens = tokenList;
                     const index = updatedTokens.findIndex((obj:any) => obj.address == t.address);
                     if(updatedTokens[index]) {
@@ -97,7 +104,17 @@ function TokenList(props: any) {
         if(token.price > -1) {
             return (<span>{'$ ' + token.price}</span>)
         } else {
-            return (<AvadaSpinner spinnerSize={40} style={{alignItems:'center', justifyContent: 'center'}}/>)
+            // return (<AvadaSpinner spinnerSize={40} style={{alignItems:'center', justifyContent: 'center'}}/>)
+            return(<span>-</span>)
+        }
+    }
+
+    const renderMarketCap = (token:any) => {
+        if(token.marketCap > -1) {
+            return (<span>{'M$ ' + (token.marketCap / 10**6).toFixed(2)}</span>)
+        } else {
+            // return (<AvadaSpinner spinnerSize={40} style={{alignItems:'center', justifyContent: 'center'}}/>)
+            return(<span>-</span>)
         }
     }
 
@@ -125,7 +142,7 @@ function TokenList(props: any) {
                         <Td><img style={{width:64, height:64}} src={token.logoUrl}/></Td>
                         <Td>{token.symbol}</Td>
                         <Td>{renderTokenPrice(token)}</Td>
-                        <Td>{token.marketCap && <span>{'M$ ' + (token.marketCap / 10**6).toFixed(2)}</span>}</Td>
+                        <Td>{renderMarketCap(token)}</Td>
                     </Tr>)
                 })}
             </Tbody>

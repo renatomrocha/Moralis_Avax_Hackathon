@@ -1,35 +1,31 @@
 import * as d3 from "d3";
-import {useEffect} from "react";
-
-
-
-const data = [{year: 1880, Amanda: 241,Ashley:1000,Betty:117,Deborah:12,Dorothy:112,Helen:636,Linda:27,Patricia:0},
-        {year: 1881, Amanda: 500,Ashley:10000,Betty:117,Deborah:12,Dorothy:112,Helen:636,Linda:27,Patricia:0},
-        {year: 1882, Amanda: 2000,Ashley:4500,Betty:117,Deborah:12,Dorothy:112,Helen:636,Linda:27,Patricia:0},
-        {year: 1883, Amanda: 6000,Ashley:2000,Betty:117,Deborah:12,Dorothy:112,Helen:636,Linda:27,Patricia:0},
-        {year: 1884, Amanda: 4000,Ashley:3000,Betty:117,Deborah:12,Dorothy:112,Helen:636,Linda:27,Patricia:0},
-        {year: 1885, Amanda: 8000,Ashley:0,Betty:117,Deborah:12,Dorothy:112,Helen:636,Linda:27,Patricia:0},
-        {year: 1886, Amanda: 241,Ashley:0,Betty:117,Deborah:12,Dorothy:112,Helen:636,Linda:27,Patricia:0},
-    {year: 1887, Amanda: 8000,Ashley:0,Betty:117,Deborah:12,Dorothy:112,Helen:636,Linda:27,Patricia:0},
-    {year: 1888, Amanda: 6000,Ashley:0,Betty:6117,Deborah:12,Dorothy:112,Helen:636,Linda:27,Patricia:0},
-
-    ]
+import {useEffect, useState} from "react";
 
 
 
 
 
-export default function SteamGraph() {
+
+
+
+export default function SteamGraph(props) {
+
+    const [data, setData] = useState([]);
+
+    useEffect(()=> {
+        setData(props.data);
+    },[])
 
     useEffect(()=>{
+        console.log("Data is: ", data)
         buildChart();
-    }, [])
+    }, [data])
 
 
     const buildChart=()=>{
         var margin = {top: 20, right: 30, bottom: 0, left: 10},
-        width = 460 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+        width = 800 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
     var svg = d3.select("#steam_graph")
@@ -53,7 +49,7 @@ export default function SteamGraph() {
         .range([ 0, width ]);
     svg.append("g")
         .attr("transform", "translate(0," + height*0.8 + ")")
-        .call(d3.axisBottom(x).tickSize(-height*.7).tickValues([1900, 1925, 1975, 2000]))
+        .call(d3.axisBottom(x).tickSize(-height*.7).tickValues([1890, 1900, 1910, 1920]))
         .select(".domain").remove()
     // Customization
     svg.selectAll(".tick line").attr("stroke", "#b8b8b8")
@@ -67,7 +63,7 @@ export default function SteamGraph() {
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([-100000, 100000])
+        .domain([-10000, 10000])
         .range([ height, 0 ]);
 
     // color palette
@@ -128,6 +124,6 @@ export default function SteamGraph() {
 
 }
 
-    return (<div id="steam_graph"></div>)
+    return (<>{data.length > 0 && (<div id="steam_graph"></div>)}</>)
 
 }
