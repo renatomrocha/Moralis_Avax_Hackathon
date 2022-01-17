@@ -164,9 +164,7 @@ const BasicChart = (props: any) => {
 
         const xScale: any = d3.scaleTime()
             // @ts-ignore
-            .domain(d3.extent(data, function(d : any) {
-                return new Date(d.date);
-            })) // x ticks
+            .domain([0,data.length -1]) // x ticks
             .range([0, width]) // x width
         // const xType = d3.scaleUtc;
         // const xDomain = [dates[0], dates[dates.length -1]];
