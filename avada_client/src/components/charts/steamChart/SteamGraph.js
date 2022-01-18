@@ -3,11 +3,6 @@ import {useEffect, useState} from "react";
 
 
 
-
-
-
-
-
 export default function SteamGraph(props) {
 
     const [data, setData] = useState([]);

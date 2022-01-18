@@ -21,7 +21,7 @@ export function MultipleTokens(props:any) {
         fetchTokensForHeatMap(intervalStep, interval)
             .then((tp)=>{
                 console.log("Received ", tp.length, " data points");
-                setTokenPrices(tp)
+                setTokenPrices(tp.filter((t)=>t.symbol!="SUSHI.e"))
                 setIsLoading(false);
                 getTokenList()
                     .then(tl => setTokenList(tl))

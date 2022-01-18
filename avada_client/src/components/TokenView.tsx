@@ -50,6 +50,7 @@ const CHART_TYPES = [{ value: CHART_TYPES_ENUM.LINE, label: 'Line Chart' },
 function TokenView(props:any)  {
 
     const [intervalUnit, setIntervalUnit] = useState(INTERVALS[0].value);
+    const [radioOptions, setRadioOptions] = useState(INTERVALS);
 
     const getIntervalStep = () => {
         switch (intervalUnit) {
@@ -151,7 +152,7 @@ function TokenView(props:any)  {
                 if(tokenPrices.length==0) {
                     setNoDataAvailable(true);
                 }
-                setDates([...h.map(h=>h.date)]);
+                setDates([...h.map(h=>h.timestamp)]);
                 setIsLoading(false);
             })
     }
@@ -162,19 +163,20 @@ function TokenView(props:any)  {
         setEndDate(dateFromTimeStamp(date[1]))
     }
 
-    const onChangeDate = async (date:any) => {
+    const onChangeDate = (date:any) => {
         setInitialOffset(date[0]);
         setEndOffset(date[1]);
-        await fetchLineChartData(date);
+
+        fetchLineChartData(date);
     }
 
 
     const chartSelectionHandler = (e: any) => {
         console.log("Triggered with vale: ", e);
         if(chartType === CHART_TYPES_ENUM.CANDLESTICK) {
-            console.log("Will fetch candle chart type");
+            setRadioOptions(INTERVALS);
         } else {
-            console.log("Will fetch regular chart")
+            setRadioOptions(radioOptions.filter((ro)=>ro.value!='Token15Min'))
         }
         setChartType(e);
     }
@@ -213,7 +215,7 @@ function TokenView(props:any)  {
                 <HStack  spacing={'24px'}>
                     <RadioGroup onChange={(e)=>onChangeInterval(e)} value={intervalUnit}>
                         <Stack direction='row'>
-                            {INTERVALS.map(i=>{
+                            {radioOptions.map(i=>{
                                 return (<Radio value={i.value}>{i.label}</Radio>)
                             })}
 
