@@ -147,43 +147,25 @@ export const getTokenLogoUrlForAddress = async (address: string) : Promise<any> 
 
 
 
-export const fetchTokensForHeatMap = async (intervalStep : any, interval : any) => {
+export const fetchTokensForHeatMap = async (intervalStep : any, since?: any, upTo?: any, filterTokens:any[] = []) => {
 
-    const tokens = await getTokenList();
+    let tokens = await getTokenList();
+    if(filterTokens.length > 0) {
+        tokens = tokens.filter((t:any)=>filterTokens.includes(t.symbol));
+    }
     const tokenPricesForHeat : any[] = [];
     await Promise.all(tokens.map(async (t) => {
-        const prices = await getTokenPriceHistoryDB(t.address, intervalStep, interval)
-        console.log("Prices: ", prices);
+        const prices = await getTokenPriceHistoryDB(t.address, intervalStep, since, upTo)
         const freshRecord: { timestamp: any; symbol: any; price: any; pctChange: any }[] = [];
-        prices.map((p:any)=>{
+        prices.reverse().map((p:any)=>{
             freshRecord.push({"timestamp":p.timestamp,"symbol":p.symbol, "price":p.price, "pctChange": p.pctChange});
         });
         tokenPricesForHeat.push(...freshRecord);
     }))
-    console.log("Got token prices for heat: ", tokenPricesForHeat.length);
     return tokenPricesForHeat;
 
 }
 
-
-
-export const fetchTokensPercentageChangeForHeatMap = async (intervalStep : any, interval : any) => {
-
-    const tokens = await getTokenList();
-    const tokenPricesForHeat : any[] = [];
-    await Promise.all(tokens.map(async (t) => {
-        const prices = await getTokenPriceHistoryDB(t.address, intervalStep, interval)
-        console.log("Prices: ", prices);
-        const freshRecord: { timestamp: any; symbol: any; price: any; pctChange: any }[] = [];
-        prices.map((p:any)=>{
-            freshRecord.push({"timestamp":p.timestamp,"symbol":p.symbol, "price":p.price, "pctChange": p.pctChange});
-        });
-        tokenPricesForHeat.push(...freshRecord);
-    }))
-    console.log("Got token prices for heat: ", tokenPricesForHeat.length);
-    return tokenPricesForHeat;
-
-}
 
 
 

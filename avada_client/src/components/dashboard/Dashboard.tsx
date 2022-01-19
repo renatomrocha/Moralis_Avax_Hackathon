@@ -25,7 +25,7 @@ export function Dashboard(props:any) {
                 <MiniChartContainer address="0x50b7545627a5162f82a992c33b87adc75187b218"   width={300} height={150}/>
                 <MiniChartContainer address="0x49d5c2bdffac6ce2bfdb6640f4f80f226bc10bab"   width={300} height={150}/>
                 <MiniChartContainer address="0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7"  width={300} height={150}/>
-                <MiniChartContainer address="0x57319d41f71e81f3c65f2a47ca4e001ebafd4f33"  width={300} height={150}/>
+                <MiniChartContainer address="0x6e84a6216ea6dacc71ee8e6b0a5b7322eebc0fdd"  width={300} height={150}/>
         </HStack>
 
         <HStack style={{marginTop:50}}>

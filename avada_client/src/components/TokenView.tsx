@@ -242,8 +242,8 @@ function TokenView(props:any)  {
 
                 <RangeSlider onChange={(e)=> onDateDrag(e)}
                              onChangeEnd={(e)=>onChangeDate(e)}
-                             defaultValue={[initialOffset, 1642118400]}
-                             min={1629504000} max={1642118400}
+                             defaultValue={[initialOffset, Math.round(Date.now() / 1000)]}
+                             min={1629504000} max={Math.round(Date.now() / 1000)}
                              step={intervalStep} minStepsBetweenThumbs={10}
 
                 >

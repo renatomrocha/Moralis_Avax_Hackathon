@@ -48,7 +48,6 @@ const BasicChart = (props: any) => {
 
         const line = select('#line');
 
-
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
@@ -94,11 +93,6 @@ const BasicChart = (props: any) => {
             .datum(data)
             .transition(t)
             .attr('d', lineGenerator);
-
-
-
-
-
     }
 
 

@@ -14,13 +14,31 @@ export function HeatMap(props) {
 
     const [width, setWidth] = useState(0);
     const [height, setHeight] = useState(0);
+    const [svg, setSvg] = useState();
+
+    // useEffect(()=>{
+    //     buildHeatMap();
+    // },[])
+
+
+    useEffect(()=>{
+        console.log("Updating with data points: ", data.length);
+
+        if(d3.selectAll("svg")) {
+            d3.selectAll("svg").remove();
+            d3.selectAll(".tooltip").remove();
+        }
+
+        const s = buildHeatMap();
+        setSvg(s);
+
+    },[data])
 
 
     const buildHeatMap = () => {
-        const margin = {top: 80, right: 25, bottom: 30, left: 40},
-            width = 1200 - margin.left - margin.right,
-            height = 800 - margin.top - margin.bottom;
-
+        const margin = {top: 20, right: 25, bottom: 20, left: 40},
+            width = 1000 - margin.left - margin.right,
+            height = 700 - margin.top - margin.bottom;
 
         const svg = d3.select("#my_dataviz")
             .append("svg")
@@ -41,17 +59,13 @@ export function HeatMap(props) {
             .range([ 0, width ])
             .domain(myGroups)
             .padding(0.05);
-        // svg.append("g")
-        //     .style("font-size", 15)
-        //     .attr("transform", `translate(0, ${height})`)
-        //     .call(d3.axisBottom(x).tickValues(myGroups[0], myGroups[myGroups.length -1 ]).tickSize(0))
-        //     .select(".domain").remove()
 
         // Build Y scales and axis:
         const y = d3.scaleBand()
             .range([ height, 0 ])
             .domain(myVars)
             .padding(0.05);
+
         svg.append("g")
             .style("font-size", 15)
             .call(d3.axisLeft(y).tickSize(0))
@@ -61,17 +75,6 @@ export function HeatMap(props) {
         const pctgColor = d3.scaleSequential()
             .interpolator(d3.interpolate(ColorPalette.red,ColorPalette.green))
             .domain([-0.1,0.1])
-
-        const btcColor = d3.scaleSequential()
-            .interpolator(d3.interpolateInferno)
-            .domain([1,100000])
-
-
-        const ethColor = d3.scaleSequential()
-            .interpolator(d3.interpolateInferno)
-            .domain([1,10000])
-
-
 
         // create a tooltip
         const tooltip = d3.select("#my_dataviz")
@@ -130,61 +133,9 @@ export function HeatMap(props) {
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave)
 
-    }
-
-
-
-    const updateChart = () => {
-        // const t = transition().duration(1000);
-        //
-        // const chart = select('#my_dataviz');
-        //
-        // const xScale = d3.scaleLinear()
-        //     .domain([0, data.length]) // x ticks
-        //     .range([0, width]) // x width
-        //
-        // const yMin = Math.round(data.reduce((a,b) => Math.min(a,b)));
-        // const yMax = Math.ceil(data.reduce((a,b)=> Math.max(a,b)));
-        // const yScale = d3.scaleLinear()
-        //     .domain([yMin, yMax])
-        //     .range([height, 0])
-        //
-        // const lineGenerator = d3.line()
-        //     .x((d, i)=> xScale(i))
-        //     .y(yScale)
-        //     .curve(d3.curveLinear)
-        //
-        // chart
-        //     .datum(data)
-        //     .transition(t)
-        //     .attr('d', lineGenerator);
-
-
-        // d3.selectAll("g > *").remove()
-
-        buildHeatMap();
-
+        return svg;
 
     }
-
-
-    //
-    useEffect(()=>{
-
-        buildHeatMap();
-
-
-    },[])
-
-
-
-
-
-
-    // useEffect(()=>updateChart(),[data])
-
-
-
 
 
 
