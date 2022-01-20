@@ -66,7 +66,7 @@ function App() {
                       <Route path="/multiTokens" element={<MultipleTokens />} />
                       <Route path="/token/:address" element={<TokenView/>} />
 
-                      <Route path="/pools" element={<Pools />} />
+                      <Route path="/pools" element={<PoolView />} />
                       <Route path="/pool/:token0/:token1"  element={<PoolView/>} />
                     <Route path="/statistics"  element={<CandleStickTemplate />} />
 

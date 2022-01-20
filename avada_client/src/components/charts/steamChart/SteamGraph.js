@@ -8,16 +8,20 @@ export default function SteamGraph(props) {
     const [data, setData] = useState([]);
 
     useEffect(()=> {
+        console.log("Initialized!!");
+        console.log("Received data: ", props.data);
         setData(props.data);
+        buildChart(props.data);
+
     },[])
 
-    useEffect(()=>{
-        console.log("Data is: ", data)
-        buildChart();
-    }, [data])
+    // useEffect(()=>{
+    //     setData(props.data);
+    //     buildChart(data);
+    // }, [data])
 
 
-    const buildChart=()=>{
+    const buildChart=(chartData)=>{
         var margin = {top: 20, right: 30, bottom: 0, left: 10},
         width = 800 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
@@ -33,18 +37,19 @@ export default function SteamGraph(props) {
 
 // Parse the Data
 
-    console.log("Data is: ", data);
-
+    console.log("Data is: ", chartData);
+    // ,"tvl0","tvl1",
     // List of groups = header of the csv files
-    var keys = ["year","Amanda","Ashley","Betty","Deborah","Dorothy","Helen","Linda","Patricia"];
+    var keys = ["timestamp","tvl0","tvl1"];
 
     // Add X axis
     var x = d3.scaleLinear()
-        .domain(d3.extent(data, function(d) { return d.year; }))
+        .domain(d3.extent(chartData, function(d) { return d.timestamp; }))
         .range([ 0, width ]);
+
     svg.append("g")
         .attr("transform", "translate(0," + height*0.8 + ")")
-        .call(d3.axisBottom(x).tickSize(-height*.7).tickValues([1890, 1900, 1910, 1920]))
+        .call(d3.axisBottom(x).tickSize(-height*.7).tickValues([chartData[0].timestamp, chartData[chartData.length -1 ].timestamp]))
         .select(".domain").remove()
     // Customization
     svg.selectAll(".tick line").attr("stroke", "#b8b8b8")
@@ -58,7 +63,7 @@ export default function SteamGraph(props) {
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([-10000, 10000])
+        .domain([-10000000000, 1000000000])
         .range([ height, 0 ]);
 
     // color palette
@@ -70,7 +75,7 @@ export default function SteamGraph(props) {
     var stackedData = d3.stack()
         .offset(d3.stackOffsetSilhouette)
         .keys(keys)
-        (data)
+        (chartData)
 
     // create a tooltip
     var Tooltip = svg
@@ -99,7 +104,7 @@ export default function SteamGraph(props) {
 
     // Area generator
     var area = d3.area()
-        .x(function(d) { return x(d.data.year); })
+        .x(function(d) { return x(d.data.timestamp); })
         .y0(function(d) { return y(d[0]); })
         .y1(function(d) { return y(d[1]); })
 
@@ -110,7 +115,7 @@ export default function SteamGraph(props) {
         .enter()
         .append("path")
         .attr("class", "myArea")
-        .style("fill", function(d) { return color(d.key); })
+        .style("fill", function(d) {return color(d.key); })
         .attr("d", area)
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
@@ -119,6 +124,6 @@ export default function SteamGraph(props) {
 
 }
 
-    return (<>{data.length > 0 && (<div id="steam_graph"></div>)}</>)
+    return (<><div id="steam_graph"/></>)
 
 }
