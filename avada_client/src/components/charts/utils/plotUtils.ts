@@ -9,12 +9,12 @@ export const addGrid = (svg: any, xScale : any, yScale : any, height : any, widt
     const yAxisGrid : any = axisLeft(yScale).tickSize(-width).tickFormat(tickFormat).ticks(10);
     svg.append('g')
         .attr('class', 'x axis-grid')
-        .attr('color', ColorPalette.secondaryColor)
+        .attr('color', ColorPalette.highlight)
         .attr('transform', 'translate(0,' + height + ')')
         .call(xAxisGrid);
     svg.append('g')
         .attr('class', 'y axis-grid')
-        .attr('color', ColorPalette.secondaryColor)
+        .attr('color', ColorPalette.highlight)
         .call(yAxisGrid);
 }
 
@@ -26,12 +26,12 @@ export const updateGrid = (svg: any, xScale : any, yScale : any, height : any, w
     const yAxisGrid : any = axisLeft(yScale).tickSize(-width).tickFormat(tickFormat).ticks(10);
     svg.selectAll('g.y.axis-grid')
         .attr('class', 'y axis-grid')
-        .attr('color', ColorPalette.secondaryColor)
+        .attr('color', ColorPalette.highlight)
         .call(xAxisGrid)
 
     svg.selectAll('g.y.axis-grid')
         .attr('class', 'y axis-grid')
-        .attr('color', ColorPalette.secondaryColor)
+        .attr('color', ColorPalette.highlight)
         .call(yAxisGrid);
 }
 

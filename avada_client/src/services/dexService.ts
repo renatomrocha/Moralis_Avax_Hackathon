@@ -69,7 +69,7 @@ export const getInfoForPoolsForPair = async (address?: any, date?: any) => {
     const results = await query.find();
     const poolInfo = results.map((r:any)=>{
         return {dexName: r.get("dexName"), symbol0: r.get("symbol0"), symbol1: r.get("symbol1"),
-            reserve0: r.get("reserve0"), reserve1: r.get("reserve1"), tvl0: r.get("tvl0"), tvl1: r.get("tvl1"), timestamp: r.get("timeStamp")}
+            reserve0: Math.round(r.get("reserve0")), reserve1: Math.round(r.get("reserve1")), tvl0: Math.round(r.get("tvl0")), tvl1: Math.round(r.get("tvl1")), timestamp: r.get("timeStamp")}
     })
 
     return poolInfo;

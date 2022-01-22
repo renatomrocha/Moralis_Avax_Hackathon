@@ -19,7 +19,7 @@ function Pools()  {
 
     return (
         <div>
-            <Title title="Pools"/>
+            <Title title="Pools" hasInfo/>
             {poolList.length>0 &&
             <PoolList poolList={poolList}/>
             }

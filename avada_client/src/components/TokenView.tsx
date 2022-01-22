@@ -15,7 +15,7 @@ import {
     RangeSlider, RangeSliderFilledTrack, RangeSliderThumb,
     RangeSliderTrack,
     Select,
-    Stack
+    Stack, VStack
 } from "@chakra-ui/react";
 
 import BasicChart from "./charts/BasicChart";
@@ -28,6 +28,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import {ColorPalette} from "./styles/color_palette";
 import {dateFromTimeStamp} from "../utils/dateUtils";
 import {get24HourPercentageChange} from "../services/dashboardService";
+import {FaFontAwesome} from "react-icons/all";
+import {faFileExport, faFileDownload} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import ExportIcon from "./genericComponents/ExportIcon";
 
 enum CHART_TYPES_ENUM {
     LINE,
@@ -198,11 +202,10 @@ function TokenView(props:any)  {
             </div>)}
 
 
-
             {isLoading && <div style={{alignItems:'center', justifyItems:"center"}}><AvadaSpinner style={{width:'100%', height: "100%", marginTop:100, marginLeft:500}} message={`Loading price history`}/></div>}
 
-            {(!isLoading && tokenPrices.length) && <div style={{margin:50}}>
 
+            {(!isLoading && tokenPrices.length) && <div style={{margin:50}}>
                     {displayChart()}
 
 
@@ -222,6 +225,7 @@ function TokenView(props:any)  {
                         </Stack>
                     </RadioGroup>
                     <MultipleSelection title={"Chart Type"} selectionHandler={chartSelectionHandler} style={{buttonColor:ColorPalette.thirdColor}} buttons={[{value:CHART_TYPES_ENUM.LINE, label:'Line chart'},{value:CHART_TYPES_ENUM.CANDLESTICK, label:'Candle chart'}]}/>
+                    <ExportIcon/>
                 </HStack>
 
                 <div style={{borderWidth:1, borderStyle:'solid', borderRadius: 20, padding:20}}>

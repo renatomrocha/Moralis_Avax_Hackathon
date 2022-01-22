@@ -77,7 +77,7 @@ function Tokens(props:any)  {
 
     return (
         <div style={{...props.style}}>
-            <Title title="Tokens"/>
+            <Title title="Tokens" hasInfo/>
             {tokenList.length>0 &&
                 <TokenList tokenList={tokenList} sort={sortTokens}/>}
         </div>

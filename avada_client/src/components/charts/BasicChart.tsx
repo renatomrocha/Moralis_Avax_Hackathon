@@ -51,7 +51,7 @@ const BasicChart = (props: any) => {
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
-            .style('background', 'white')
+            .style('background', ColorPalette.backgroundColor)
             .style('margin-left', '50')
             .style('overflow', 'visible');
 
@@ -116,7 +116,7 @@ const BasicChart = (props: any) => {
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
-            .style('background', 'white')
+            .style('background', ColorPalette.backgroundColor)
             .style('margin-left', '50')
             .style('overflow', 'visible');
 
@@ -146,7 +146,7 @@ const BasicChart = (props: any) => {
 
         addGrid(svg,xScale,yScale,height,width);
 
-        const dataOptions = {strokeColor: ColorPalette.highlight}
+        const dataOptions = {strokeColor: ColorPalette.secondaryColor}
         setupData(svg, data,line, dataOptions);
         return line;
     }
@@ -173,7 +173,7 @@ const BasicChart = (props: any) => {
                             Dollars: ${dollarAt(mouseCoords.y, chart_dims)}
                         </tspan>
                     </text>
-                    <CrossHairs style={{stroke:ColorPalette.red,strokeWidth:2}} x={mouseCoords.x} y={mouseCoords.y} chart_dims={{pixel_width: width, pixel_height: height}} />
+                    <CrossHairs style={{stroke:"#892CDC",strokeWidth:2}} x={mouseCoords.x} y={mouseCoords.y} chart_dims={{pixel_width: width, pixel_height: height}} />
                 </svg>
 
             </div>

@@ -109,7 +109,7 @@ export function MultipleTokens(props:any) {
         <div>
 
             <div style={{...props.style}}>
-                <Title title="Multiple Token analysis"></Title>
+                <Title title="Multiple Token" hasInfo></Title>
 
                 <Tabs variant='enclosed'>
                     <TabList>

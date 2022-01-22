@@ -15,11 +15,6 @@ export default function SteamGraph(props) {
 
     },[])
 
-    // useEffect(()=>{
-    //     setData(props.data);
-    //     buildChart(data);
-    // }, [data])
-
 
     const buildChart=(chartData)=>{
         var margin = {top: 20, right: 30, bottom: 0, left: 10},
@@ -40,7 +35,7 @@ export default function SteamGraph(props) {
     console.log("Data is: ", chartData);
     // ,"tvl0","tvl1",
     // List of groups = header of the csv files
-    var keys = ["timestamp","tvl0","tvl1"];
+    var keys = ["tvl0"];
 
     // Add X axis
     var x = d3.scaleLinear()
@@ -63,8 +58,13 @@ export default function SteamGraph(props) {
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([-10000000000, 1000000000])
+        .domain([-1000000, 1000000])
         .range([ height, 0 ]);
+
+    svg.append("g")
+        .attr("transform", "translate(0," + width*0.8 + ")")
+        .call(d3.axisRight(y).tickSize(-width*.7).tickValues([chartData[0].reserve0, chartData[chartData.length -1 ].reserve0]))
+        .select(".domain").remove()
 
     // color palette
     var color = d3.scaleOrdinal()
@@ -110,7 +110,7 @@ export default function SteamGraph(props) {
 
     // Show the areas
     svg
-        .selectAll("mylayers")
+        .selectAll("steam_graph")
         .data(stackedData)
         .enter()
         .append("path")

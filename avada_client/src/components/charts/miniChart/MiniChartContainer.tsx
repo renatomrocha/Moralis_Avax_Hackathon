@@ -26,11 +26,11 @@ export default function     MiniChartContainer ({address, width, height}:any) {
 
     useEffect(()=>{
         setIsLoading(true);
-        get24HourPercentageChange(address)
-            .then((pct)=> {
-                setPctChange(pct)
-                setPlotColor(pct>0?ColorPalette.green:ColorPalette.red)
-            });
+        // get24HourPercentageChange(address)
+        //     .then((pct)=> {
+        //         setPctChange(pct)
+        //         setPlotColor(pct>0?ColorPalette.green:ColorPalette.red)
+        //     });
 
 
         getTokenByAddress(address)
@@ -43,6 +43,19 @@ export default function     MiniChartContainer ({address, width, height}:any) {
             })
 
     },[])
+
+
+    useEffect(()=>{
+        if(data) {
+            console.log("Date is: ", data);
+            console.log("First value: ", data[0]);
+            console.log("Second value: ", data[data.length-1]);
+            setPctChange((( data[data.length -1].price - data[0].price) / data[0].price))
+            console.log("Pctgchange is: ", pctChange);
+            setPlotColor(pctChange>0?ColorPalette.green:ColorPalette.red)
+        }
+    },[data])
+
 
     const getPercentage = () => {
 

@@ -24,6 +24,7 @@ import {
 } from "@chakra-ui/react";
 import {MultipleTokens} from "./components/MultipleTokens";
 import PoolView from "./components/PoolView";
+import {ColorPalette} from "./components/styles/color_palette";
 
 
 
@@ -47,9 +48,9 @@ function App() {
   // const [dexList, setDexList] = useState<any[]>([]);
 
   return (
-    <Flex>
+    <Flex style={{backgroundColor:ColorPalette.backgroundColor, height:'100vh', fontStyle:'nunito'}}>
 
-        <BrowserRouter >
+        <BrowserRouter  >
 
           <Grid h="95vh" w='99vw' templateColumns='repeat(10, 1fr)'>
 

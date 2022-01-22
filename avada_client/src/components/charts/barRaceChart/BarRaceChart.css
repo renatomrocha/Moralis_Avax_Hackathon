@@ -1,11 +1,12 @@
-.barRaceChart {
-    width: 60%;
-    /*margin: 12% auto;*/
-}
+/*.barRaceChart {*/
+/*    width: 90%;*/
+/*    height:100%*/
+/*    !*margin: 12% auto;*!*/
+/*}*/
 
 #iframeId {
-    width:100%;
-    height:400px;
+    width:90%;
+    height:700px;
 }
 
 /*#divId {*/
