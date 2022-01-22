@@ -74,6 +74,8 @@ const PoolView = (props:any) => {
             getInfoForPoolsForPair(activePool.pairAddress)
                 .then((d)=>{
                     console.log("Recieved: ", d);
+                    const newArr = [];
+
                     setData(()=>[...d]);
                     console.log("Data now is: ", data);
                 })

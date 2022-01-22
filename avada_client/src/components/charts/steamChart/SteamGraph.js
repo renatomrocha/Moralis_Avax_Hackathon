@@ -10,10 +10,14 @@ export default function SteamGraph(props) {
     useEffect(()=> {
         console.log("Initialized!!");
         console.log("Received data: ", props.data);
+        if(d3.selectAll("svg")) {
+            d3.selectAll("svg").remove();
+            d3.selectAll(".tooltip").remove();
+        }
         setData(props.data);
         buildChart(props.data);
 
-    },[])
+    },[props.data])
 
 
     const buildChart=(chartData)=>{
@@ -93,6 +97,7 @@ export default function SteamGraph(props) {
             .style("stroke", "black")
             .style("opacity", 1)
     }
+
     var mousemove = function(d,i) {
         let grp = keys[i]
         Tooltip.text(grp)
