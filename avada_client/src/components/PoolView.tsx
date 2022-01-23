@@ -6,45 +6,23 @@ import Title from "./genericComponents/Title";
 import SteamGraph2 from "./charts/steamChart/SteamGraph2";
 import SteamGraph3 from "./charts/steamChart/SteamGraph3";
 
-const alternative_data = [{timestamp: 1880, tvl0: 241,tvl1:1000, reserve0: 10000000},
-    {timestamp: 1881, tvl0: 500,tvl1:10000},
-    {timestamp: 1882, tvl0: 2000,tvl1:4500},
-    {timestamp: 1883, tvl0: 6000,tvl1:2000},
-    {timestamp: 1884, tvl0: 4000,tvl1:3000},
-    {timestamp: 1885, tvl0: 8000,tvl1:0},
-    {timestamp: 1886, tvl0: 241,tvl1:0},
-    {timestamp: 1887, tvl0: 8000,tvl1:0},
-    {timestamp: 1888, tvl0: 6000,tvl1:0},
-    {timestamp: 1889, tvl0: 241,tvl1:1000},
-    {timestamp: 1890, tvl0: 500,tvl1:10000},
-    {timestamp: 1891, tvl0: 2000,tvl1:4500},
-    {timestamp: 1892, tvl0: 6000,tvl1:2000},
-    {timestamp: 1893, tvl0: 4000,tvl1:3000},
-    {timestamp: 1894, tvl0: 8000,tvl1:0},
-    {timestamp: 1895, tvl0: 241,tvl1:0},
-    {timestamp: 1896, tvl0: 8000,tvl1:0},
-    {timestamp: 1897, tvl0: 6000,tvl1:0},
-    {timestamp: 1898, tvl0: 241,tvl1:1000},
-    {timestamp: 1899, tvl0: 500,tvl1:10000},
-    {timestamp: 1900, tvl0: 2000,tvl1:4500},
-    {timestamp: 1901, tvl0: 6000,tvl1:2000},
-    {timestamp: 1902, tvl0: 4000,tvl1:3000},
-    {timestamp: 1903, tvl0: 8000,tvl1:0},
-    {timestamp: 1904, tvl0: 241,tvl1:0},
-    {timestamp: 1905, tvl0: 8000,tvl1:0},
-    {timestamp: 1906, tvl0: 6000,tvl1:0},
-    {timestamp: 1907, tvl0: 8000,tvl1:0},
-    {timestamp: 1908, tvl0: 500,tvl1:10000},
-    {timestamp: 1909, tvl0: 8000,tvl1:0},
-    {timestamp: 1910, tvl0: 6000,tvl1:0},
-    {timestamp: 1911, tvl0: 6000,tvl1:0},
-    {timestamp: 1912, tvl0: 8000,tvl1:0},
-
-
-]
-
-
-
+const addressesToInclude = ["0x8fb5bd3ac8efd05dacae82f512dd03e14aadab73","0x72c3438cf1c915ecf5d9f17a6ed346b273d5bf71","0x3daf1c6268362214ebb064647555438c6f365f96","0x454e67025631c065d3cfad6d71e6892f74487a15"
+    ,"0xfe15c2695f1f920da45c30aae47d11de51007af9","0x1643de2efb8e35374d796297a9f95f64c082a8ce","0x87dee1cc9ffd464b79e058ba20387c1984aed86a","0xa6908c7e3be8f4cd2eb704b5cb73583ebf56ee62"
+    ,"0x6f3a0c89f611ef5dc9d96650324ac633d02265d3","0xd5a37dc5c9a396a03dd1136fc76a1a02b1c88ffa","0xb5c9e891af3063004a441ba4fab4ca3d6deb5626","0xed8cbd9f0ce3c6986b22002f03c6475ceb7a6256",
+    "0x2774516897ac629ad3ed9dcac7e375dda78412b9","0x67926d973cd8ee876ad210faaf7dffa99e414acf","0x63abe32d0ee76c05a11838722a63e012008416e6","0xa389f9430876455c36478deea9769b7ca4e3ddb1",
+    "0x781655d802670bba3c89aebaaea59d3182fd755d","0x2e02539203256c83c7a9f6fa6f8608a32a2b1ca2","0xf64e1c5b6e17031f5504481ac8145f4c3eab4917","0xb9f425bc9af072a91c423e31e9eb7e04f226b39d",
+    "0x62475f52add016a06b398aa3b2c2f2e540d36859","0x140cac5f0e05cbec857e65353839fddd0d8482c1","0xc2ea99c031b05ae03044c857c78afb5671dee96b","0xc3e6d9f7a3a5e3e223356383c7c055ee3f26a34f",
+    "0x113f413371fc4cc4c9d6416cf1de9dfd7bf747df","0x361221991b3b6282ff3a62bc874d018bfaf1f8c8","0x199fb78019a08af2cb6a078409d0c8233eba8a0c","0x7b7617c7b2236d7871741783cae8bcc222c2e05d",
+    "0xbe4b31fce1885fcd0e3351aa8b392fbcc4ef6036","0x50141c21e4e861d4b2cbeb825b9a2b5e5e09a186"]
+//
+//
+// const findIndexByTimestamp = (element:any) => {
+//     if (element['timestamp'] === this.timestamp) {
+//         return 1;
+//     }
+//     return -1;
+// }
+//
 
 
 
@@ -52,45 +30,119 @@ const PoolView = (props:any) => {
 
     const [data, setData] = useState<any>([]);
     const [poolList, setPoolList] = useState<any[]>([]);
-    const [activePool,setActivePool] = useState<any>(null);
+    const [activePools,setActivePools] = useState<any>([]);
     const [graphReady, setGraphReady] = useState<boolean>(false);
+    const [keys, setKeys] = useState<string[]>([]);
+    const [lastRequestLength, setLastRequestLength] = useState<any>(0);
 
     useEffect(()=> {
 
         getPoolList()
             .then((pools)=>{
                 console.log("Pools: ", pools);
-                setPoolList(pools)
+                setPoolList(pools.filter(r=>addressesToInclude.includes(r.pairAddress)))
             });
     }, [])
 
     const handleCheckBoxChange = (e:any,idx:number) => {
-        console.log("CheckBoxChanged");
-        setActivePool(poolList[idx]);
+        console.log("CheckBoxChanged to: ", e.target.checked);
+        console.log("With value: ", e.target.value);
+
+        if(e.target.checked) {
+            // Add new token to active pool list
+            setActivePools([...activePools, poolList[idx]]);
+        } else {
+            // Remove using value...
+            setActivePools(activePools.filter((ap:any)=>ap.pairAddress != e.target.value));
+        }
+
+        //Chec
+
     }
 
     useEffect(()=>{
-        if(activePool){
-            getInfoForPoolsForPair(activePool.pairAddress)
-                .then((d)=>{
-                    console.log("Recieved: ", d);
-                    const newArr = [];
+        console.log("Current list is: ", activePools);
+        console.log("Last request length: ", lastRequestLength);
 
-                    setData(()=>[...d]);
-                    console.log("Data now is: ", data);
-                })
+        if(activePools.length > 0){
+
+            if(activePools.length > lastRequestLength) {
+                console.log("---------------> Will add a new pair");
+                getInfoForPoolsForPair(activePools[activePools.length -1].pairAddress)
+                    .then((d)=>{
+                        console.log("Recieved: ", d);
+                        const newArr : any[] = [];
+                        const newKey = 'tvl'+d[0].symbol0+'-'+d[0].symbol1;
+
+                        if(data.length >0) {
+                            d.map((nd:any, idx:number) => {
+                                const obj : any = {};
+                                obj[newKey] = nd.tvl0 + nd.tvl1;
+                                Object.assign(data[idx],{...obj})
+                                // newArr.push(obj);
+                            })
+                            setData(()=>[...data]);
+
+                        } else {
+                            d.map((nd:any, idx:number) => {
+                                const obj : any = {};
+                                obj[newKey] = nd.tvl0 + nd.tvl1;
+                                obj["timestamp"] = nd.timestamp;
+                                newArr.push(obj);
+                            })
+                            setData(()=>[...newArr]);
+                        }
+                        keys.push(newKey)
+                        setKeys(keys);
+                    })
+            } else {
+                // Remove from current array
+                console.log("---------------> Will remove a pair");
+                const addressArray = activePools.map((ap:any)=>ap.pairAddress);
+                console.log("Address array is: ", addressArray);
+                const keys = Object.keys(data[0]).filter(k=>k!="timestamp");
+                console.log("Keys is: ", keys);
+                const addressToRemove = keys.filter((a:any)=>!addressArray.includes(a))[0];
+                console.log("Address to remove: ", addressToRemove);
+
+
+                const newArr = data.map((d:any)=>{
+                    delete d[addressToRemove];
+                    return d;
+                });
+                console.log("New data arr: ", data);
+                const keyIndex = keys.indexOf(addressToRemove);
+                const newKeys = keys.splice(keyIndex,1)
+                setKeys(newKeys);
+                setData(newArr)
+            }
+
         }
-    },[activePool])
+        setLastRequestLength(activePools.length);
 
+    },[activePools])
+
+
+    useEffect(()=>{
+        console.log("Keys changed to: ", keys);
+    },[keys])
 
 
 
     return (<div>
         <Title title="Pools" hasInfo></Title>
+        <div style={{width:'95%', height:500, borderWidth:1, borderRadius:20, marginBottom:20}}>
+        {data.length > 0 && <SteamGraph data={data} keys={keys}/>}
+        </div>
 
-        {poolList.map((t:any, idx: number) => <Checkbox style={{margin:5}} defaultChecked={false} onChange={(e)=>handleCheckBoxChange(e, idx)}>{t.token0}/{t.token1}</Checkbox>)}
+        {poolList.map((t:any, idx: number) =>
+            <Checkbox style={{margin:5}} defaultChecked={false} value={t.pairAddress} onChange={(e)=>handleCheckBoxChange(e, idx)}>{t.token0}/{t.token1}</Checkbox>)}
 
-        {data.length > 0 && <SteamGraph data={data}/>}</div>)
+
+
+
+    </div>)
+
 
 }
 

@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("//fonts.googleapis.com/css?family=Maven+Pro");
+/*@import url('https://fonts.googleapis.com/css?family=Nunito');*/
 
 .App {
   text-align: center;
@@ -41,5 +42,5 @@
 
 
 body {
-  font-family: 'Nunito';
+  font-family: 'Maven Pro';
 }

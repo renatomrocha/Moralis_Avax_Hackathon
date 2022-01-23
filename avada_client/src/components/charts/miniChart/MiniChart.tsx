@@ -66,6 +66,7 @@ const MiniChart = ({data, width, height,color}:any) => {
 
 
     useEffect(()=>{
+        console.log("COLOR is: ", color);
 
                 setupLinearGraph();
     },[])

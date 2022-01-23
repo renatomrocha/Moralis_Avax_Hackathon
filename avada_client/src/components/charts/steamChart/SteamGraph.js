@@ -22,7 +22,7 @@ export default function SteamGraph(props) {
 
     const buildChart=(chartData)=>{
         var margin = {top: 20, right: 30, bottom: 0, left: 10},
-        width = 800 - margin.left - margin.right,
+        width = 1300 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
@@ -39,7 +39,8 @@ export default function SteamGraph(props) {
     console.log("Data is: ", chartData);
     // ,"tvl0","tvl1",
     // List of groups = header of the csv files
-    var keys = ["tvl0"];
+    var keys = props.keys;
+    console.log("Updated keys to: ", keys);
 
     // Add X axis
     var x = d3.scaleLinear()
@@ -60,9 +61,11 @@ export default function SteamGraph(props) {
         .attr("y", height-30 )
         .text("Time (year)");
 
+
+
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([-1000000, 1000000])
+        .domain([-10000000, 10000000])
         .range([ height, 0 ]);
 
     svg.append("g")
@@ -89,8 +92,22 @@ export default function SteamGraph(props) {
         .style("opacity", 0)
         .style("font-size", 17)
 
+
+        // const tooltip = d3.select("#steam_graph")
+        //     .append("div")
+        //     .style("opacity", 0)
+        //     .attr("class", "tooltip")
+        //     .style("background-color", "white")
+        //     .style("border", "solid")
+        //     .style("border-width", "2px")
+        //     .style("border-radius", "5px")
+        //     .style("padding", "5px")
+
+
+
     // Three function that change the tooltip when user hover / move / leave a cell
     var mouseover = function(d) {
+        console.log("Mouse over: ", d.target.__data__.key);
         Tooltip.style("opacity", 1)
         d3.selectAll(".myArea").style("opacity", .2)
         d3.select(this)
@@ -99,8 +116,12 @@ export default function SteamGraph(props) {
     }
 
     var mousemove = function(d,i) {
-        let grp = keys[i]
+        let grp = d.target.__data__.key
         Tooltip.text(grp)
+
+
+
+
     }
     var mouseleave = function(d) {
         Tooltip.style("opacity", 0)

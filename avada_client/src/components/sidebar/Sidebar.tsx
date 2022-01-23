@@ -1,6 +1,6 @@
 import {Avatar, Divider, Flex, Grid, GridItem, Heading, HStack, IconButton, Text} from "@chakra-ui/react";
 import {FiMenu} from "react-icons/all";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {NavItem} from "./NavItem";
 import dashboard from '../../images/dashboard.png';
 import tokens from '../../images/tokens.png';
@@ -10,6 +10,8 @@ import charts from '../../images/charts.png';
 import whales from '../../images/whales.png';
 import mempools from '../../images/mempools.png';
 import bridges from '../../images/bridges.png';
+import logo_1 from '../../images/logo_1.png';
+import logo_2 from '../../images/logo_2.png';
 
 import {ColorPalette} from "../styles/color_palette";
 
@@ -59,9 +61,11 @@ export function Sidebar({navSize, setNavSize}:any) {
                 as="nav"
             >
               <HStack spacing='8px' margin={5}>
-                  <Text display={ navSize=='large'?'flex':'none'} fontWeight={'bold'} fontSize='2xl' color={ColorPalette.navFontColor} ml={10} mt={5}>AVALYTICS</Text>
-
-                {/*  <IconButton*/}
+                  {/*<Text display={ navSize=='large'?'flex':'none'} fontWeight={'bold'} fontSize='2xl' color={ColorPalette.navFontColor} ml={10} mt={5}>AVALYTICS</Text>*/}
+                  <div style={{width:220, height:60, paddingTop:20, paddingRight:20}} >
+                    <img src={logo_2}/>
+                  </div>
+                  {/*  <IconButton*/}
                 {/*    aria-label='Search database'*/}
                 {/*    background="none"*/}
                 {/*    color="white"*/}
