@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/Moralis_Avax_Hackathon/static/css/main.aa205d8d.chunk.css",
+    "main.js": "/Moralis_Avax_Hackathon/static/js/main.29664b1e.chunk.js",
+    "main.js.map": "/Moralis_Avax_Hackathon/static/js/main.29664b1e.chunk.js.map",
+    "runtime-main.js": "/Moralis_Avax_Hackathon/static/js/runtime-main.d5dc7de3.js",
+    "runtime-main.js.map": "/Moralis_Avax_Hackathon/static/js/runtime-main.d5dc7de3.js.map",
+    "static/css/2.ecdd39c8.chunk.css": "/Moralis_Avax_Hackathon/static/css/2.ecdd39c8.chunk.css",
+    "static/js/2.e8daba0b.chunk.js": "/Moralis_Avax_Hackathon/static/js/2.e8daba0b.chunk.js",
+    "static/js/2.e8daba0b.chunk.js.map": "/Moralis_Avax_Hackathon/static/js/2.e8daba0b.chunk.js.map",
+    "static/js/3.c145106f.chunk.js": "/Moralis_Avax_Hackathon/static/js/3.c145106f.chunk.js",
+    "static/js/3.c145106f.chunk.js.map": "/Moralis_Avax_Hackathon/static/js/3.c145106f.chunk.js.map",
+    "index.html": "/Moralis_Avax_Hackathon/index.html",
+    "static/css/2.ecdd39c8.chunk.css.map": "/Moralis_Avax_Hackathon/static/css/2.ecdd39c8.chunk.css.map",
+    "static/css/main.aa205d8d.chunk.css.map": "/Moralis_Avax_Hackathon/static/css/main.aa205d8d.chunk.css.map",
+    "static/js/2.e8daba0b.chunk.js.LICENSE.txt": "/Moralis_Avax_Hackathon/static/js/2.e8daba0b.chunk.js.LICENSE.txt",
+    "static/media/bridges.58d7d2cb.png": "/Moralis_Avax_Hackathon/static/media/bridges.58d7d2cb.png",
+    "static/media/charts.4404929f.png": "/Moralis_Avax_Hackathon/static/media/charts.4404929f.png",
+    "static/media/coins.985572b0.png": "/Moralis_Avax_Hackathon/static/media/coins.985572b0.png",
+    "static/media/logo_2.5a72d8ab.png": "/Moralis_Avax_Hackathon/static/media/logo_2.5a72d8ab.png",
+    "static/media/mempools.6a0f1fd6.png": "/Moralis_Avax_Hackathon/static/media/mempools.6a0f1fd6.png",
+    "static/media/pools.ebbbad37.png": "/Moralis_Avax_Hackathon/static/media/pools.ebbbad37.png",
+    "static/media/tokens.01297ec6.png": "/Moralis_Avax_Hackathon/static/media/tokens.01297ec6.png",
+    "static/media/whales.26c92c8d.png": "/Moralis_Avax_Hackathon/static/media/whales.26c92c8d.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d5dc7de3.js",
+    "static/css/2.ecdd39c8.chunk.css",
+    "static/js/2.e8daba0b.chunk.js",
+    "static/css/main.aa205d8d.chunk.css",
+    "static/js/main.29664b1e.chunk.js"
+  ]
+}
