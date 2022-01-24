@@ -65,18 +65,6 @@ export function Sidebar({navSize, setNavSize}:any) {
                   <div style={{width:220, height:60, paddingTop:20, paddingRight:20}} >
                     <img src={logo_2}/>
                   </div>
-                  {/*  <IconButton*/}
-                {/*    aria-label='Search database'*/}
-                {/*    background="none"*/}
-                {/*    color="white"*/}
-                {/*    // mt={5}*/}
-                {/*    _hover={{background:"none"}}*/}
-                {/*    icon={<FiMenu/>}*/}
-                {/*    onClick={()=>{*/}
-                {/*        navSize=='large'?setNavSize('small'):setNavSize('large')*/}
-                {/*    }}*/}
-                {/*/>*/}
-
               </HStack>
 
                 {Menus.map((m:any, idx: number) => {
@@ -86,10 +74,10 @@ export function Sidebar({navSize, setNavSize}:any) {
                                     title={m.title}
                                     route={m.route}
                                     icon={m.icon}
+
                                     status = {m.status}/>)
                 })}
             </Flex>
-
 
             <Flex
                 p="5%"

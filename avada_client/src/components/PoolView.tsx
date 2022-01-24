@@ -53,6 +53,7 @@ const PoolView = (props:any) => {
             setActivePools([...activePools, poolList[idx]]);
         } else {
             // Remove using value...
+            console.log("Filtering: ", e.target.value);
             setActivePools(activePools.filter((ap:any)=>ap.pairAddress != e.target.value));
         }
 
@@ -67,10 +68,8 @@ const PoolView = (props:any) => {
         if(activePools.length > 0){
 
             if(activePools.length > lastRequestLength) {
-                console.log("---------------> Will add a new pair");
                 getInfoForPoolsForPair(activePools[activePools.length -1].pairAddress)
                     .then((d)=>{
-                        console.log("Recieved: ", d);
                         const newArr : any[] = [];
                         const newKey = 'tvl'+d[0].symbol0+'-'+d[0].symbol1;
 
@@ -98,21 +97,19 @@ const PoolView = (props:any) => {
             } else {
                 // Remove from current array
                 console.log("---------------> Will remove a pair");
-                const addressArray = activePools.map((ap:any)=>ap.pairAddress);
+                const addressArray = activePools.map((ap:any)=>`tvl${ap.token0}-${ap.token1}`);
                 console.log("Address array is: ", addressArray);
                 const keys = Object.keys(data[0]).filter(k=>k!="timestamp");
                 console.log("Keys is: ", keys);
                 const addressToRemove = keys.filter((a:any)=>!addressArray.includes(a))[0];
                 console.log("Address to remove: ", addressToRemove);
-
-
                 const newArr = data.map((d:any)=>{
                     delete d[addressToRemove];
                     return d;
                 });
                 console.log("New data arr: ", data);
                 const keyIndex = keys.indexOf(addressToRemove);
-                const newKeys = keys.splice(keyIndex,1)
+                const newKeys = keys.filter((k)=>k!=addressToRemove);
                 setKeys(newKeys);
                 setData(newArr)
             }

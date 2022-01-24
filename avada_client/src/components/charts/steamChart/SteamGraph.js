@@ -7,9 +7,25 @@ export default function SteamGraph(props) {
 
     const [data, setData] = useState([]);
 
+
+    const getMax = (d, keys) => {
+        const maxArray = [];
+
+        keys.forEach((key)=>{
+            const arr = d.map((a)=>a[key]);
+            console.log("MAximu array: ", arr);
+            maxArray.push( Math.max(...arr));
+        })
+        const absMax = Math.max(...maxArray);
+        console.log("Max array is: ", maxArray);
+        return absMax;
+    }
+
+
+
     useEffect(()=> {
-        console.log("Initialized!!");
-        console.log("Received data: ", props.data);
+        // console.log("Initialized!!");
+        // console.log("Received data: ", props.data);
         if(d3.selectAll("svg")) {
             d3.selectAll("svg").remove();
             d3.selectAll(".tooltip").remove();
@@ -36,11 +52,9 @@ export default function SteamGraph(props) {
 
 // Parse the Data
 
-    console.log("Data is: ", chartData);
     // ,"tvl0","tvl1",
     // List of groups = header of the csv files
     var keys = props.keys;
-    console.log("Updated keys to: ", keys);
 
     // Add X axis
     var x = d3.scaleLinear()
@@ -49,7 +63,7 @@ export default function SteamGraph(props) {
 
     svg.append("g")
         .attr("transform", "translate(0," + height*0.8 + ")")
-        .call(d3.axisBottom(x).tickSize(-height*.7).tickValues([chartData[0].timestamp, chartData[chartData.length -1 ].timestamp]))
+        .call(d3.axisBottom(x).tickSize(-height*.7).tickValues([new Date(chartData[0].timestamp), new Date(chartData[chartData.length -1 ].timestamp)]))
         .select(".domain").remove()
     // Customization
     svg.selectAll(".tick line").attr("stroke", "#b8b8b8")
@@ -61,12 +75,15 @@ export default function SteamGraph(props) {
         .attr("y", height-30 )
         .text("Time (year)");
 
+    const max = getMax(props.data, props.keys);
 
 
     // Add Y axis
     var y = d3.scaleLinear()
-        .domain([-10000000, 10000000])
+        .domain([-max, max])
         .range([ height, 0 ]);
+
+
 
     svg.append("g")
         .attr("transform", "translate(0," + width*0.8 + ")")
@@ -87,27 +104,14 @@ export default function SteamGraph(props) {
     // create a tooltip
     var Tooltip = svg
         .append("text")
-        .attr("x", 0)
+        .attr("x", width-200)
         .attr("y", 0)
         .style("opacity", 0)
         .style("font-size", 17)
 
 
-        // const tooltip = d3.select("#steam_graph")
-        //     .append("div")
-        //     .style("opacity", 0)
-        //     .attr("class", "tooltip")
-        //     .style("background-color", "white")
-        //     .style("border", "solid")
-        //     .style("border-width", "2px")
-        //     .style("border-radius", "5px")
-        //     .style("padding", "5px")
-
-
-
     // Three function that change the tooltip when user hover / move / leave a cell
     var mouseover = function(d) {
-        console.log("Mouse over: ", d.target.__data__.key);
         Tooltip.style("opacity", 1)
         d3.selectAll(".myArea").style("opacity", .2)
         d3.select(this)
@@ -118,9 +122,6 @@ export default function SteamGraph(props) {
     var mousemove = function(d,i) {
         let grp = d.target.__data__.key
         Tooltip.text(grp)
-
-
-
 
     }
     var mouseleave = function(d) {

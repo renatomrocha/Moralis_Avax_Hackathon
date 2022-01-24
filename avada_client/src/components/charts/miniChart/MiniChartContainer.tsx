@@ -78,7 +78,7 @@ export default function     MiniChartContainer ({address, width, height}:any) {
 
                     </>
                 )}
-                {(data.length >0 && plotColor) && <MiniChart data={data}  width={width} height={height} color={plotColor}/>}
+                {(data.length >0 && plotColor) && <div style={{width:width, height:height}}><MiniChart data={data}  width={width} height={height} color={plotColor}/></div>}
 
 
             </Box>
