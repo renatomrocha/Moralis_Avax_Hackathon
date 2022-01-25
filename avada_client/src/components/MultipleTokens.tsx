@@ -151,16 +151,15 @@ export function MultipleTokens(props: any) {
 
 
                                 {tokenList.length > 0 && (<div style={{marginLeft: 60}}>
+                                    {isLoading && (<div style={{position: 'absolute', marginLeft: 550, marginTop:300}}><AvadaSpinner/></div>)}
                                     <HeatMap tokensList={tokenList} data={tokenPrices}/>
                                 </div>)}
 
-                                {tokenList.length == 0 && (<div><AvadaSpinner/></div>)}
+
 
 
                             </HStack>
-                                {isLoading && <AvadaSpinner style={{marginLeft: '50%'}}
-                                                            message={"Updating chart..."}/>}
-                                {!isLoading && (
+
                                     <div style={{
                                         borderWidth: 1,
                                         borderStyle: 'solid',
@@ -192,7 +191,7 @@ export function MultipleTokens(props: any) {
                                             <RangeSliderThumb boxSize={6} index={1}/>
                                         </RangeSlider>
                                     </div>
-                                )}
+
 
 
                             </div>)}

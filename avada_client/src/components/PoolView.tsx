@@ -1,10 +1,13 @@
 import SteamGraph from "./charts/steamChart/SteamGraph";
 import React, {useEffect, useState} from "react";
 import {getInfoForPools, getInfoForPoolsForPair, getPoolList} from "../services/dexService";
-import {Checkbox} from "@chakra-ui/react";
+import {Checkbox, HStack} from "@chakra-ui/react";
 import Title from "./genericComponents/Title";
 import SteamGraph2 from "./charts/steamChart/SteamGraph2";
 import SteamGraph3 from "./charts/steamChart/SteamGraph3";
+import {ColorPalette} from "./styles/color_palette";
+import DateSlider from "./genericComponents/DateSlider";
+import {dateFromTimeStamp} from "../utils/dateUtils";
 
 const addressesToInclude = ["0x8fb5bd3ac8efd05dacae82f512dd03e14aadab73","0x72c3438cf1c915ecf5d9f17a6ed346b273d5bf71","0x3daf1c6268362214ebb064647555438c6f365f96","0x454e67025631c065d3cfad6d71e6892f74487a15"
     ,"0xfe15c2695f1f920da45c30aae47d11de51007af9","0x1643de2efb8e35374d796297a9f95f64c082a8ce","0x87dee1cc9ffd464b79e058ba20387c1984aed86a","0xa6908c7e3be8f4cd2eb704b5cb73583ebf56ee62"
@@ -34,15 +37,28 @@ const PoolView = (props:any) => {
     const [graphReady, setGraphReady] = useState<boolean>(false);
     const [keys, setKeys] = useState<string[]>([]);
     const [lastRequestLength, setLastRequestLength] = useState<any>(0);
+    const [initialOffset, setInitialOffset] = useState((Date.now() - 30 * 24 * 60 * 60 * 1000) / 1000); // 30 days in the past in seconds
+    const [startDate, setStartDate] = useState<any>(dateFromTimeStamp(initialOffset));
+    const [endDate, setEndDate] = useState(dateFromTimeStamp(Date.now() / 1000));
+    const [endOffset, setEndOffset] = useState(Math.round(Date.now() / 1000));
 
     useEffect(()=> {
 
         getPoolList()
-            .then((pools)=>{
-                console.log("Pools: ", pools);
-                setPoolList(pools.filter(r=>addressesToInclude.includes(r.pairAddress)))
+            .then((p)=>{
+                console.log("Pools: ", p);
+                const pools = p.filter(r=>addressesToInclude.includes(r.pairAddress));
+                setPoolList(pools);
             });
     }, [])
+
+    useEffect(()=> {
+        if(poolList.length > 0) {
+            console.log("Will activate: ", poolList[0]);
+            setActivePools([poolList[0]]);
+            console.log("Active pool is: ", activePools);
+        }
+    },[poolList])
 
     const handleCheckBoxChange = (e:any,idx:number) => {
         console.log("CheckBoxChanged to: ", e.target.checked);
@@ -96,7 +112,6 @@ const PoolView = (props:any) => {
                     })
             } else {
                 // Remove from current array
-                console.log("---------------> Will remove a pair");
                 const addressArray = activePools.map((ap:any)=>`tvl${ap.token0}-${ap.token1}`);
                 console.log("Address array is: ", addressArray);
                 const keys = Object.keys(data[0]).filter(k=>k!="timestamp");
@@ -125,15 +140,47 @@ const PoolView = (props:any) => {
     },[keys])
 
 
+    const checkIsActive = (idx:number, t:any) : boolean => {
+        console.log("Returning:");
+        console.log(`${t.token0}/${t.token1}` == `${activePools[idx]?.token0}/${activePools[idx]?.token1}`)
+        console.log("For", `${t.token0}/${t.token1}`)
+        return `${t.token0}/${t.token1}` == `${activePools[idx]?.token0}/${activePools[idx]?.token1}`
+    }
+
 
     return (<div>
         <Title title="Pools" hasInfo></Title>
-        <div style={{width:'95%', height:500, borderWidth:1, borderRadius:20, marginBottom:20}}>
-        {data.length > 0 && <SteamGraph data={data} keys={keys}/>}
-        </div>
 
-        {poolList.map((t:any, idx: number) =>
-            <Checkbox style={{margin:5}} defaultChecked={false} value={t.pairAddress} onChange={(e)=>handleCheckBoxChange(e, idx)}>{t.token0}/{t.token1}</Checkbox>)}
+        <HStack>
+            {activePools.length>0 && (<div style={{
+                height: 600,
+                overflowY: 'scroll',
+                width: 250,
+                borderColor: ColorPalette.thirdColor,
+                borderWidth: 1,
+                borderRadius: 20,
+                padding: 20
+            }}>
+
+                <ul style={{ listStyleType: 'none'}}>
+                    {poolList.map((t: any, idx: number) => <li style={{marginBottom:5}}><Checkbox iconColor='red' style={{margin: 5}}
+                                                                                                  defaultChecked={checkIsActive(idx,t)}
+                                                                                                  value={t.pairAddress}
+                                                                                                  onChange={(e) => handleCheckBoxChange(e, idx)}>{t.token0}/{t.token1}</Checkbox></li>)}
+                </ul>
+            </div>)}
+
+
+            <div style={{height:600, borderWidth:1, borderRadius:20, marginLeft: 60,marginBottom:20}}>
+                {data.length > 0 && <SteamGraph data={data} keys={keys}/>}
+            </div>
+
+        </HStack>
+        <DateSlider style={{marginTop:50}} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate}
+                    initialOffset={initialOffset} setInitialOffset={setInitialOffset} endOffset={endOffset} setEndOffset={setEndOffset} sliderStep={24 * 60 * 60}></DateSlider>
+
+        {/*{poolList.map((t:any, idx: number) =>*/}
+        {/*    <Checkbox style={{margin:5}} defaultChecked={false} value={t.pairAddress} onChange={(e)=>handleCheckBoxChange(e, idx)}>{t.token0}/{t.token1}</Checkbox>)}*/}
 
 
 

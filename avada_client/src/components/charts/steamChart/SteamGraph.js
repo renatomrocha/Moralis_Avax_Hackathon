@@ -1,22 +1,28 @@
 import * as d3 from "d3";
 import {useEffect, useState} from "react";
+import {ColorPalette} from "../../styles/color_palette";
 
 
 
 export default function SteamGraph(props) {
 
     const [data, setData] = useState([]);
+    const [maxKey, setMaxKey] = useState(null);
 
 
     const getMax = (d, keys) => {
         const maxArray = [];
+        const maxKey = []
 
-        keys.forEach((key)=>{
+        keys.forEach((key,idx)=>{
             const arr = d.map((a)=>a[key]);
             console.log("MAximu array: ", arr);
             maxArray.push( Math.max(...arr));
+            maxKey.push(key);
         })
         const absMax = Math.max(...maxArray);
+        const index = maxArray.indexOf(absMax);
+        setMaxKey(maxKey[index]);
         console.log("Max array is: ", maxArray);
         return absMax;
     }
@@ -37,9 +43,9 @@ export default function SteamGraph(props) {
 
 
     const buildChart=(chartData)=>{
-        var margin = {top: 20, right: 30, bottom: 0, left: 10},
+        var margin = {top: 20, right: 30, bottom: 0, left: 100},
         width = 1300 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        height = 600 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
     var svg = d3.select("#steam_graph")
@@ -52,28 +58,28 @@ export default function SteamGraph(props) {
 
 // Parse the Data
 
-    // ,"tvl0","tvl1",
     // List of groups = header of the csv files
     var keys = props.keys;
 
+
+        // const xScale = d3.scaleTime()
+        //     .domain([new Date(chartData[0].timestamp*1000),new Date(chartData[dates.length -1] * 1000)]) // x ticks
+        //     .range([0, width]) // x width
+
     // Add X axis
-    var x = d3.scaleLinear()
-        .domain(d3.extent(chartData, function(d) { return d.timestamp; }))
+    var xScale = d3.scaleTime()
+        .domain(d3.extent(chartData, function(d) { return new Date(d.timestamp * 1000); }))
         .range([ 0, width ]);
 
     svg.append("g")
-        .attr("transform", "translate(0," + height*0.8 + ")")
-        .call(d3.axisBottom(x).tickSize(-height*.7).tickValues([new Date(chartData[0].timestamp), new Date(chartData[chartData.length -1 ].timestamp)]))
+        .attr("transform", "translate(0," + height*0.95 + ")")
+        .call(d3.axisBottom(xScale).tickSize(-height*0.95).ticks(5))
+            // .tickValues([new Date(chartData[0].timestamp), new Date(chartData[chartData.length -1 ].timestamp)]))
         .select(".domain").remove()
     // Customization
     svg.selectAll(".tick line").attr("stroke", "#b8b8b8")
 
-    // Add X axis label:
-    svg.append("text")
-        .attr("text-anchor", "end")
-        .attr("x", width)
-        .attr("y", height-30 )
-        .text("Time (year)");
+
 
     const max = getMax(props.data, props.keys);
 
@@ -86,8 +92,8 @@ export default function SteamGraph(props) {
 
 
     svg.append("g")
-        .attr("transform", "translate(0," + width*0.8 + ")")
-        .call(d3.axisRight(y).tickSize(-width*.7).tickValues([chartData[0].reserve0, chartData[chartData.length -1 ].reserve0]))
+        // .attr("transform", "translate(0," + width*0.1 + ")")
+        .call(d3.axisLeft(y).tickSize(-width).ticks(5))
         .select(".domain").remove()
 
     // color palette
@@ -108,6 +114,16 @@ export default function SteamGraph(props) {
         .attr("y", 0)
         .style("opacity", 0)
         .style("font-size", 17)
+
+        svg.append("text")
+            .attr("class", "y label")
+            .attr('color', ColorPalette.mainColor)
+            .attr("text-anchor", "end")
+            .attr("y", -50 - 10)
+            .attr("x",  - height/2 + 10)
+            .attr("dy", ".75em")
+            .attr("transform", "rotate(-90)")
+            .text('TVL (USD)');
 
 
     // Three function that change the tooltip when user hover / move / leave a cell
@@ -131,7 +147,7 @@ export default function SteamGraph(props) {
 
     // Area generator
     var area = d3.area()
-        .x(function(d) { return x(d.data.timestamp); })
+        .x(function(d) { return xScale(new Date(d.data.timestamp*1000)); })
         .y0(function(d) { return y(d[0]); })
         .y1(function(d) { return y(d[1]); })
 
