@@ -39,12 +39,12 @@ export const getTopLosers = async () => {
 
 
 export const getTopMCap = async () => {
-    const TokenPrice = Moralis.Object.extend("Token1Day")
+    const TokenPrice = Moralis.Object.extend("Token1Hour")
     const query = new Moralis.Query(TokenPrice);
 
     query.select("marketCap", "id", "timeStamp","exchange", "symbol");
     const currentDate = new Date();
-    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() -2, 22, 0,0,0).getTime() / 1000;
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), currentDate.getHours() -4, 0,0,0).getTime() / 1000;
     // console.log("Checking prices greater than ",date);
     query.greaterThanOrEqualTo("timeStamp", date);
     query.descending("marketCap");

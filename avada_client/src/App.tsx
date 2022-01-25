@@ -25,6 +25,7 @@ import {
 import {MultipleTokens} from "./components/MultipleTokens";
 import PoolView from "./components/PoolView";
 import {ColorPalette} from "./components/styles/color_palette";
+import UnderConstruction from "./components/genericComponents/UnderConstruction";
 
 
 
@@ -68,7 +69,11 @@ function App() {
                       <Route path="/token/:address" element={<TokenView/>} />
 
                       <Route path="/pools" element={<PoolView />} />
-                      <Route path="/pool/:token0/:token1"  element={<PoolView/>} />
+                          <Route path="/whales" element={<UnderConstruction/>} />
+                          <Route path="/memPools" element={<UnderConstruction/>} />
+                          <Route path="/bridges" element={<UnderConstruction/>} />
+
+                          <Route path="/pool/:token0/:token1"  element={<PoolView/>} />
                     <Route path="/statistics"  element={<CandleStickTemplate />} />
 
                     </Routes>

@@ -37,8 +37,8 @@ export function HeatMap(props) {
 
     const buildHeatMap = () => {
         const margin = {top: 20, right: 25, bottom: 20, left: 40},
-            width = 1000 - margin.left - margin.right,
-            height = 700 - margin.top - margin.bottom;
+            width = 1200 - margin.left - margin.right,
+            height = 600 - margin.top - margin.bottom;
 
         const svg = d3.select("#my_dataviz")
             .append("svg")

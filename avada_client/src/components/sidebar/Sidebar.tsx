@@ -23,7 +23,7 @@ const Menus = [
     {title:"Pools" ,route:"/pools", icon:pools, status: 'active'},
     {title:"Whales", route:"/whales", icon:whales, status: 'inactive'},
     {title:"MemPools", route:"/mempools", icon:mempools, status: 'inactive'},
-    {title:"bridges", route:"/bridges", icon:bridges, status: 'inactive'},
+    {title:"Bridges", route:"/bridges", icon:bridges, status: 'inactive'},
 
 
 ]
@@ -86,14 +86,14 @@ export function Sidebar({navSize, setNavSize}:any) {
                 alignItems="flex-start"
                 mb={4}
             >
-                <Divider display={navSize=='small'? "none":"flex"}/>
-                <Flex mt={4} align="center">
-                    <Avatar size="sm"/>
-                    <Flex flexDir="column" ml={4} display={navSize=='small'? "none":"flex"}>
-                        <Heading as="h3" size="sm">Renato</Heading>
-                        <Text color="gray">Admin</Text>
-                    </Flex>
-                </Flex>
+                {/*<Divider display={navSize=='small'? "none":"flex"}/>*/}
+                {/*<Flex mt={4} align="center">*/}
+                {/*    <Avatar size="sm"/>*/}
+                {/*    <Flex flexDir="column" ml={4} display={navSize=='small'? "none":"flex"}>*/}
+                {/*        <Heading as="h3" size="sm">Renato</Heading>*/}
+                {/*        <Text color="gray">Admin</Text>*/}
+                {/*    </Flex>*/}
+                {/*</Flex>*/}
 
             </Flex>
 
