@@ -6,9 +6,13 @@ import Candle from "./Candle";
 import CrossHairs from "./CrossHairs";
 import {axisBottom, axisLeft} from "d3";
 import {dollarAt, onMouseLeave, onMouseMoveInside} from "../utils/mouseUtils";
+import {transition} from "d3-transition";
+import {select} from "d3-selection";
+import {ColorPalette} from "../../styles/color_palette";
+import {addAxis, addGrid, updateGrid} from "../utils/plotUtils";
 
 const Chart = props => {
-    const { data, width: chart_width, height: chart_height } = props;
+    const { data, width: chart_width, height: chart_height, dates } = props;
 
     // console.log("Received data: ", data);
     const svgRef = useRef();
@@ -22,10 +26,10 @@ const Chart = props => {
         y: 0
     });
 
-
+    console.log("Data is: ", data);
     // find the high and low bounds of all the bars being sidplayed
-    const dollar_high = d3.max(data.map(bar => bar.high)) * 1.05;
-    const dollar_low = d3.min(data.map(bar => bar.low)) * 0.95;
+    const dollar_high = d3.max(data.map(bar => bar.maximumPrice)) * 1.05;
+    const dollar_low = d3.min(data.map(bar => bar.minimumPrice)) * 0.95;
 
     console.log(`Highs are: high ${dollar_high} and low ${dollar_low}`);
 
@@ -80,62 +84,58 @@ const Chart = props => {
     const candle_width = Math.floor((chart_width / data.length) * 0.7);
 
 
-    const addGrid = (svg, xScale, yScale, height , width ) => {
-        const tickFormat = "";
+    function updateChart() {
+        const {
+            data,
+        } = props;
 
-        const xAxisGrid = axisBottom(xScale).tickSize(-height).tickFormat(tickFormat).ticks(10);
-        const yAxisGrid = axisLeft(yScale).tickSize(-width).tickFormat(tickFormat).ticks(10);
-        svg.append('g')
-            .attr('class', 'x axis-grid')
-            .attr('color', '#c8a1ff')
-            .attr('transform', 'translate(0,' + height + ')')
-            .call(xAxisGrid);
-        svg.append('g')
-            .attr('class', 'y axis-grid')
-            .attr('color', '#c8a1ff')
-            .call(yAxisGrid);
-    }
+        const svg = d3.select(svgRef.current);
 
-    const addAxis = (svg, xScale, yScale,width, height, ticks) => {
-        // Setup the axes
+        const xScale = d3.scaleTime()
+            .domain([new Date(dates[0]*1000),new Date(dates[dates.length -1] * 1000)]) // x ticks
+            .range([0, props.width]) // x width
+        const highs = data.map(d=>d.maximumPrice);
+        const lows = data.map(d=>d.minimumPrice);
+        const yMin = Math.round(lows.reduce((a,b) => Math.min(a,b)));
+        const yMax = Math.ceil(highs.reduce((a,b)=> Math.max(a,b)));
+        const yScale = d3.scaleLinear()
+            .domain([yMin, yMax])
+            .range([props.height, 0])
+
+
         const xAxis = d3.axisBottom(xScale)
-            .ticks(ticks)
-            .tickFormat((i) => i + 1)
+            .ticks(5);
+
+        svg.selectAll('g.x.axis')
+            .attr("transform","translate(0," + props.height + ")")
+            .call(xAxis);
 
         const yAxis = d3.axisLeft(yScale)
             .ticks(5);
 
-        svg.append('g')
-            .call(xAxis)
-            .attr('transform', `translate(0, ${height})`)
-
-        svg.append('g')
-            .call(yAxis)
+        svg.selectAll('g.y.axis')
+            .call(yAxis);
 
 
-        svg.append("text")
-            .attr("class", "y label")
-            .attr("text-anchor", "end")
-            .attr("y", -50)
-            .attr("x",  - height/2)
-            .attr("dy", ".75em")
-            .attr("transform", "rotate(-90)")
-            .text("Price (USD)");
 
-        return [xAxis, yAxis]
+        updateGrid(svg,xScale,yScale,props.height,props.width);
+
     }
 
-    const drawGraph = () => {
 
-        const xScale = d3.scaleLinear()
-            .domain([0, data.length]) // x ticks
+
+
+    const drawGraph = (data) => {
+
+        const xScale = d3.scaleTime()
+            .domain([new Date(dates[0]*1000),new Date(dates[dates.length -1] * 1000)]) // x ticks
             .range([0, props.width]) // x width
-        const highs = data.map(d=>d.high);
-        const lows = data.map(d=>d.low);
+
+        const highs = data.map(d=>d.maximumPrice);
+        const lows = data.map(d=>d.minimumPrice);
         const yMin = Math.round(lows.reduce((a,b) => Math.min(a,b)));
         const yMax = Math.ceil(highs.reduce((a,b)=> Math.max(a,b)));
-        console.log("Y max is: ", yMax);
-        console.log("Y min is: ", yMin);
+
         const yScale = d3.scaleLinear()
             .domain([yMin, yMax])
             .range([props.height, 0])
@@ -149,7 +149,11 @@ const Chart = props => {
             .style('margin-left', '50')
             .style('overflow', 'visible');
 
-        const [xAxis,yAxis] = addAxis(svg,xScale,yScale, props.width,props.height,ticksNumber);
+        console.log("Before adding axis xScale is: ", xScale);
+        console.log("Before adding axis yScale is: ", yScale);
+
+
+        addAxis(svg,xScale,yScale, props.width,props.height,5,5,'Date', 'USD Price');
 
 
         addGrid(svg,xScale,yScale,props.height,props.width);
@@ -157,9 +161,14 @@ const Chart = props => {
     }
 
     useEffect(() => {
-        // console.log("Setting up with prices: ", data);
-        drawGraph();
+        console.log("Setting up with prices: ", data);
+        drawGraph(data);
     }, [])
+
+
+    useEffect(() => {
+        updateChart();
+    },[data])
 
 
 

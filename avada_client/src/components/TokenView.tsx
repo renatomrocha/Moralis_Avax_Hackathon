@@ -124,13 +124,21 @@ function TokenView(props:any)  {
     },[])
 
 
-    const displayChart = () => {
-        if(chartType === CHART_TYPES_ENUM.LINE) {
-            return (<BasicChart data={tokenPrices.map(d=>d.price)} dates={dates} xDomain={dates}  width={1200} height={450} />)
-        } else {
-            return (<CandleStickTemplate data={tokenPrices.map(d=>d.price)} address={address} intervalUnit={intervalUnit} initialOffset={initialOffset} endOffset={endOffset} width={1200} height={450}/>)
-        }
-    }
+    useEffect(()=> {
+        setTokenPrices([]);
+        setIsLoading(true);
+        getTokenPriceHistoryDB(address, intervalUnit, initialOffset, endOffset, chartType!==CHART_TYPES_ENUM.LINE)
+            .then((h:any[])=> {
+                setTokenPrices([...h.map(r=>r)]);
+                if(tokenPrices.length==0) {
+                    setNoDataAvailable(true);
+                }
+                setDates([...h.map(h=>h.timestamp)]);
+                setIsLoading(false);
+            })
+
+    },[chartType])
+
 
 
     const onChangeInterval = async (interval: any) => {
@@ -202,20 +210,60 @@ function TokenView(props:any)  {
             </div>)}
 
 
-            {isLoading && <div style={{alignItems:'center', justifyItems:"center"}}><AvadaSpinner style={{width:'100%', height: "100%", marginTop:100, marginLeft:500}} message={`Loading price history`}/></div>}
 
+            <div style={{margin:30, borderColor:'gray.200', borderRadius:50, borderWidth:2,paddingTop:40, width: 1400, height:550}}>
+                {isLoading && <div style={{alignItems:'center', justifyItems:"center"}}><AvadaSpinner style={{width:'100%', height: "100%", marginTop:100, marginLeft:500}} message={`Loading price history`}/></div>}
 
-            {(!isLoading && tokenPrices.length) && <div style={{margin:50}}>
+                {(!isLoading && tokenPrices.length) && <div >
                 {chartType === CHART_TYPES_ENUM.LINE && <BasicChart data={tokenPrices.map(d=>d.price)} dates={dates} xDomain={dates}  width={1200} height={450} />}
-                {chartType !== CHART_TYPES_ENUM.LINE && <CandleStickTemplate data={tokenPrices} width={1200} height={450}/>}
+                {chartType !== CHART_TYPES_ENUM.LINE && <CandleStickTemplate data={tokenPrices} dates={dates} xDomain={dates}  width={1200} height={450}/>}
 
 
             </div>}
+            </div>
+
+            {/* Bottom part */}
 
 
-            <div style={{width:'50%', marginLeft:60, marginTop:40}}>
+            <div style={{width:'100%', marginLeft:60, marginTop:40}}>
 
-                <HStack  spacing={'24px'}>
+                <HStack  spacing={'100px'}>
+
+
+                    <div style={{borderWidth:1, borderStyle:'solid', borderRadius: 20, padding:20, width:'40%'}}>
+                        <HStack>
+
+
+                            <div>
+                                <span>Start date: </span>
+                                <span>{startDate}</span>
+                            </div>
+                            <div> / </div>
+                            <div>
+                                <span>End date: </span>
+                                <span>{endDate}</span>
+                            </div>
+
+                        </HStack>
+
+                        <RangeSlider onChange={(e)=> onDateDrag(e)}
+                                     onChangeEnd={(e)=>onChangeDate(e)}
+                                     defaultValue={[initialOffset, Math.round(Date.now() / 1000)]}
+                                     min={1629504000} max={Math.round(Date.now() / 1000)}
+                                     step={intervalStep} minStepsBetweenThumbs={10}
+
+                        >
+                            <RangeSliderTrack bg={ColorPalette.thirdColor}>
+                                <RangeSliderFilledTrack bg={ColorPalette.thirdColor} />
+                            </RangeSliderTrack>
+                            <RangeSliderThumb boxSize={6} index={0} />
+                            <RangeSliderThumb boxSize={6} index={1} />
+                        </RangeSlider>
+                    </div>
+
+
+
+                    <HStack>
                     <RadioGroup onChange={(e)=>onChangeInterval(e)} value={intervalUnit}>
                         <Stack direction='row'>
                             {radioOptions.map(i=>{
@@ -226,38 +274,15 @@ function TokenView(props:any)  {
                     </RadioGroup>
                     <MultipleSelection title={"Chart Type"} selectionHandler={chartSelectionHandler} style={{buttonColor:ColorPalette.thirdColor}} buttons={[{value:CHART_TYPES_ENUM.LINE, label:'Line chart'},{value:CHART_TYPES_ENUM.CANDLESTICK, label:'Candle chart'}]}/>
                     <ExportIcon/>
-                </HStack>
-
-                <div style={{borderWidth:1, borderStyle:'solid', borderRadius: 20, padding:20}}>
-                <HStack>
+                    </HStack>
 
 
-                        <div>
-                            <span>Start date: </span>
-                            <span>{startDate}</span>
-                        </div>
-                    <div> / </div>
-                        <div>
-                            <span>End date: </span>
-                            <span>{endDate}</span>
-                        </div>
+
+
 
                 </HStack>
 
-                <RangeSlider onChange={(e)=> onDateDrag(e)}
-                             onChangeEnd={(e)=>onChangeDate(e)}
-                             defaultValue={[initialOffset, Math.round(Date.now() / 1000)]}
-                             min={1629504000} max={Math.round(Date.now() / 1000)}
-                             step={intervalStep} minStepsBetweenThumbs={10}
 
-                >
-                    <RangeSliderTrack bg={ColorPalette.thirdColor}>
-                        <RangeSliderFilledTrack bg={ColorPalette.thirdColor} />
-                    </RangeSliderTrack>
-                    <RangeSliderThumb boxSize={6} index={0} />
-                    <RangeSliderThumb boxSize={6} index={1} />
-                </RangeSlider>
-                </div>
 
 
 

@@ -3,6 +3,7 @@ import * as d3 from "d3";
 import "./styles.css";
 import Chart from "./Chart";
 import {getTokenPriceHistoryDB} from "../../../services/tokenService";
+import BasicChart from "../BasicChart";
 
 
 export default function CandleStickTemplate(props) {
@@ -18,34 +19,36 @@ export default function CandleStickTemplate(props) {
 
 
     const buildCandles = (d) => {
+        if(!props.data.map(r=>r.minimumPrice)[0])
+            return;
 
-
-        console.log("Candles: ", d);
-
+        console.log("Candles: ", props.data);
         return props.data.map((prices, i) => {
-            const open =prices.openPrice;
-            const close = prices.closePrice
-            const high = prices.maximumPrice
-            const low = prices.minimumPrice;
+            const openPrice =prices.openPrice;
+            const closePrice = prices.closePrice
+            const maximumPrice = prices.maximumPrice
+            const minimumPrice = prices.minimumPrice;
+            const t = prices.timestamp;
             return {
-                time: i,
-                open,
-                high,
-                low,
-                close
+                time: new Date(t*1000),
+                openPrice,
+                maximumPrice,
+                minimumPrice,
+                closePrice
             };
         })
 
     }
 
 
-    buildCandles();
+    // buildCandles();
 
     const [data, setData] = useState(buildCandles());
-    // const changeData = () => {
-    //     setData(generateData);
-    //
-    // };
+
+    useEffect(()=> {
+        setData(buildCandles());
+    },[])
+
 
     useEffect(()=>{
         console.log("Building candles");
@@ -53,13 +56,12 @@ export default function CandleStickTemplate(props) {
     },props.data)
 
 
-    // const data_on_chart = data.slice()
 
     return (
         <div>
 
                 <div>
-                    <Chart data={data} width={props.width} height={props.height} />
+                    {data && <Chart data={data} dates={props.dates} width={props.width} height={props.height} />}
                 </div>
 
         </div>

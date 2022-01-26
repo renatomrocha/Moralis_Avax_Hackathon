@@ -5,12 +5,12 @@ import * as d3 from "d3";
 const Candle = props => {
     const { data, x, candle_width, pixelFor } = props;
 
-    const up = data.close > data.open;
-    const bar_top = pixelFor(up ? data.close : data.open);
-    const bar_bottom = pixelFor(up ? data.open : data.close);
+    const up = data.closePrice > data.openPrice;
+    const bar_top = pixelFor(up ? data.closePrice : data.openPrice);
+    const bar_bottom = pixelFor(up ? data.openPrice : data.closePrice);
     const bar_height = bar_bottom - bar_top;
-    const wick_top = pixelFor(data.high);
-    const wick_bottom = pixelFor(data.low);
+    const wick_top = pixelFor(data.maximumPrice);
+    const wick_bottom = pixelFor(data.minimumPrice);
 
     return (
         <>
