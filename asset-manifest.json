@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/Moralis_Avax_Hackathon/static/css/main.aa205d8d.chunk.css",
-    "main.js": "/Moralis_Avax_Hackathon/static/js/main.dfef11bd.chunk.js",
-    "main.js.map": "/Moralis_Avax_Hackathon/static/js/main.dfef11bd.chunk.js.map",
+    "main.js": "/Moralis_Avax_Hackathon/static/js/main.a51125d2.chunk.js",
+    "main.js.map": "/Moralis_Avax_Hackathon/static/js/main.a51125d2.chunk.js.map",
     "runtime-main.js": "/Moralis_Avax_Hackathon/static/js/runtime-main.d5dc7de3.js",
     "runtime-main.js.map": "/Moralis_Avax_Hackathon/static/js/runtime-main.d5dc7de3.js.map",
     "static/css/2.ecdd39c8.chunk.css": "/Moralis_Avax_Hackathon/static/css/2.ecdd39c8.chunk.css",
-    "static/js/2.3246253a.chunk.js": "/Moralis_Avax_Hackathon/static/js/2.3246253a.chunk.js",
-    "static/js/2.3246253a.chunk.js.map": "/Moralis_Avax_Hackathon/static/js/2.3246253a.chunk.js.map",
+    "static/js/2.970031d3.chunk.js": "/Moralis_Avax_Hackathon/static/js/2.970031d3.chunk.js",
+    "static/js/2.970031d3.chunk.js.map": "/Moralis_Avax_Hackathon/static/js/2.970031d3.chunk.js.map",
     "static/js/3.c145106f.chunk.js": "/Moralis_Avax_Hackathon/static/js/3.c145106f.chunk.js",
     "static/js/3.c145106f.chunk.js.map": "/Moralis_Avax_Hackathon/static/js/3.c145106f.chunk.js.map",
     "index.html": "/Moralis_Avax_Hackathon/index.html",
     "static/css/2.ecdd39c8.chunk.css.map": "/Moralis_Avax_Hackathon/static/css/2.ecdd39c8.chunk.css.map",
     "static/css/main.aa205d8d.chunk.css.map": "/Moralis_Avax_Hackathon/static/css/main.aa205d8d.chunk.css.map",
-    "static/js/2.3246253a.chunk.js.LICENSE.txt": "/Moralis_Avax_Hackathon/static/js/2.3246253a.chunk.js.LICENSE.txt",
+    "static/js/2.970031d3.chunk.js.LICENSE.txt": "/Moralis_Avax_Hackathon/static/js/2.970031d3.chunk.js.LICENSE.txt",
     "static/media/bridges.58d7d2cb.png": "/Moralis_Avax_Hackathon/static/media/bridges.58d7d2cb.png",
     "static/media/charts.4404929f.png": "/Moralis_Avax_Hackathon/static/media/charts.4404929f.png",
     "static/media/coins.985572b0.png": "/Moralis_Avax_Hackathon/static/media/coins.985572b0.png",
@@ -26,8 +26,8 @@
   "entrypoints": [
     "static/js/runtime-main.d5dc7de3.js",
     "static/css/2.ecdd39c8.chunk.css",
-    "static/js/2.3246253a.chunk.js",
+    "static/js/2.970031d3.chunk.js",
     "static/css/main.aa205d8d.chunk.css",
-    "static/js/main.dfef11bd.chunk.js"
+    "static/js/main.a51125d2.chunk.js"
   ]
 }
