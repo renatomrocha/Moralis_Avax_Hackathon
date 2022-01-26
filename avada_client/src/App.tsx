@@ -63,9 +63,9 @@ function App() {
 
                 <GridItem colSpan={9} style={{marginLeft:20, width:'100%',overflow:'auto'}}>
                       <Routes>
-                      <Route path="/" element={<Dashboard/>} />
-                      <Route path="/tokens" element={<Tokens/>} />
-                      <Route path="/multiTokens" element={<MultipleTokens />} />
+                      <Route path="/" element={<Dashboard style={{marginLeft:30}}/>} />
+                      <Route path="/tokens" element={<Tokens style={{marginLeft:30}}/>} />
+                      <Route path="/multiTokens" element={<MultipleTokens style={{marginLeft:30}}/>} />
                       <Route path="/token/:address" element={<TokenView/>} />
 
                       <Route path="/pools" element={<PoolView />} />

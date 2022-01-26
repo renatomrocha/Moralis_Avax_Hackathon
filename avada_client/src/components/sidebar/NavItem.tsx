@@ -26,6 +26,9 @@ export function NavItem({navSize, icon, title, route, active, style,setActiveMen
             w="100%"
             alignItems={navSize=="small"? "center" : "flex-start"}
             backgroundColor={style.backgroundColor}
+            borderColor={style.borderColor}
+            borderWidth={style.borderColor?1:0}
+            borderRadius={8}
             opacity={status =='active'? 1: 0.6}
         >
             <Menu placement ="right">
@@ -36,7 +39,7 @@ export function NavItem({navSize, icon, title, route, active, style,setActiveMen
                     borderRadius={8}
                     _hover={status == 'active' ? {backgroundColor:ColorPalette.highlight}:{backgroundColor:ColorPalette.mainColor}}
                     w={navSize == 'large'?'100%':''}
-                    onClick={()=>{status=='active'?setActiveMenu(idx):console.log("Inactive")}}
+                    onClick={()=>{setActiveMenu(idx)}}
 
                 >
 
@@ -44,7 +47,7 @@ export function NavItem({navSize, icon, title, route, active, style,setActiveMen
                         <Flex style={{alignItems:'center'}}>
                             {/*<Icon as={icon} fontSize="xl" color={active ? '#FFB6C1' : "gray.500"}/>*/}
                             <img style={{width:40, height:40}} src={icon}/>
-                            <Text color={ColorPalette.navFontColor} fontSize='xl' ml={5} display={navSize=='small'?'none':'flex'}>{title}</Text>
+                            <Text color={ColorPalette.navFontColor} fontWeight={style.fontWeight} fontSize='xl' ml={5} display={navSize=='small'?'none':'flex'}>{title}</Text>
                         </Flex>
                     </MenuButton>
 

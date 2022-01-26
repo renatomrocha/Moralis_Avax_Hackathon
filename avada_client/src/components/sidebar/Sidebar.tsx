@@ -24,8 +24,6 @@ const Menus = [
     {title:"Whales", route:"/whales", icon:whales, status: 'inactive'},
     {title:"MemPools", route:"/mempools", icon:mempools, status: 'inactive'},
     {title:"Bridges", route:"/bridges", icon:bridges, status: 'inactive'},
-
-
 ]
 
 
@@ -48,6 +46,7 @@ export function Sidebar({navSize, setNavSize}:any) {
             // boxShadow="0 4px 12px 0 rgba(0,0,0,0.05)"
             borderRadius={navSize=='small'?"0px 5px 5px 0px":"0px 5px 5px 0px"}
             backgroundColor={ColorPalette.mainColor}
+
             w={navSize=='small'?"100px":"250px"}
             flexDir="column"
             justifyContent="space-between"
@@ -68,7 +67,7 @@ export function Sidebar({navSize, setNavSize}:any) {
               </HStack>
 
                 {Menus.map((m:any, idx: number) => {
-                    return(<NavItem idx={idx} style={activeMenu==idx?{borderColor:ColorPalette.red, borderStyle:'solid', borderWidth:1, borderRadius: 5}:{}}
+                    return(<NavItem idx={idx} style={activeMenu==idx?{fontWeight:'900', backgroundColor:ColorPalette.secondaryColor}:{}}
                                     setActiveMenu={setActiveMenu}
                                     navSize={navSize}
                                     title={m.title}

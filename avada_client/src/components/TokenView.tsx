@@ -201,8 +201,8 @@ function TokenView(props:any)  {
 
 
     return (
-        <div style={{alignItems:'center'}}>
-            {tokenInfo && (<div style={{margin:40, fontSize:'1.3em', fontWeight:'bold' , alignItems:'center'}}>
+        <div style={{justifyContent:'center'}}>
+            {tokenInfo && (<div style={{margin:20, fontSize:'1.3em', fontWeight:'bold' , alignItems:'center'}}>
                 <HStack>
                     <img src={tokenInfo.logoUrl} style={{width:60, height:60, margin:10}}/>
                     <h2>{tokenInfo.name} / {tokenInfo.symbol}</h2>
@@ -211,7 +211,7 @@ function TokenView(props:any)  {
 
 
 
-            <div style={{margin:30, borderColor:'gray.200', borderRadius:50, borderWidth:2,paddingTop:40, width: 1400, height:550}}>
+            <div style={{margin:30, marginLeft:60, borderColor:'gray.200',top:100, borderRadius:50, borderWidth:2,paddingTop:40, width: 1400, height:550}}>
                 {isLoading && <div style={{alignItems:'center', justifyItems:"center"}}><AvadaSpinner style={{width:'100%', height: "100%", marginTop:100, marginLeft:500}} message={`Loading price history`}/></div>}
 
                 {(!isLoading && tokenPrices.length) && <div >
@@ -225,7 +225,7 @@ function TokenView(props:any)  {
             {/* Bottom part */}
 
 
-            <div style={{width:'100%', marginLeft:60, marginTop:40}}>
+            <div style={{width:'100%', marginLeft:70, marginTop:20}}>
 
                 <HStack  spacing={'100px'}>
 

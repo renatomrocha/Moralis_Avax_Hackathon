@@ -165,7 +165,8 @@ export function MultipleTokens(props: any) {
                                         borderStyle: 'solid',
                                         marginTop: -180,
                                         borderRadius: 20,
-                                        padding: 20
+                                        padding: 20,
+                                        width:'80%'
                                     }}>
                                         <HStack>
                                             <div>

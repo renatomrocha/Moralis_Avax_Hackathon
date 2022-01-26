@@ -49,10 +49,16 @@ export default function     MiniChartContainer ({address, width, height}:any) {
         if(data) {
 
             setPctChange((( data[data.length -1].price - data[0].price) / data[0].price))
-            console.log("Pctgchange is: ", pctChange);
-            setPlotColor(pctChange>0?ColorPalette.green:ColorPalette.red)
         }
     },[data])
+
+    useEffect(()=>{
+        console.log("Pctgchange is: ", pctChange);
+        console.log("Setting color: ", pctChange>0?ColorPalette.green:ColorPalette.red);
+        setPlotColor(pctChange>0?ColorPalette.green:ColorPalette.red)
+
+
+    },[pctChange])
 
 
     const getPercentage = () => {
@@ -63,7 +69,7 @@ export default function     MiniChartContainer ({address, width, height}:any) {
 
     return (<div onMouseEnter={()=>setBorderColor(pctChange > 0 ? ColorPalette.green : ColorPalette.red)} onMouseLeave={()=>setBorderColor('gray.200')}>
 
-            {isLoading && (<Box border="1px" borderColor={borderColor} borderRadius={30} padding={5} >
+            {isLoading && (<Box border="1px" borderColor={borderColor}  borderRadius={30} padding={5} >
                 <AvadaSpinner/>
             </Box>)}
 
@@ -78,7 +84,7 @@ export default function     MiniChartContainer ({address, width, height}:any) {
 
                     </>
                 )}
-                {(data.length >0 && plotColor) && <div style={{width:width, height:height}}><MiniChart data={data}  width={width} height={height} color={plotColor}/></div>}
+                {(data.length >0 && pctChange) && <div style={{width:width, height:height}}><MiniChart data={data}  width={width} height={height} color={pctChange > 0 ? ColorPalette.green : ColorPalette.red}/></div>}
 
 
             </Box>
