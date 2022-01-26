@@ -93,14 +93,24 @@ export const getTokenPriceHistory = async (address:any, dateInterval: string[]) 
     return priceHistory;
 }
 
-export const getTokenPriceHistoryDB = async (address : any, interval: string, since? : any, upTo? : any) : Promise<any>=> {
+export const getTokenPriceHistoryDB = async (address : any, interval: string, since? : any, upTo? : any, candle? : boolean) : Promise<any>=> {
     console.log("Received class name: ", interval);
     // console.log("Asking prices previous to: ", since);
     let TokenPrice = Moralis.Object.extend(interval);
     const query = new Moralis.Query(TokenPrice);
     const fetchFromAverage = (interval=="Token1Day" || interval=="Token4Hour" || interval=="Token1Hour");
     const priceKey = fetchFromAverage?"averagePrice":"price";
-    query.select(priceKey, "id", "timeStamp","exchange", "symbol", "pctChange");
+
+    if(candle) {
+        if(!fetchFromAverage)
+            throw new Error("Interval not supported for candle data")
+
+        query.select(priceKey, "closePrice","openPrice", "maximumPrice","minimumPrice","id", "timeStamp","exchange", "symbol", "pctChange");
+    } else {
+        query.select(priceKey, "id", "timeStamp","exchange", "symbol", "pctChange");
+    }
+
+
     query.equalTo("address", address);
     if(since) {
         query.greaterThan("timeStamp", since)
@@ -112,7 +122,17 @@ export const getTokenPriceHistoryDB = async (address : any, interval: string, si
     query.limit(5000);
     const results = await query.find();
     const tokenPrices = results.map((r)=>{
-        const obj = {price:fetchFromAverage?r.get("averagePrice"):r.get("price"),timestamp: r.get("timeStamp"), exchange:r.get("exchange"), symbol: r.get("symbol")};
+        const obj : any = {price:fetchFromAverage?r.get("averagePrice"):r.get("price"),timestamp: r.get("timeStamp"), exchange:r.get("exchange"), symbol: r.get("symbol")};
+        if (candle) {
+            const candlePrices = {
+                closePrice: r.get("closePrice"),
+                openPrice: r.get("openPrice"),
+                maximumPrice:r.get("maximumPrice"),
+                minimumPrice:r.get("minimumPrice")
+            }
+            Object.assign(obj, {...candlePrices})
+        }
+
         if(interval!=='Token15Min')
             Object.assign(obj,{pctChange: r.get("pctChange")})
 
@@ -168,5 +188,34 @@ export const fetchTokensForHeatMap = async (intervalStep : any, since?: any, upT
 
 
 
+const fetchCandleData = async (address : any, interval: string, since? : any, upTo? : any) : Promise<any>=> {
+    console.log("Received class name: ", interval);
+    // console.log("Asking prices previous to: ", since);
+    let TokenPrice = Moralis.Object.extend(interval);
+    const query = new Moralis.Query(TokenPrice);
+    const fetchFromAverage = (interval=="Token1Day" || interval=="Token4Hour" || interval=="Token1Hour");
+    const priceKey = fetchFromAverage?"averagePrice":"price";
 
 
+
+    query.select(priceKey, "id", "timeStamp","exchange", "symbol", "pctChange");
+    query.equalTo("address", address);
+    if(since) {
+        query.greaterThan("timeStamp", since)
+    }
+    if (upTo) {
+        query.lessThan("timeStamp", upTo);
+    }
+    query.ascending("timeStamp");
+    query.limit(5000);
+    const results = await query.find();
+    const tokenPrices = results.map((r)=>{
+        const obj = {price:fetchFromAverage?r.get("averagePrice"):r.get("price"),timestamp: r.get("timeStamp"), exchange:r.get("exchange"), symbol: r.get("symbol")};
+        if(interval!=='Token15Min')
+            Object.assign(obj,{pctChange: r.get("pctChange")})
+
+        return obj;
+    });
+    return tokenPrices;
+
+}

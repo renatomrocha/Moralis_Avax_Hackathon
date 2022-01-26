@@ -102,7 +102,7 @@ function TokenView(props:any)  {
                 // setPlotColor(pct>0?ColorPalette.green:ColorPalette.red)
             });
 
-        getTokenPriceHistoryDB(address, intervalUnit, initialOffset, endOffset)
+        getTokenPriceHistoryDB(address, intervalUnit, initialOffset, endOffset, chartType!==CHART_TYPES_ENUM.LINE)
             .then((h:any[])=> {
                 setTokenPrices([...h.map(r=>r)]);
                 if(tokenPrices.length==0) {
@@ -128,7 +128,7 @@ function TokenView(props:any)  {
         if(chartType === CHART_TYPES_ENUM.LINE) {
             return (<BasicChart data={tokenPrices.map(d=>d.price)} dates={dates} xDomain={dates}  width={1200} height={450} />)
         } else {
-            return (<CandleStickTemplate data={tokenPrices.map(d=>d.price)} width={1200} height={450}/>)
+            return (<CandleStickTemplate data={tokenPrices.map(d=>d.price)} address={address} intervalUnit={intervalUnit} initialOffset={initialOffset} endOffset={endOffset} width={1200} height={450}/>)
         }
     }
 
@@ -138,7 +138,7 @@ function TokenView(props:any)  {
         setIntervalUnit(interval);
         setIntervalStep(getIntervalStep());
 
-        getTokenPriceHistoryDB(address, interval, initialOffset, endOffset)
+        getTokenPriceHistoryDB(address, interval, initialOffset, endOffset, chartType!==CHART_TYPES_ENUM.LINE)
             .then((h:any[])=> {
                 setTokenPrices([...h.map(r=>r)]);
                 if(tokenPrices.length==0) {
@@ -149,8 +149,8 @@ function TokenView(props:any)  {
             })
     }
 
-    const fetchLineChartData = (date: any) => {
-        getTokenPriceHistoryDB(address, intervalUnit, Math.round(date[0]),Math.round(date[1]))
+    const fetchChartData = (date: any) => {
+        getTokenPriceHistoryDB(address, intervalUnit, Math.round(date[0]),Math.round(date[1]), chartType!==CHART_TYPES_ENUM.LINE)
             .then((h:any[])=> {
                 setTokenPrices([...h.map(r=>r)]);
                 if(tokenPrices.length==0) {
@@ -171,7 +171,7 @@ function TokenView(props:any)  {
         setInitialOffset(date[0]);
         setEndOffset(date[1]);
 
-        fetchLineChartData(date);
+        fetchChartData(date);
     }
 
 
@@ -206,8 +206,8 @@ function TokenView(props:any)  {
 
 
             {(!isLoading && tokenPrices.length) && <div style={{margin:50}}>
-                    {displayChart()}
-
+                {chartType === CHART_TYPES_ENUM.LINE && <BasicChart data={tokenPrices.map(d=>d.price)} dates={dates} xDomain={dates}  width={1200} height={450} />}
+                {chartType !== CHART_TYPES_ENUM.LINE && <CandleStickTemplate data={tokenPrices} width={1200} height={450}/>}
 
 
             </div>}
