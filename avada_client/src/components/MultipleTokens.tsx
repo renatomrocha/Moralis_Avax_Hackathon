@@ -20,6 +20,7 @@ import Title from "./genericComponents/Title";
 import {Checkbox, CheckboxGroup} from '@chakra-ui/react'
 import BarRaceChart from "./charts/barRaceChart/BarRaceChart";
 import {dateFromTimeStamp} from "../utils/dateUtils";
+import ExportIcon from "./genericComponents/ExportIcon";
 
 export function MultipleTokens(props: any) {
 
@@ -118,82 +119,90 @@ export function MultipleTokens(props: any) {
                         <Tab>Market Cap</Tab>
                     </TabList>
                     <TabPanels>
-                        <TabPanel style={{height:'100%'}}>
+                        <TabPanel style={{height: '100%'}}>
 
                             {tokenPrices.length && (<div><HStack style={{height: '100%'}}>
 
-                                {tokenList &&<div style={{
-                                    marginTop:-200,}}>
-                                <div style={{fontSize:'1.4em'}}>Tokens</div>
-                                <div style={{
-                                    height: 500,
-
-                                    overflowY: 'scroll',
-                                    width: 250,
-                                    borderColor: ColorPalette.thirdColor,
-                                    borderWidth: 1,
-                                    borderRadius: 20,
-                                    padding: 20
+                                {tokenList && <div style={{
+                                    marginTop: -200,
                                 }}>
+                                    <div style={{fontSize: '1.4em'}}>Tokens</div>
+                                    <div style={{
+                                        height: 500,
 
-                                    <ul style={{ listStyleType: 'none'}}>
-                                    {tokenList.map((t: any, idx: number) => <li style={{marginBottom:5}}><Checkbox iconColor='red' style={{margin: 5}}
-                                                                                      defaultChecked={checkActiveTokens(t)}
-                                                                                          onChange={(e) => handleCheckBoxChange(e, idx)}>{t.symbol}</Checkbox></li>)}
-                                    </ul>
-                                    {/*<Checkbox style={{margin: 5}} defaultChecked={false}*/}
-                                    {/*          onChange={(e) => handleSelectAll(e)}>Select All</Checkbox>*/}
+                                        overflowY: 'scroll',
+                                        width: 250,
+                                        borderColor: ColorPalette.thirdColor,
+                                        borderWidth: 1,
+                                        borderRadius: 20,
+                                        padding: 20
+                                    }}>
+
+                                        <ul style={{listStyleType: 'none'}}>
+                                            {tokenList.map((t: any, idx: number) => <li style={{marginBottom: 5}}>
+                                                <Checkbox size='lg' iconColor='red'
+                                                          style={{margin: 15}}
+                                                          colorScheme='red'
+                                                          defaultChecked={checkActiveTokens(t)}
+                                                          onChange={(e) => handleCheckBoxChange(e, idx)}>
+                                                    <HStack style={{marginLeft:20}}>
+                                                        <img width={30} src={t.logoUrl}/>
+                                                        <div>{t.symbol}</div>
+                                                    </HStack>
+                                                </Checkbox></li>)}
+                                        </ul>
+                                        {/*<Checkbox style={{margin: 5}} defaultChecked={false}*/}
+                                        {/*          onChange={(e) => handleSelectAll(e)}>Select All</Checkbox>*/}
 
 
-
-                                </div>
+                                    </div>
                                 </div>}
 
 
                                 {tokenList.length > 0 && (<div style={{marginLeft: 60}}>
-                                    {isLoading && (<div style={{position: 'absolute', marginLeft: 550, marginTop:300}}><AvadaSpinner/></div>)}
+                                    {isLoading && (<div style={{position: 'absolute', marginLeft: 550, marginTop: 300}}>
+                                        <AvadaSpinner/></div>)}
                                     <HeatMap tokensList={tokenList} data={tokenPrices}/>
                                 </div>)}
 
 
-
+                            </HStack>
+                            <HStack>
+                                <div style={{
+                                    borderWidth: 1,
+                                    borderStyle: 'solid',
+                                    marginTop: -180,
+                                    borderRadius: 20,
+                                    padding: 20,
+                                    width: '80%'
+                                }}>
+                                    <HStack>
+                                        <div>
+                                            <span>Start date: </span>
+                                            <span>{startDate}</span>
+                                        </div>
+                                        <div> /</div>
+                                        <div>
+                                            <span>End date: </span>
+                                            <span>{endDate}</span>
+                                        </div>
+                                    </HStack>
+                                    <RangeSlider onChange={(e) => onDateDrag(e)}
+                                                 onChangeEnd={(e) => onChangeDate(e)}
+                                                 defaultValue={[initialOffset, endOffset]}
+                                                 min={1629504000} max={Math.round(Date.now() / 1000)}
+                                                 step={sliderStep} minStepsBetweenThumbs={10}
+                                    >
+                                        <RangeSliderTrack bg={ColorPalette.thirdColor}>
+                                            <RangeSliderFilledTrack bg={ColorPalette.thirdColor}/>
+                                        </RangeSliderTrack>
+                                        <RangeSliderThumb boxSize={6} index={0}/>
+                                        <RangeSliderThumb boxSize={6} index={1}/>
+                                    </RangeSlider>
+                                </div>
+                                <ExportIcon/>
 
                             </HStack>
-
-                                    <div style={{
-                                        borderWidth: 1,
-                                        borderStyle: 'solid',
-                                        marginTop: -180,
-                                        borderRadius: 20,
-                                        padding: 20,
-                                        width:'80%'
-                                    }}>
-                                        <HStack>
-                                            <div>
-                                                <span>Start date: </span>
-                                                <span>{startDate}</span>
-                                            </div>
-                                            <div> /</div>
-                                            <div>
-                                                <span>End date: </span>
-                                                <span>{endDate}</span>
-                                            </div>
-                                        </HStack>
-                                        <RangeSlider onChange={(e) => onDateDrag(e)}
-                                                     onChangeEnd={(e) => onChangeDate(e)}
-                                                     defaultValue={[initialOffset, endOffset]}
-                                                     min={1629504000} max={Math.round(Date.now() / 1000)}
-                                                     step={sliderStep} minStepsBetweenThumbs={10}
-                                        >
-                                            <RangeSliderTrack bg={ColorPalette.thirdColor}>
-                                                <RangeSliderFilledTrack bg={ColorPalette.thirdColor}/>
-                                            </RangeSliderTrack>
-                                            <RangeSliderThumb boxSize={6} index={0}/>
-                                            <RangeSliderThumb boxSize={6} index={1}/>
-                                        </RangeSlider>
-                                    </div>
-
-
 
                             </div>)}
 
