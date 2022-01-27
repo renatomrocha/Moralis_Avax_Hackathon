@@ -12,6 +12,12 @@ load_dotenv()
 
 db = pymongo.MongoClient(os.getenv("PROD_REMOTE_CONNECTION_STRING"))["parse"]
 
+logging.basicConfig(
+            filename="logs/FetchPairLiquidity.log",
+            level=logging.INFO,
+            format="%(levelname)s:%(asctime)s:%(funcName)s:%(message)s",
+        )
+
 
 def get_pair_liquidity(address, from_time, to_time):
 
@@ -42,6 +48,7 @@ def get_pair_liquidity(address, from_time, to_time):
     else:
         reserve0 = -999
         reserve1 = -999
+        logging.warning(f'Did not get loquidity for {address} for time {from_time}')
 
     return reserve0, reserve1
 
@@ -88,7 +95,7 @@ if __name__ == "__main__":
                 pair["tvl0"] = pair["reserve0"] * pair["price0"]
                 pair["tvl1"] = pair["reserve1"] * pair["price1"]
             except:
-                print(
+                logging.warning(
                     "No price found for {} or {} for timestamp {}".format(
                         pair["symbol0"], pair["symbol1"], curr_time
                     )
