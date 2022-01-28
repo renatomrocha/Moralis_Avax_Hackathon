@@ -219,3 +219,93 @@ const fetchCandleData = async (address : any, interval: string, since? : any, up
     return tokenPrices;
 
 }
+
+
+
+export const getCorrelations = async (tokens: any[]) => {
+
+    let Correlations = Moralis.Object.extend("TokenPriceCorelation");
+    const query = new Moralis.Query(Correlations);
+    query.ascending("symbol0");
+    query.containedIn("symbol0", tokens );
+    query.containedIn("symbol1", tokens );
+
+    query.limit(500);
+    const results = await query.find();
+    const correlation = results.map((r)=>{
+        const obj = {correlation: r.get("correlation")?r.get("correlation"):0, symbol0:r.get("symbol0"), symbol1: r.get("symbol1")};
+        return obj;
+    });
+
+    const finalData = [...correlation];
+
+
+    console.log("Data received: ", finalData);
+
+    const keys = [...new Set(correlation.map((r)=>r.symbol0))];
+    const keys2 = [...new Set(correlation.map((r)=>r.symbol1))];
+    const finalResult: any[] = [];
+    keys.forEach((key)=> {
+        const obj : any = {};
+        const keyCorrs = correlation.filter((c)=>c.symbol0 === key && tokens.includes(c.symbol1));
+        obj[key] = 1;
+        keyCorrs.forEach((kc)=>{
+            obj[kc.symbol1] = kc.correlation;
+        })
+        finalResult.push(obj);
+    })
+    const finalResult2: any[] = [];
+
+    keys2.forEach((key, idx) => {
+        const obj : any = {};
+        const keyCorrs = correlation.filter((c)=>c.symbol1 === key && tokens.includes(c.symbol0));
+        obj[key] = 1;
+        keyCorrs.forEach((kc)=>{
+            obj[kc.symbol0] = kc.correlation;
+        })
+        finalResult2.push(obj);
+    })
+
+    const finalResults3 = [...finalResult, ...finalResult2];
+    const idxToMerge : any[] = [];
+    finalResults3.forEach((fr, idx)=>{
+        if(Object.keys(fr).length < tokens.length) {
+            // Someting is wrong here
+            const key : any = Object.keys(fr).find(key => fr[key] === 1)
+            const idxsToMerge : any[] = finalResults3.map((f,idx)=>{
+                if(f[key]==1){
+                    return idx;
+                }
+            }).filter(r=>r!=undefined);
+
+
+            const newObj = {};
+            idxsToMerge.forEach((i:any)=>{
+                Object.assign(newObj, finalResults3[i]);
+            })
+
+
+            idxToMerge.push([idxsToMerge]);
+            finalResults3[idx] = newObj;
+
+            idxsToMerge.forEach((i:any)=>{
+                if(i != idx) {
+                    finalResults3.splice(i);
+                }
+            })
+
+            console.log("idx to merge: ", idxsToMerge);
+            console.log("Key is: ", key);
+        }
+
+    })
+
+    const result = finalResults3
+        // .splice(idxToMerge[0][0]);
+
+    console.log("Indexes to merge: ", idxToMerge);
+    console.log("___________- Final result");
+    console.log(finalResults3);
+
+    return result;
+}

@@ -21,6 +21,8 @@ import {Checkbox, CheckboxGroup} from '@chakra-ui/react'
 import BarRaceChart from "./charts/barRaceChart/BarRaceChart";
 import {dateFromTimeStamp} from "../utils/dateUtils";
 import ExportIcon from "./genericComponents/ExportIcon";
+import {CorrelationChart} from "./charts/correlationChart/CorrelationChart";
+import CorrelationChartWrapper from "./charts/CorrelationChartWrapper";
 
 export function MultipleTokens(props: any) {
 
@@ -35,6 +37,8 @@ export function MultipleTokens(props: any) {
     const [endOffset, setEndOffset] = useState(Math.round(Date.now() / 1000));
 
     const [activeTokens, setActiveTokens] = useState<any>(["WBTC.e", "WETH.e", "WAVAX.e", "LINK.e", "TIME", "JOE", "AAVE.e"]);
+
+    const [correlationValues, setCorrelationValues] = useState([]);
 
 
     const fetchPctChanges = () => {
@@ -112,13 +116,16 @@ export function MultipleTokens(props: any) {
             <div style={{...props.style}}>
                 <Title title="Multiple Tokens" hasInfo></Title>
 
-                <Tabs variant='enclosed'>
+                <Tabs variant='soft-rounded' onChange={(index) => console.log("Changed to tab: ", index)} isLazy>
                     <TabList>
                         <Tab>Percentage Change</Tab>
                         <Tab>Correlation</Tab>
                         <Tab>Market Cap</Tab>
                     </TabList>
+
+
                     <TabPanels>
+
                         <TabPanel style={{height: '100%'}}>
 
                             {tokenPrices.length && (<div><HStack style={{height: '100%'}}>
@@ -129,7 +136,7 @@ export function MultipleTokens(props: any) {
                                     <div style={{fontSize: '1.4em'}}>Tokens</div>
                                     <div style={{
                                         height: 500,
-
+                                        marginRight:100,
                                         overflowY: 'scroll',
                                         width: 250,
                                         borderColor: ColorPalette.thirdColor,
@@ -211,9 +218,11 @@ export function MultipleTokens(props: any) {
                                           message={`Loading price history`}/>}
 
                         </TabPanel>
-                        <TabPanel>
-                            <p>Correlation!</p>
+
+                        <TabPanel style={{height: '100%'}}>
+                            <CorrelationChartWrapper tokenList={tokenList}/>
                         </TabPanel>
+
                         <TabPanel>
                             <BarRaceChart/>
                         </TabPanel>
