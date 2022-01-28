@@ -1,4 +1,4 @@
-"# Moralis_Avax_Hackathon
+<!--- # Moralis_Avax_Hackathon --->
 # AVADA - An analytics dashboard for the Avanalche ecosystem
 
 <hline>
@@ -25,8 +25,9 @@ This project proposes design of **an analytics dashboard to** interactively and 
 
 The app was designed, developed, and implemented during the period of [Moralis+Avalanche Hackathon](https://moralis.io/avalanche-hackathon/) by the project team. This documentation describes the application and presents a blue print of how the system can be developed into the future over an extended time period. The design also provides a template for Avalanche and other blockchains on how a dashboard with innovative features can be developed to analyze on-chain and possibly other data.
 
-- A separate detailed [tutorial](Tutorial.md) describes the working of the designed app, explaining step by step, the different screens of the app.
-- The full UI design can be downloaded as a pdf file from [here](./figures/SwapGasFees_Design.pdf).
+- [Avalytics app](https://renatomrocha.github.io/Moralis_Avax_Hackathon/) is running live under github.io.
+- A separate detailed [tutorial](./doc/Tutorial.md) describes the working of the Avalytics app, explaining step by step, the different screens of the app.
+- The full UI design can be downloaded as a pdf file from [here](./doc/pdf/Avalytics_Design.pdf).
 
 ## Uniswap and Swap Fees
 
