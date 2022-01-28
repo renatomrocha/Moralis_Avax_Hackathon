@@ -1,20 +1,5 @@
 <!--- # Moralis_Avax_Hackathon --->
-# AVADA - An analytics dashboard for the Avanalche ecosystem
-
-<hline>
-</hline>
-
-**[Renato Rocha](https://github.com/renatomrocha/)**
-
-_Lisbon, Portugal_
-
-**[Guruprasad Kamath](https://github.com/gurukamath)**
-
-_Düsseldorf, Deutschland_
-
-**[Gurdal Ertek](https://ertekprojects.com)**
-
-_Member of [BlockBlockData](https://blockblockdata.com) Team; Associate Professor of Business Analytics, [UAE University](https://cbe.uaeu.ac.ae/en/departments/analytics/), Abu Dhabi, UAE_
+# Avalytics: An analytics dashboard for the Avanalche ecosystem
 
 <hline>
 </hline>
@@ -141,16 +126,25 @@ As mentioned earlier, there exist websites/apps that report/visualize the Ethere
 - [EthereumPrice.org:](https://ethereumprice.org/gas/) This website displays gas price over time, and time of the day. Especially the visualization of fees through heat map is impressive. While the information provided in SwapGasFees app overlaps with the information provided at EthereumPrice.org, the interface is designed to yield much more insights, through benchmarking. Furthermore, the mentioned website displays only Ethereum gas price and not the swap fees, whereas the SwapGasFees app designed in this project displays the latter.
 - [Matteo Leibowitz's Dune Analytics Dashboards:](https://dune.xyz/MatteoLeibowitz/uniswap-community) This rich collection of dashboards display several statistics for the Uniswap ecosystem. In comparison to this collection, the goal of the SwapGasFees project was to develop a single intuitive dashboard app that presents only the most essential few visualizations.
 
-## Author
+<hline>
+</hline>
 
-<table>
-  <tr>
-    <td width=150px><a href="https://www.linkedin.com/in/gurdalertek/" target="_blank"><img src="figures/gurdal-ertek.png" alt="Gurdal Ertek"></a></td>
-    <td><b>Gürdal Ertek</b> is an Associate Professor at UAE University (UAEU), Al Ain, UAE. He received his Ph.D. from Georgia Institute of Technology, Atlanta, GA, in 2001. Dr. Ertek served in educational and research organizations in Turkey, USA, Singapore, Kuwait and UAE, as well as an on-site reviewer for 50+ industrial R&D projects. His research and teaching areas include applied data science, business analytics, supply chain management, project management, and R&D management. His earlier hackathon in the Ethereum ecosystem was the <a href="https://ethereum.org/en/eth2/get-involved/medalla-data-challenge/" target="_blank">"Medalla Data Challenge,"</a> where Dr. Ertek was the only participant from academia. <a href="https://blockblockdata.github.io/medalla-data-challenge/" target="_blank">Joint work</a> of teammate <a href="https://www.linkedin.com/in/josephkholodenko/" target="_blank">Joseph Kholodenko</a> and <a href="https://ertekprojects.com/about-dr-gurdal-ertek/" target="_blank">Gurdal Ertek</a>, as <a href="https://blockblockdata.com" target="_blank">BlockBlockData Team</a>, was awarded with <a href="https://blog.ethereum.org/2020/11/17/medalla-data-challenge-results/" target="_blank">Bronze Medal</a>. Dr. Ertek's research and other work can be accessed through <a href="http://ertekprojects.com" target="_blank">ErtekProjects.com</a>  </td>
-  </tr>
-</table>
+## Avalytics Team
 
-## [SwapGasFees Tutorial](Tutorial.md)
+- [Renato Rocha](https://github.com/renatomrocha/)**
+
+_Lisbon, Portugal_
+
+- [Guruprasad Kamath](https://github.com/gurukamath)**
+
+_Düsseldorf, Deutschland_
+
+- [Gurdal Ertek](https://ertekprojects.com)**
+
+_Member of [BlockBlockData](https://blockblockdata.com) Team; Associate Professor of Business Analytics, [UAE University](https://cbe.uaeu.ac.ae/en/departments/analytics/), Abu Dhabi, UAE_
+
+
+## [Avalytics Tutorial](.doc/Tutorial.md)
 
 - A separate detailed [tutorial](Tutorial.md) describes the working of the designed app, explaining step by step, the different screens of the app.
 - The full UI design can be downloaded as a pdf file from [here](./figures/SwapGasFees_Design.pdf).
