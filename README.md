@@ -1,4 +1,4 @@
-# Moralis_Avax_Hackathon
+"# Moralis_Avax_Hackathon
 # AVADA - An analytics dashboard for the Avanalche ecosystem
 
 <hline>
