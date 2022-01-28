@@ -92,7 +92,7 @@ Moralis.Cloud.job("FetchTokenDetails", async (request) => {
           ]["usd"];
         }
       } catch {
-        geckoMarketCap = -999;
+        geckoMarketCap = undefined;
       }
 
       marketCap = totalSupply * price;
