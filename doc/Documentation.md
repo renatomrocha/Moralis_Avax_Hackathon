@@ -130,6 +130,7 @@ The following resources/libraries can be used for data extraction from Uniswap:
 ## Future Plans for Avalytics
 
 - Users can be allowed to download source data used in creating the visualizations, possibly at a minor charge, opening the door for revenue and datanomics.
+- Users can be allowed to select other [color palettes](https://www.crazyegg.com/blog/website-color-palettes/) for the visualizations. These palettes can include pallets that are suitable for [color blindness](https://www.color-blindness.com/), similar to [R packages for color blindness](https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/).
 - Several other analyses categories and types can be added to the app. These extensions include analysis of Whales, MemPools, Bridges, and other networks, in comparison and conjunction with Avalanche C-Chain.
 - Several other calculations, especially with respect to volatiliy, and specifically the "VIX Fear Greed Index" calculations can be done through collecting more data with other API, such as [Binance Market Data endpoints](https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#market-data-endpoints) and [FTX Grouped Orderbooks](https://docs.ftx.com/#grouped-orderbooks).
 
