@@ -35,6 +35,9 @@ As a result of the extensive research and planning, many new visualizations have
 
 ## Avalytics System Architecture
 
+Avalytics' system architecture is illustrated in the following figure:
+
+![Avalytics System Architecture](./img/SystemArchitecture.png)
 
 ## Backend: Data Extraction and Processing
 
