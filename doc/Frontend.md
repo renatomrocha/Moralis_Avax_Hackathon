@@ -42,6 +42,13 @@ The following are sample code for the visualizations presented throughout the Av
      </ul> 
 </ul> 
 
+## Avalytics Screenshots
+
+![Bar Chart Race](./doc/img/AvalyticsScreenshotBarChartRace.png)
+
+![Stacked Area Chart](./doc/img/AvalyticsScreenshotStackedAreaChart.png)
+
+
 **Index**
 
 1. [Background](Background.md)
