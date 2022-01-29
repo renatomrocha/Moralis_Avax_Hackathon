@@ -25,16 +25,16 @@ The app was designed, developed, and implemented during the period of [Moralis+A
 
 ## Avalytics Team
 
-- [Renato Rocha](https://github.com/renatomrocha/) (Front-end development, Back-end development, System design)
-
+- [Renato Rocha](https://github.com/renatomrocha/) 
+(Front-end development, Back-end development, System design)
 _Lisbon, Portugal_
 
-- [Guruprasad Kamath](https://github.com/gurukamath) (Back-end development, Front-end development, System design)
-
+- [Guruprasad Kamath](https://github.com/gurukamath) 
+(Back-end development, Front-end development, System design)
 _Düsseldorf, Deutschland_
 
-- [Gurdal Ertek](https://ertekprojects.com) (System design, System documentation)
-
+- [Gurdal Ertek](https://ertekprojects.com) 
+(System design, System documentation)
 _Member of [BlockBlockData](https://blockblockdata.com) Team; Associate Professor of Business Analytics, [UAE University](https://cbe.uaeu.ac.ae/en/departments/analytics/), Abu Dhabi, UAE_
 
 
