@@ -27,12 +27,13 @@ There exist multiple block explorers and dashboards that provide data and insigh
 Avalytics brings the following value offerings to Avalanche and blockchain industry:
 
 Avalytics is the first integrated analytics dashboard 
-1. dedicated to the Avalance C-Chain ecosystem
+1. specifically developed for and dedicated to the Avalance C-Chain ecosystem
 2. developed using Moralis
 3. that analyzes TraderJoe pools
-4. that implements novel interactive and animated visualizations used for the first time in blockchain industry
-5. that boosts Avalanche DEX reporting capabilities with CEX features, such as candle charts
-6. with extensive documentation available publicly on github
+4. that implements several novel interactive and animated visualizations for the first time in blockchain industry, enabling fresh insights into on-chain data
+5. that implements correlation analysis for top Avalanche tokens
+6. that boosts Avalanche DEX reporting capabilities with CEX features, such as candlestick charts
+7. with extensive documentation available publicly on github
 
 ## Design Principles
 
@@ -146,11 +147,13 @@ The main **block explorer** for Avalanche is [SnowTrace](https://snowtrace.io/).
 
 There exist several **Avalanche analytics dashboards** that report/visualize data about the Avalanche network. Some notable ones are the following:
 - [DefiLlama](https://defillama.com/chain/Avalanche) is an impressive analytics dashboard, that provides _many_ different types of analyses. While Avalytics implements some novel visual analytics techniques, the scope of analyses in Avalytics, in comparion to DefiLlama, is quite small as of January 2022.
+- [Messari](https://messari.io/asset/avalanche) provides insightful report on Avalanche, just as it does for many other blockchains.
 - [Apy.vision](https://apy.vision/) provides _very_ extensive analytics reports regarding liquidity pools, including the Avalanche pools.
 - [WhaleStats](https://www.whalestats.com/analysis-of-the-top-1000-avalanche-wallets) provides several insights into the Avalanche Whales, using interesting iand innovative visualizations, such as treemaps to display Total holdings of all tokens (except Avalanche). Analyses such as Rich List, AVAX transfers in/out of wallets, Stablecoin transfers in/out of wallets, Most widely held token can be interesting to adopt into the Avalytics app. Treemap visualization can also be implemented within Avalytics, as it is quite informative.
  - [Avax Projects](https://www.avax-projects.com/) is an interesting website that provides detailed and up-to-date information on projects and tokens on the Avalanche blockchain. Especially the categories in this website can be used for categorizing the tokens in Avalytics.
  
 In addition to the above analytics websites/apps that report on Avalanche, several other **analytics dashboards for other blockchains**, can be a source of inspiration and ideas, in developing Avalytics into the future:
+- [Glassnode Studio](https://studio.glassnode.com) is one of the most extensive analytics platforms in the blockchain world. While Glassnode currently does not generate reports on Avalanche, its reports for its selected chains are formidable.
 - [Bloks](https://bloks.io/dapps) is an inspiring block explorer for the EOS blockchain, with extensive analytics provided at the speed of light. This project can be source of many ideas to be implemented within Avalytics.
 - [Crypto.com DeFi Dashboard - Gas Fees:](https://crypto.com/defi/dashboard/gas-fees) This online service displays not only the Ethereum gas fees but also the gas fees for different swap pairs.
 - [EthereumPrice.org:](https://ethereumprice.org/gas/) This website displays gas price over time, and time of the day. Especially the visualization of fees through heat map is impressive. 
