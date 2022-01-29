@@ -18,7 +18,7 @@ The app was designed, developed, and implemented during the period of [Moralis+A
 ## Project Sources and Presentation:
 - [Moralis+Avalanche Hackathon Submission Files](https://moralis.io/avalanche-hackathon/)
 - [GitHub Page](https://github.com/renatomrocha/Moralis_Avax_Hackathon)
-- [Documentation](./doc/Tutorial.md)
+- [Documentation](./doc/Documentation.md)
 - [Tutorial](./doc/Tutorial.md)
 - [Full UI Design as pdf](./doc/pdf/Avalytics_Design.pdf)
 - [Slide Deck](https://app.decktopus.com/share/...) and the 
