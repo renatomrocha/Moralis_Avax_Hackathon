@@ -49,7 +49,7 @@ _Düsseldorf, Deutschland_
 
 - [Gurdal Ertek](https://github.com/gurdalertek) (System design, System documentation)
 
-_Al Ain, UAE_
+_Al Ain, United Arab Emirates_
 
 <!--- Member of [BlockBlockData](https://blockblockdata.com) Team; Associate Professor of Business Analytics, [UAE University](https://cbe.uaeu.ac.ae/en/departments/analytics/) --->
 
