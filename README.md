@@ -49,6 +49,7 @@ _Düsseldorf, Deutschland_
 
 - [Gurdal Ertek](https://github.com/gurdalertek) (System design, System documentation)
 
-_Member of [BlockBlockData](https://blockblockdata.com) Team; Associate Professor of Business Analytics, [UAE University](https://cbe.uaeu.ac.ae/en/departments/analytics/), Abu Dhabi, UAE_
+_Abu Dhabi, UAE_
 
+<!--- Member of [BlockBlockData](https://blockblockdata.com) Team; Associate Professor of Business Analytics, [UAE University](https://cbe.uaeu.ac.ae/en/departments/analytics/) --->
 
