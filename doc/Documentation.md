@@ -32,7 +32,7 @@ Avalytics is the first integrated analytics dashboard
 3. that analyzes TraderJoe pools
 4. that implements several novel interactive and animated visualizations for the first time in blockchain industry, enabling fresh insights into on-chain data
 5. that implements correlation analysis for top Avalanche tokens
-6. that boosts Avalanche DEX reporting capabilities with CEX features, such as candlestick charts
+6. that boosts Avalanche DEX reporting capabilities with CEX features, such as [candlestick charts](https://www.coingecko.com/buzz/how-to-read-candlestick-charts)
 7. with extensive documentation available publicly on github
 
 ## Design Principles
@@ -95,7 +95,7 @@ This section describes the basic design of the user interface (UI) for the Avaly
 There are four main screens/interfaces in the app:
 
 - **Dashboard:** Basic information about top tokens on Avalanche C-Chain, including Market Cap (Top 5), top Gainers and Losers.  (under the `Dashboard` tab)
-- **Tokens:** Price charts for individual tokens, both as line charts and candlestick charts. The charts can be filtered for selected time period and time resolution.  (under the `Tokens` tab)
+- **Tokens:** Price charts for individual tokens, both as line charts and [candlestick charts](https://www.coingecko.com/buzz/how-to-read-candlestick-charts). The charts can be filtered for selected time period and time resolution.  (under the `Tokens` tab)
 - **Multiple Tokens:** Price changes and analytics for multiple tokens at once. Includes timeline visualization, correlation, and bar chart animation. (under the `Multiple Tokens` tab)
 - **Pools:** Analytics for  [liquidity pools](https://traderjoexyz.com/pool) in the [TraderJoe](https://traderjoexyz.com) decentralized exchange (DEX). (under the `Pools` tab)
 
