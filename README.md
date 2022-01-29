@@ -1,5 +1,5 @@
 <!--- # Moralis_Avax_Hackathon --->
-# Avalytics: An analytics dashboard for the Avanalche ecosystem
+# Avalytics: An Analytics Dashboard for the Avanlanche C-Chain Ecosystem
 
 <hline>
 </hline>
