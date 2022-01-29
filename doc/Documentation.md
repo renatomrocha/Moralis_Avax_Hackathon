@@ -39,6 +39,13 @@ Avalytics' system architecture is illustrated in the following figure:
 
 ![Avalytics System Architecture](./img/SystemArchitecture.png)
 
+According to this illustration, 
+Source of all data is the Avalanche C-Chain, read through Moralis API.
+Data acquired from the C-Chain is stored in a Moralis database as the $"Staging Layer"$.
+Through running Python programs at a "Cloud Service" (AWS, in the current implementation), the data in the staging layer is processed.
+The data processed at the cloud service is sent back to Moralis, into a database, which serves as the "Consumption Layer".
+
+
 ## Backend: Data Extraction and Processing
 
 The following resources/libraries can be used for data extraction from Uniswap:
