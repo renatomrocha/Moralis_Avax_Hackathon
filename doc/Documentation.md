@@ -103,9 +103,11 @@ The following are sample code for the visualizations presented throughout the Av
 
 ## Technology/Tool Stack
 
-- For the **backend**, the above data extraction tools can be tested, and the one that provides the fastest and most reliable results can be selected.
-- For the **frontend**, the easiest thing to do would be to fork the Uniswap front-end code and do modifications on that. 
-- For **visualizations**, as mentioned earlier, the most suitable library is thought to be [D3.js](https://d3js.org/). The [D3 Visualization Gallery](https://observablehq.com/@d3/gallery) at [Observable HQ](https://observablehq.com/@d3/) provides sample source codes for all the essential charts, that can be used in the SwapGasFees app.
+- For the **backend data querying and storage**, [Moralis API and server](https://moralis.io) were used.
+- For the **backend data processing**, [Python](https://python.org) language and [Pandas](https://pandas.pydata.org/) ML library were used.
+- For the **backend cloud service**, [Amazon Web Services (AWS)](https://aws.amazon.com/) was used.
+- For the **frontend app**, [React.js](https://reactjs.org/) Javascript library was used. 
+- For the **frontend visual analytics**, [D3.js](https://d3js.org/) and [Flourish Studio](https://flourish.studio) Javascript libraries/platofmrs were used. The [D3 Visualization Gallery](https://observablehq.com/@d3/gallery) at [Observable HQ](https://observablehq.com/@d3/) provides sample source codes for all the essential charts of D3.js, including those implemented in Avalytics.
 
 ## Related Work
 
