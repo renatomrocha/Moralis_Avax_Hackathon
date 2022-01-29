@@ -30,7 +30,7 @@ In addition to the above analytics websites/apps that report on Avalanche, sever
 5. [Backend: Data under Moralis](Backend.md)
 6. [Frontend: UI and Visual Analytics](Frontend.md)
 7. [Technology/Tool Stack](TechnologyStack.md)
-8. [Related Projects](RelatedProjects.md)
+8. **Related Projects**
 9. [Other Resources](OtherResources.md)
 10. [Future Plans for Avalytics](FuturePlans.md)
 
