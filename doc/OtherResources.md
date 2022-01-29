@@ -25,7 +25,7 @@ The following resources/libraries can be used for data extraction or for getting
 6. [Frontend: UI and Visual Analytics](Frontend.md)
 7. [Technology/Tool Stack](TechnologyStack.md)
 8. [Related Projects](RelatedProjects.md)
-9. [Other Resources](OtherResources.md)
+9. **Other Resources**
 10. [Future Plans for Avalytics](FuturePlans.md)
 
 <hline></hline>
