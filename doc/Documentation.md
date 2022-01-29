@@ -25,8 +25,10 @@ For selecting the visualizations most suitable for each analysis, the [D3 Visual
 - [Visual Vocabulary](https://public.tableau.com/views/VisualVocabulary/VisualVocabulary?:showVizHome=no)
 - [Power BI Visuals Reference](https://www.sqlbi.com/ref/power-bi-visuals-reference/) 
  
-As a result of the extensive research and planning, many new visualizations have been implemented in Avalytics, the the best knowledge of the project team's knowledge, for the first time in the blockchain world. These innovative unique visualizations include:
-
+As a result of the extensive research and planning, many new visualizations have been implemented in Avalytics, the the best knowledge of the project team's knowledge, for the first time in the blockchain world. These innovative visualizations used in Avalytics include:
+- [Timeline](https://observablehq.com/@mbostock/the-impact-of-vaccines) for visualizing price changes for multiple tokens at the same time, in a single succinct interactive chart.
+- [Stacked area chart / Streamgraph](https://observablehq.com/@d3/streamgraph) for visualizing changes over time in total value locked (TVL) in [liquidity pools](https://traderjoexyz.com/pool) within the [TraderJoe](https://traderjoexyz.com) decentralized exchange (DEX). 
+- [Bar chart race](https://app.flourish.studio/templates#template-bar-chart-race) for visualizing changes in market cap of Avalanche C-Chain tokens.
 
 ## Avalytics System Architecture
 
