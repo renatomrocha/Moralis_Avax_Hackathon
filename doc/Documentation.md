@@ -129,6 +129,10 @@ The following resources/libraries can be used for data extraction from Uniswap:
 
 ## Future Plans for Avalytics
 
+- Users can be allowed to download source data used in creating the visualizations, possibly at a minor charge, opening the door for revenue and datanomics.
+- Several other analyses categories and types can be added to the app. These extensions include analysis of Whales, MemPools, Bridges, and other networks, in comparison and conjunction with Avalanche C-Chain.
+- Several other calculations, especially with respect to volatiliy, and specifically the "VIX Fear Greed Index" calculations can be done through collecting more data with other API, such as [Binance Market Data endpoints](https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#market-data-endpoints) and [FTX Grouped Orderbooks](https://docs.ftx.com/#grouped-orderbooks).
+
 
 <hline>
 </hline>
