@@ -46,7 +46,7 @@ The following are sample code for the visualizations presented throughout the Av
 
 ![Bar Chart Race](./doc/img/AvalyticsScreenshotBarChartRace.png)
 
-![Stacked Area Chart](./doc/img/AvalyticsScreenshotStackedAreaChart.png)
+![Stacked Area Chart](./doc/img/AvalyticsScreenshotStackedAreaChartNew.png)
 
 
 **Index**
