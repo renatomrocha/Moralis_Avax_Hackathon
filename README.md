@@ -27,13 +27,13 @@ The app was designed, developed, and implemented during the period of [Moralis+A
 
 - [Renato Rocha](https://github.com/renatomrocha/) 
 
-(Front-end development, Back-end development, System design)
+(Frontend development, Backend development, System design)
 
 _Lisbon, Portugal_
 
 - [Guruprasad Kamath](https://github.com/gurukamath) 
  
-(Back-end development, Front-end development, System design)
+(Backend development, Frontend development, System design)
 
 _Düsseldorf, Deutschland_
 
