@@ -23,7 +23,7 @@ In designing and implementing the system, best effort was done to adhere to some
 
 1. [Background](Background.md)
 2. [Unique Value Offerings](UniqueValueOfferings.md)
-3. [Design Principles](DesignPrinciples.md)
+3. **Design Principles**
 4. [System Architecture](SystemArchitecture.md)
 5. [Backend: Data under Moralis](Backend.md)
 6. [Frontend: UI and Visual Analytics](Frontend.md)
