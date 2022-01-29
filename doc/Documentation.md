@@ -108,6 +108,7 @@ The following are sample code for the visualizations presented throughout the Av
 - For the **backend cloud service**, [Amazon Web Services (AWS)](https://aws.amazon.com/) was used.
 - For the **frontend app**, [React.js](https://reactjs.org/) Javascript library was used. 
 - For the **frontend visual analytics**, [D3.js](https://d3js.org/) and [Flourish Studio](https://flourish.studio) Javascript libraries/platofmrs were used. The [D3 Visualization Gallery](https://observablehq.com/@d3/gallery) at [Observable HQ](https://observablehq.com/@d3/) provides sample source codes for all the essential charts of D3.js, including those implemented in Avalytics.
+- Token images were obtained from [CoinGecko](https://coingecko.com).
 
 ## Related Work
 
