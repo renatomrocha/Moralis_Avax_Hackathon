@@ -54,7 +54,7 @@ As a result of the extensive research and planning, many new visualizations have
 
 In designing and implementing the system, best effort was done to adhere to some of the [best practices of coding](https://code.tutsplus.com/tutorials/top-15-best-practices-for-writing-super-readable-code--net-8118).
 
-## Avalytics System Architecture
+## System Architecture
 
 Avalytics' system architecture is illustrated in the following figure:
 
@@ -182,7 +182,7 @@ In addition to the above analytics websites/apps that report on Avalanche, sever
 - [ChainCrunch](https://dashboard.chaincrunch.cc/public/dashboard/cc7a0d94-7f70-46f4-aae4-2f8810430931#theme=night) is a basic dashboard for Solana.
 - [Dune Analytics](https://dune.xyz/panta_rhei/NFt) provides insights into NFTs through analytics. Such analyses can be implemented within Avalytics, as well.
 
-## Other Resources: 
+## Other Resources
 
 **Data Extraction and Processing**
 
