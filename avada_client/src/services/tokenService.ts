@@ -5,13 +5,36 @@ export const getTokenList = async () : Promise<any[]> => {
 
     const TOKEN = Moralis.Object.extend("TokenDetails")
     const query = new Moralis.Query(TOKEN);
-    query.select("name", "id","address","symbol","logoUrl");
+    query.select("name", "id","address","symbol","logoUrl", "currentPrice", "currentMarketCap", "pctPriceChange24Hr");
     const results = await query.find();
-    const tokenList = results.map((r)=>{
-        return {name:r.get("name"),address: r.get("address"),symbol: r.get("symbol"), logoUrl: r.get("logoUrl")}
+    const tokenList = results.filter((r)=>r.get("symbol") != 'SUSHI.e' && r.get("symbol") != 'SNOB' && r.get("symbol") != 'ANY').map((r)=>{
+        return {name:r.get("name"),address: r.get("address"),symbol: r.get("symbol"), logoUrl: r.get("logoUrl"),
+            price: r.get("currentPrice").toFixed(2), marketCap: r.get("currentMarketCap"), pctChange: (r.get("pctPriceChange24Hr")*100).toFixed(2)}
     });
     return tokenList;
 }
+
+
+export const getToken = async (address : string) : Promise<any> => {
+
+    const TOKEN = Moralis.Object.extend("TokenDetails")
+    const query = new Moralis.Query(TOKEN);
+    query.select("name", "id","address","symbol","logoUrl", "currentPrice", "currentMarketCap", "pctPriceChange24Hr");
+    query.equalTo("address", address);
+    const results = await query.find();
+
+    console.log("Token: ", results);
+    const tokenList = results.filter((r)=>r.get("symbol") != 'SUSHI.e' && r.get("symbol") != 'SNOB' && r.get("symbol") != 'ANY').map((r)=>{
+        return {name:r.get("name"),address: r.get("address"),symbol: r.get("symbol"), logoUrl: r.get("logoUrl"),
+            price: r.get("currentPrice").toFixed(2), marketCap: r.get("currentMarketCap"), pctChange: (r.get("pctPriceChange24Hr")*100).toFixed(2)}
+    });
+
+    return tokenList[0];
+}
+
+
+
+
 
 export const getTokenByAddress = async (address: any) => {
     const TOKEN = Moralis.Object.extend("TokenDetails")
@@ -221,8 +244,7 @@ const fetchCandleData = async (address : any, interval: string, since? : any, up
 }
 
 
-
-export const getCorrelations = async (tokens: any[]) => {
+export const getCorrelationsOld = async (tokens: any[]) => {
 
     let Correlations = Moralis.Object.extend("TokenPriceCorelation");
     const query = new Moralis.Query(Correlations);
@@ -293,11 +315,9 @@ export const getCorrelations = async (tokens: any[]) => {
                     finalResults3.splice(i);
                 }
             })
-
             console.log("idx to merge: ", idxsToMerge);
             console.log("Key is: ", key);
         }
-
     })
 
     const result = finalResults3
@@ -305,7 +325,68 @@ export const getCorrelations = async (tokens: any[]) => {
 
     console.log("Indexes to merge: ", idxToMerge);
     console.log("___________- Final result");
-    console.log(finalResults3);
+    console.log(finalResults3.map((fr)=>Object.keys));
+
+    return result;
+}
+
+
+
+
+export const getCorrelations= async (tokens: any[]) => {
+
+    let Correlations = Moralis.Object.extend("TokenPriceCorelation");
+    const query = new Moralis.Query(Correlations);
+    query.ascending("symbol0");
+    query.containedIn("symbol0", tokens );
+    query.containedIn("symbol1", tokens );
+
+    query.limit(500);
+    const results = await query.find();
+    const correlation = results.map((r)=>{
+        const obj = {correlation: r.get("correlation")?r.get("correlation"):0, symbol0:r.get("symbol0"), symbol1: r.get("symbol1")};
+        return obj;
+    });
+
+
+
+
+
+    const keys = [...new Set(correlation.map((r)=>r.symbol0))];
+    const keys2 = [...new Set(correlation.map((r)=>r.symbol1))];
+
+    const finalKeys = [...new Set([...keys, ...keys2])];
+
+
+    console.log("Final keys: ", finalKeys);
+    const finalResult: any[] = [];
+    finalKeys.forEach((mainKey)=> {
+        const obj : any = {};
+        const keyCorrs = correlation.filter((c)=>c.symbol0 === mainKey && tokens.includes(c.symbol1));
+        const keyCorrs2 = correlation.filter((c)=>c.symbol1 === mainKey && tokens.includes(c.symbol0));
+        const combinations = [...keyCorrs, ...keyCorrs2];
+        console.log("Combinations: ", combinations);
+        obj[mainKey] = 1;
+        combinations.forEach((combination : any)=>{
+            // kToAdd must be a token symbol (symbol0 or symbol1)
+            const kToAdd = Object.keys(combination).filter((key)=>{
+               if( combination[key] != mainKey && key != 'correlation') {
+                    return combination[key];
+               }
+            })[0];
+
+            obj[combination[kToAdd]] = combination.correlation;
+        })
+        console.log("Will push object: ", obj);
+        finalResult.push(obj);
+    })
+
+
+    const result = finalResult
+    // .splice(idxToMerge[0][0]);
+
+    console.log("___________- Final result");
+    console.log(finalResult);
 
     return result;
 }

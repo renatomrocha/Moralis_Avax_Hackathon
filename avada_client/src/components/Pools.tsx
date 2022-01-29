@@ -12,7 +12,7 @@ function Pools()  {
         getPoolList()
             .then((pools)=>{
                 console.log("Pools: ", pools);
-                setPoolList(pools)
+                setPoolList(pools.filter((p)=>p.token1 != 'SNOB'))
             });
     },[])
 

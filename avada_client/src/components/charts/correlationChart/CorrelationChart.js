@@ -1,5 +1,6 @@
 import * as d3 from "d3";
 import {useEffect, useState} from "react";
+import './corr.css';
 
 
 export function CorrelationChart(props) {
@@ -15,7 +16,6 @@ export function CorrelationChart(props) {
             d3.selectAll(".tooltip").remove();
         }
 
-        console.log("Building with data: ", corrData);
 
         buildCorrelationChart();
     },[corrData])
@@ -42,8 +42,9 @@ export function CorrelationChart(props) {
             const data = [];
             corrData.forEach(function (d) {
                 let x = Object.keys(d).find(key => d[key] === 1);
-
-                delete d[""];
+                console.log("X is: ", x);
+                console.log(d);
+                delete d[x];
                 for (let prop in d) {
                     let y = prop,
                         value = d[prop];
@@ -53,7 +54,6 @@ export function CorrelationChart(props) {
                         value: +value
                     });
                 }
-                console.log("Data: ", data);
             });
 
 
@@ -74,7 +74,7 @@ export function CorrelationChart(props) {
                 .domain([0, 1])
                 .range([0, 20]);
 
-            console.log("DOmain: ")
+
 
             // X scale
             const x = d3.scalePoint()
@@ -145,7 +145,7 @@ export function CorrelationChart(props) {
                 .style("text-align", "center")
                 .style("fill", function (d) {
                     if (d.x === d.y) {
-                        return "#000";
+                        return "#fff";
                     } else {
                         return color(d.value);
                     }
@@ -157,10 +157,6 @@ export function CorrelationChart(props) {
                 .filter(function (d) {
                     const ypos = domain.indexOf(d.y);
                     const xpos = domain.indexOf(d.x);
-                    console.log("D: ", d);
-                    console.log("Domain: ", domain);
-                    console.log("X pos: ". xpos);
-                    console.log("Y pos: ", ypos);
                     return xpos > ypos;
                 })
                 .append("circle")
@@ -179,7 +175,7 @@ export function CorrelationChart(props) {
     }
 
 
-    return (<div>
+    return (<div >
         <div id="corr_chart" />
     </div>)
 

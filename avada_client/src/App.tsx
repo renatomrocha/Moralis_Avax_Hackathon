@@ -1,16 +1,13 @@
 import React, {useEffect, useState} from "react";
 import "./App.css";
 import Moralis from "moralis";
-import Navbar from "./components/navbar/Navbar";
 import {useMoralis} from "react-moralis";
 import Tokens from "./components/Tokens";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import TokenView from "./components/TokenView";
 import CandleStickTemplate from "./components/charts/candlestick/CandleStickTemplate";
 import {appId, serverUrl} from "./index";
-import Pools from "./components/Pools";
 import {Dashboard} from "./components/dashboard/Dashboard";
-import set = Moralis.CoreManager.set;
 import {Sidebar} from "./components/sidebar/Sidebar";
 import {
     Button, DrawerBody,

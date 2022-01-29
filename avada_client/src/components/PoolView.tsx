@@ -8,7 +8,7 @@ import DateSlider from "./genericComponents/DateSlider";
 import {dateFromTimeStamp} from "../utils/dateUtils";
 import ExportIcon from "./genericComponents/ExportIcon";
 
-const addressesToInclude = ["0x8fb5bd3ac8efd05dacae82f512dd03e14aadab73","0x72c3438cf1c915ecf5d9f17a6ed346b273d5bf71","0x3daf1c6268362214ebb064647555438c6f365f96","0x454e67025631c065d3cfad6d71e6892f74487a15"
+const addressesToInclude = ["0x72c3438cf1c915ecf5d9f17a6ed346b273d5bf71","0x3daf1c6268362214ebb064647555438c6f365f96","0x454e67025631c065d3cfad6d71e6892f74487a15"
     ,"0xfe15c2695f1f920da45c30aae47d11de51007af9","0x1643de2efb8e35374d796297a9f95f64c082a8ce","0x87dee1cc9ffd464b79e058ba20387c1984aed86a","0xa6908c7e3be8f4cd2eb704b5cb73583ebf56ee62"
     ,"0x6f3a0c89f611ef5dc9d96650324ac633d02265d3","0xd5a37dc5c9a396a03dd1136fc76a1a02b1c88ffa","0xb5c9e891af3063004a441ba4fab4ca3d6deb5626","0xed8cbd9f0ce3c6986b22002f03c6475ceb7a6256",
     "0x2774516897ac629ad3ed9dcac7e375dda78412b9","0x67926d973cd8ee876ad210faaf7dffa99e414acf","0x63abe32d0ee76c05a11838722a63e012008416e6","0xa389f9430876455c36478deea9769b7ca4e3ddb1",

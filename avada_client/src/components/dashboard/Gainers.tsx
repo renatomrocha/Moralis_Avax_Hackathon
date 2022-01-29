@@ -9,7 +9,7 @@ export function Gainers(props:any) {
         <div style={{width:'100%', backgroundColor:ColorPalette.secondaryColor}}>
         {/*<h3 style={{margin:10}}>Gainers</h3>*/}
         </div>
-            <List title="Gainers" getter={getTopGainers} entityProps={[{name:"Symbol",value:"symbol"},{name:"% Change", value: "pctChange", postProcess:(a:any)=>(a*100).toFixed(2)+'%'}]}/>
+            <List title="Gainers" getter={getTopGainers} entityProps={[{name:"", value:'logoUrl', type:'img'},{name:"Symbol",value:"symbol"},{name:"% Change (24h)", value: "pctChange", postProcess:(a:any)=>(a*100).toFixed(2)+'%'}]}/>
 
 
     </div>)

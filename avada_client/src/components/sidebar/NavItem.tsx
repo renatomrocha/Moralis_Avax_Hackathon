@@ -29,7 +29,7 @@ export function NavItem({navSize, icon, title, route, active, style,setActiveMen
             borderColor={style.borderColor}
             borderWidth={style.borderColor?1:0}
             borderRadius={8}
-            opacity={status =='active'? 1: 0.6}
+            opacity={status =='active'? 1: 0.2}
         >
             <Menu placement ="right">
                 <Link

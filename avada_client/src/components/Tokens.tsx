@@ -30,42 +30,12 @@ function Tokens(props:any)  {
 
     useEffect (()=> {
         getTokenList()
-
             .then((tokens)=>{
                 const filteredTokens = tokens.filter((t:any)=>t.symbol!='ANY' && t.symbol!='SUSHI.e');
-                console.log("FIltered tokens: ", filteredTokens);
                 setTokenList(filteredTokens);
-
-                // fetchTokenProps(tokenList);
 
             });
     },[])
-
-    useEffect(()=> {
-        fetchTokenProps(tokenList);
-    },[tokenList])
-
-
-    const fetchTokenProps = (tokens: any[]) => {
-        console.log("Will start props fetching!!");
-        tokens.map((token)=> {
-            console.log("Fetching for: ", token.address);
-            getTokenPriceFromDB(token.address)
-                .then((t)=>{
-                    console.log("Received that...");
-                    const updatedTokens = tokenList;
-                    const index = updatedTokens.findIndex((obj:any) => obj.address == t.address);
-                    if(updatedTokens[index]) {
-                        updatedTokens[index].price = t.price?t.price:0;
-                        updatedTokens[index].marketCap = t.marketCap?t.marketCap:0;
-                        console.log("Updated: ", t.address);
-                        setTokenList(updatedTokens);
-                    }
-                })
-        })
-    }
-
-
 
 
 
@@ -104,7 +74,6 @@ function TokenList(props: any) {
         if(token.price > -1) {
             return (<span>{'$ ' + token.price}</span>)
         } else {
-            // return (<AvadaSpinner spinnerSize={40} style={{alignItems:'center', justifyContent: 'center'}}/>)
             return(<span>-</span>)
         }
     }
@@ -113,16 +82,9 @@ function TokenList(props: any) {
         if(token.marketCap > -1) {
             return (<span>{'M$ ' + (token.marketCap / 10**6).toFixed(2)}</span>)
         } else {
-            // return (<AvadaSpinner spinnerSize={40} style={{alignItems:'center', justifyContent: 'center'}}/>)
             return(<span>-</span>)
         }
     }
-
-
-
-
-
-
 
     return(<Table variant='simple'>
         <Thead>
@@ -131,6 +93,8 @@ function TokenList(props: any) {
                 <Th>Symbol <FontAwesomeIcon icon={faSort} onClick={()=>props.sort('symbol')}/></Th>
                 <Th>Current Price <FontAwesomeIcon icon={faSort} onClick={()=>props.sort('price')}/></Th>
                 <Th>Market Cap <FontAwesomeIcon icon={faSort} onClick={()=>props.sort('marketCap')}/></Th>
+                <Th>% change (24h) <FontAwesomeIcon icon={faSort} onClick={()=>props.sort('pctChange')}/></Th>
+
             </Tr>
         </Thead>
             <Tbody>
@@ -143,6 +107,9 @@ function TokenList(props: any) {
                         <Td>{token.symbol}</Td>
                         <Td>{renderTokenPrice(token)}</Td>
                         <Td>{renderMarketCap(token)}</Td>
+                        <Td style={{color: token.pctChange>0?ColorPalette.fontGreen:ColorPalette.red}}>
+                                    {token.pctChange + '%'}
+                            </Td>
                     </Tr>)
                 })}
             </Tbody>

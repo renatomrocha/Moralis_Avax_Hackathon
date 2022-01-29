@@ -7,8 +7,10 @@ export const ColorPalette = {
     highlight: "#66BFBF",
     red: "#fd4431",
     green: "#09D766",
+    fontGreen: "#378805",
     backgroundColor:'white',
-    navFontColor: 'white'
+    navFontColor: 'white',
+    gray: '#a0a0a0'
 }
 
 

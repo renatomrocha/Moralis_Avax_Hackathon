@@ -1,6 +1,6 @@
 import MiniChart from "./MiniChart";
 import {useEffect, useState} from "react";
-import {getTokenByAddress, getTokenPriceHistoryDB} from "../../../services/tokenService";
+import {getToken, getTokenByAddress, getTokenPriceHistoryDB} from "../../../services/tokenService";
 import {Box, HStack} from "@chakra-ui/react";
 import AvadaSpinner from "../../genericComponents/AvadaSpinner";
 import {ColorPalette} from "../../styles/color_palette";
@@ -22,15 +22,12 @@ export default function     MiniChartContainer ({address, width, height}:any) {
 
     const [pctChange, setPctChange] = useState(0);
 
+    const [currentPrice, setCurrentPrice] = useState(0);
+
     const [plotColor, setPlotColor] = useState("");
 
     useEffect(()=>{
         setIsLoading(true);
-        // get24HourPercentageChange(address)
-        //     .then((pct)=> {
-        //         setPctChange(pct)
-        //         setPlotColor(pct>0?ColorPalette.green:ColorPalette.red)
-        //     });
 
 
         getTokenByAddress(address)
@@ -47,8 +44,12 @@ export default function     MiniChartContainer ({address, width, height}:any) {
 
     useEffect(()=>{
         if(data) {
-
-            setPctChange((( data[data.length -1].price - data[0].price) / data[0].price))
+            getToken(address)
+                .then((t: any)=>{
+                    console.log("T is: ", t);
+                    setPctChange(t.pctChange);
+                    setCurrentPrice(t.price);
+                })
         }
     },[data])
 
@@ -61,11 +62,6 @@ export default function     MiniChartContainer ({address, width, height}:any) {
     },[pctChange])
 
 
-    const getPercentage = () => {
-
-        // Change this to be last 24 hour percentage
-        return parseFloat((pctChange * 100).toFixed(2));
-    }
 
     return (<div onMouseEnter={()=>setBorderColor(pctChange > 0 ? ColorPalette.green : ColorPalette.red)} onMouseLeave={()=>setBorderColor('gray.200')}>
 
@@ -78,9 +74,9 @@ export default function     MiniChartContainer ({address, width, height}:any) {
                 {tokenInfo && (<><HStack>
                         <img style={{width:30, height:30}} src={tokenInfo.logoUrl}/>
                         <span>{tokenInfo.symbol}</span>
-                        {pctChange!==0 && (<span style={{marginRight: 30, color: (getPercentage() < 0)? ColorPalette.red: ColorPalette.green}}>{getPercentage() + '% (24h)'}</span>)}
+                        {pctChange!==0 && (<span style={{marginRight: 30, color: (pctChange < 0)? ColorPalette.red: ColorPalette.green}}>{pctChange + '% (24h)'}</span>)}
                     </HStack>
-                        {data[data.length-1] && <span style={{margin:40}}>{'$ ' + data[data.length-1].price.toFixed(2)}</span>}
+                        { <span style={{margin:40}}>{'$ ' + currentPrice}</span>}
 
                     </>
                 )}

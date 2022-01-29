@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {getCorrelations} from "../../services/tokenService";
 import {ColorPalette} from "../styles/color_palette";
 import {Checkbox, HStack} from "@chakra-ui/react";
+import CorrelationChartV2 from "./correlationChart/CorrelationChartV2";
 
 
 const CorrelationChartWrapper = (props: any) => {
@@ -12,15 +13,13 @@ const CorrelationChartWrapper = (props: any) => {
     const [data, setData] = useState([]);
 
 
-
     const [activeTokens, setActiveTokens] = useState<any>(["WBTC.e", "WETH.e", "WAVAX.e", "LINK.e", "TIME", "JOE", "AAVE.e"]);
 
 
     useEffect(() => {
         getCorrelations(activeTokens)
             .then((d: any) => {
-                console.log("Correlation data");
-                console.log(d);
+
                 setData(d);
             })
     }, [])
@@ -31,8 +30,6 @@ const CorrelationChartWrapper = (props: any) => {
             activeTokens.push(tokenList[idx].symbol);
             getCorrelations(activeTokens)
                 .then((d: any) => {
-                    console.log("Correlation data");
-                    console.log(d);
                     setData(d);
                 })
             // setIsLoading(true);
@@ -44,8 +41,6 @@ const CorrelationChartWrapper = (props: any) => {
             // setTokenPrices(currentPrices.filter((tp) => tp.symbol != tokenList[idx].symbol));
             getCorrelations(activeTokens)
                 .then((d: any) => {
-                    console.log("Correlation data");
-                    console.log(d);
                     setData(d);
                 })
 
@@ -60,14 +55,14 @@ const CorrelationChartWrapper = (props: any) => {
 
 
     return (<>{data.length && <div style={{width:'100%', display:'flex'}}>
-        <HStack spacing='110px' style={{height: '100%'}}>
+        <HStack spacing='20px' style={{height: '100%'}}>
 <div style={{marginRight:160}}>
         <div style={{fontSize: '1.4em'}}>Tokens</div>
         <div style={{
-            height: 500,
+            height: 600,
 
             overflowY: 'scroll',
-            width: 250,
+            width: 300,
             borderColor: ColorPalette.thirdColor,
             borderWidth: 1,
             borderRadius: 20,
@@ -94,8 +89,11 @@ const CorrelationChartWrapper = (props: any) => {
         </div>
 </div>
 
-            <CorrelationChart corrData={data}/>
-        </HStack>
+            {/*<CorrelationChart corrData={data}/>*/}
+            <div style={{borderColor: 'gray.400', borderWidth:1, borderRadius:20, padding:20}}>
+            <CorrelationChartV2 corrData={data}/>
+            </div>
+            </HStack>
 
     </div>}
     </>)

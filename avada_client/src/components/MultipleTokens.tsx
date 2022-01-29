@@ -135,10 +135,10 @@ export function MultipleTokens(props: any) {
                                 }}>
                                     <div style={{fontSize: '1.4em'}}>Tokens</div>
                                     <div style={{
-                                        height: 500,
+                                        height: 550,
                                         marginRight:100,
                                         overflowY: 'scroll',
-                                        width: 250,
+                                        width: 300,
                                         borderColor: ColorPalette.thirdColor,
                                         borderWidth: 1,
                                         borderRadius: 20,
@@ -158,20 +158,17 @@ export function MultipleTokens(props: any) {
                                                     </HStack>
                                                 </Checkbox></li>)}
                                         </ul>
-                                        {/*<Checkbox style={{margin: 5}} defaultChecked={false}*/}
-                                        {/*          onChange={(e) => handleSelectAll(e)}>Select All</Checkbox>*/}
-
 
                                     </div>
                                 </div>}
 
-
                                 {tokenList.length > 0 && (<div style={{marginLeft: 60}}>
                                     {isLoading && (<div style={{position: 'absolute', marginLeft: 550, marginTop: 300}}>
                                         <AvadaSpinner/></div>)}
-                                    <HeatMap tokensList={tokenList} data={tokenPrices}/>
-                                </div>)}
 
+                                        <HeatMap tokensList={tokenList} data={tokenPrices}/>
+
+                                </div>)}
 
                             </HStack>
                             <HStack>
@@ -207,7 +204,6 @@ export function MultipleTokens(props: any) {
                                         <RangeSliderThumb boxSize={6} index={1}/>
                                     </RangeSlider>
                                 </div>
-                                <ExportIcon/>
 
                             </HStack>
 

@@ -3,6 +3,7 @@ import {getTokenList, getTokenPrice} from "../../services/tokenService";
 import {background, Table, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 import {useNavigate} from "react-router-dom";
 import Title from "./Title";
+import {ColorPalette} from "../styles/color_palette";
 
 function List(props: any)  {
 
@@ -52,12 +53,11 @@ function EntityList(props: any) {
         )}
         <Tbody>
             {props.entityList.map((entity: any, idx: number)=> {
-                return(<Tr key={idx} style={selected==idx?{backgroundColor:'#FFB6C1', borderRadius:"10px", cursor:'pointer'}:{}}
+                return(<Tr key={idx} style={selected==idx?{backgroundColor:ColorPalette.highlight, borderRadius:"10px", cursor:'pointer'}:{}}
                            onMouseEnter={(e)=> handleHover(e, idx)} onMouseLeave={()=> setSelected(null)} >
-                    {props.imageProp && <img src={entity[props.imageProp]}/>}
 
                     {props.entityProps.map((ep:any,i:number)=> {
-                        return(<Th key={i}>{ep.postProcess?ep.postProcess(entity[ep.value]):entity[ep.value]}</Th>)
+                        return(<Th key={i}>{ep.type=='img'?<img style={{width:30, height:30}} src={entity[ep.value]}/>:ep.postProcess?ep.postProcess(entity[ep.value]):entity[ep.value]}</Th>)
                     })}
                 </Tr>)
             })}

@@ -36,8 +36,8 @@ export function HeatMap(props) {
 
 
     const buildHeatMap = () => {
-        const margin = {top: 20, right: 25, bottom: 20, left: 40},
-            width = 1200 - margin.left - margin.right,
+        const margin = {top: 20, right: 60, bottom: 20, left: 40},
+            width = 1000 - margin.left - margin.right,
             height = 600 - margin.top - margin.bottom;
 
         const svg = d3.select("#my_dataviz")
@@ -86,6 +86,44 @@ export function HeatMap(props) {
             .style("border-width", "2px")
             .style("border-radius", "5px")
             .style("padding", "5px")
+
+
+        var aS = d3.scaleLinear()
+            .range([-margin.top + 5, height + margin.bottom - 5])
+            .domain([30, -30]);
+
+        var yA = d3.axisRight()
+            .scale(aS)
+            .tickPadding(7)
+            .tickFormat((d=>d + '%'));
+
+        var aG = svg.append("g")
+            .attr("class", "y axis")
+            .call(yA)
+            .attr("transform", "translate(" + (width + 20) + " ,0)")
+
+
+        let color = d3.scaleLinear()
+            .domain([-30, 30])
+            .range([ColorPalette.red, ColorPalette.green]);
+
+
+        var iR = d3.range(-30.1, 30.1, 3);
+        var h = height / iR.length + 3;
+        iR.forEach(function(d){
+            aG.append('rect')
+                .style('fill',color(d))
+                .style('stroke-width', 0)
+                .style('stoke', 'none')
+                .attr('height', h)
+                .attr('width', 10)
+                .attr('x', 0)
+                .attr('y', aS(d))
+        });
+
+
+
+
 
         // Three function that change the tooltip when user hover / move / leave a cell
         const mouseover = function(event,d) {

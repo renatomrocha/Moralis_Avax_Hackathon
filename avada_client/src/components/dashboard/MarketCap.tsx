@@ -33,7 +33,7 @@ export function MarketCap(props: any) {
 
             <HStack spacing={"5%"}>
                 {pieChartData.length > 0 && (<PieChart data={pieChartData}/>)}
-                <List getter={getTopMCap} tableStyle={{width:300}}  entityProps={[{name:"Symbol",value:"symbol"},{name:"M Cap (B$)", value: "marketCap"}]}/>
+                <List getter={getTopMCap} tableStyle={{width:350}}  entityProps={[{name:"", value:'logoUrl', type:'img'},{name:"Symbol",value:"symbol"},{name:"M Cap (B$)", value: "marketCap"}]}/>
             </HStack>
     </div>)
 
