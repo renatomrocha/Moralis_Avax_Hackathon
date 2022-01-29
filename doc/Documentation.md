@@ -40,11 +40,12 @@ Avalytics' system architecture is illustrated in the following figure:
 ![Avalytics System Architecture](./img/SystemArchitecture.png)
 
 According to this illustration, 
-Source of all data is the Avalanche C-Chain, read through Moralis API.
-Data acquired from the C-Chain is stored in a Moralis database as the ``"Staging Layer"''.
-Through running Python programs at a "Cloud Service" (AWS, in the current implementation), the data in the staging layer is processed.
-The data processed at the cloud service is sent back to Moralis, into a database, which serves as the "Consumption Layer".
-
+1. Source of all data is the `Avalanche C-Chain`, read through `Moralis API`.
+2. Data acquired from the C-Chain is stored in a Moralis database as the `Staging Layer`.
+3. Through running Python programs at a `Cloud Service` (AWS, in the current implementation), the data in the staging layer is processed.
+4. The data processed at the cloud service is sent back to Moralis, into a database, which serves as the `Consumption Layer`.
+5. The data available at the `Consumption Layer` is queried on the frontend with Javascript, using React.js. 
+6. Data queried from the `Consumption Layer` is visualized using [D3.js](https://d3js.org/) and [Flourish Studio Examples](https://flourish.studio/) Javascript libraries.
 
 ## Backend: Data Extraction and Processing
 
