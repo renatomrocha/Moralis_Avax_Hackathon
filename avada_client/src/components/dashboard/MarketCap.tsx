@@ -21,7 +21,7 @@ export function MarketCap(props: any) {
                 const totalMCap = allTokens.map(i=>parseFloat(i.marketCap)).reduce((a,b : any) => a + b,0)
                 console.log("Total marketcap = ", totalMCap);
                 allTokens.map((token)=>{
-                    percentages.push({"symbol": token.symbol, "percentage":(parseFloat(token.marketCap)/totalMCap*100).toFixed(0)})
+                    percentages.push({"symbol": token.symbol, "percentage":(parseFloat(token.marketCap)/totalMCap*100).toFixed(0), logoUrl: token.logoUrl})
                 })
                 setPieChartData(percentages);
             })

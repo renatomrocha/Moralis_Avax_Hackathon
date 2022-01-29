@@ -61,7 +61,7 @@ function App() {
                             <Route path="/multiTokens" element={<MultipleTokens style={{marginLeft: 30}}/>}/>
                             <Route path="/token/:address" element={<TokenView style={{marginLeft: 30}}/>}/>
 
-                            <Route path="/pools" element={<PoolView style={{marginLeft: 100}}/>}/>
+                            <Route path="/pools" element={<PoolView style={{marginLeft: 30}}/>}/>
                             <Route path="/whales" element={<UnderConstruction/>}/>
                             <Route path="/memPools" element={<UnderConstruction/>}/>
                             <Route path="/bridges" element={<UnderConstruction/>}/>

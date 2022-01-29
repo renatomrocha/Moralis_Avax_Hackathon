@@ -123,17 +123,31 @@ const PieChart = ({data}:any)=> {
 
                 svg.append('circle')
                     .attr('id','circle')
-                    .attr('fill','#42A5F5')
+                    .attr('fill','#fff')
                     .attr('r','62')
 
                 svg.append('text')
                     .attr('id', 'circle-text')
-                    .style('fill', '#F2F2F2')
-                    .style("font-size", "20px")
+                    .style('fill', ColorPalette.gray)
+                    .style("font-size", "14px")
                     .style("font-weight", "bold")
-                    .attr("transform", "translate(0," + 20 + ")")
+                    .attr("transform", "translate(0," + 30 + ")")
                     .attr("text-anchor", "middle")
                     .html(`${i.data.symbol} <br/> ${i.data.percentage}%`);
+
+
+                const logoWidth = 60;
+
+
+                svg.append("svg:image")
+                    .attr('id','pie-logo')
+                    .attr('width', logoWidth)
+                    .attr('height', logoWidth)
+
+                    .attr("xlink:href", i.data.logoUrl)
+                    .attr("transform", "translate("+  -logoWidth/2 +"," + (-logoWidth+10) + ")")
+
+
 
 
             })
@@ -150,6 +164,8 @@ const PieChart = ({data}:any)=> {
                 // d3.select("#mainTooltip").style("display", 'none');
                 d3.select('circle').remove();
                 d3.select('#circle-text').remove();
+                d3.select('#pie-logo').remove();
+
                 // d3.select('#circle').style("display","hidden");
 
             });

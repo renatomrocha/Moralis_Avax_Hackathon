@@ -1,21 +1,17 @@
 import {Gainers} from "./Gainers";
 import Title from "../genericComponents/Title";
 import {Losers} from "./Losers";
-import {useEffect, useState} from "react";
 import {MarketCap} from "./MarketCap";
 import {Box, Grid, HStack, VStack} from "@chakra-ui/react";
-import MiniChart from "../charts/miniChart/MiniChart";
 import MiniChartContainer from "../charts/miniChart/MiniChartContainer";
-import PieChart from "../charts/pieChart/PieChart";
-import {getTopMCap} from "../../services/dashboardService";
-import BarRaceChart from "../charts/barRaceChart/BarRaceChart"
+
 
 
 export function Dashboard(props:any) {
 
 
     return(<div style={{...props.style}}>
-        <Title title="Dashboard" hasInfo/>
+        <Title title="Dashboard" extraInfo={"Summary dashboard for Avalanche C-chain"}/>
 
         <HStack style={{marginTop:40}}  spacing={10}>
             <div style={{width:350,height:250}}>

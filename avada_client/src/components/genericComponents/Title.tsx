@@ -28,8 +28,8 @@ export default function Title(props: any) {
 
     return(<HStack style={{margin:20}}>
         <Text fontSize='2xl'>{props.title}</Text>
-        {props.hasInfo && <div onMouseEnter={handleInfoHover} onMouseLeave={handleInfoOut} style={{padding:10}}><FontAwesomeIcon  icon={faInfoCircle}  style={{float:'right',color:ColorPalette.mainColor}}/></div>}
-        {popupActivated && (<div style={{position:'absolute', left: popupCoords[0] + 20,top: popupCoords[1] + 20, float:'left',backgroundColor:ColorPalette.mainColor, opacity:0.95, zIndex:999,borderColor:'gray', borderWidth:1,
-            borderRadius:10, width:200, height: 200, padding:20}}>Hey</div>)}
+        {props.extraInfo && <div onMouseEnter={handleInfoHover} onMouseLeave={handleInfoOut} style={{padding:10, zIndex:999}}><FontAwesomeIcon  icon={faInfoCircle}  style={{float:'right',color:ColorPalette.mainColor}}/></div>}
+        {popupActivated && (<div style={{color:'white', position:'absolute', left: popupCoords[0] + 20,top: popupCoords[1] + 20, float:'left',backgroundColor:ColorPalette.mainColor, opacity:0.95, zIndex:999,borderColor:'gray', borderWidth:1,
+            borderRadius:10, width:200,  padding:20}}>{props.extraInfo}</div>)}
     </HStack>)
 }

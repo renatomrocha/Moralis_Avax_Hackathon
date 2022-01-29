@@ -24,7 +24,6 @@ const PoolView = (props:any) => {
     const [data, setData] = useState<any>([]);
     const [poolList, setPoolList] = useState<any[]>([]);
     const [activePools,setActivePools] = useState<any>([]);
-    const [graphReady, setGraphReady] = useState<boolean>(false);
     const [keys, setKeys] = useState<string[]>([]);
     const [lastRequestLength, setLastRequestLength] = useState<any>(0);
     const [initialOffset, setInitialOffset] = useState((Date.now() - 30 * 24 * 60 * 60 * 1000) / 1000); // 30 days in the past in seconds
@@ -134,8 +133,9 @@ const PoolView = (props:any) => {
     }
 
 
-    return (<div>
-        <Title title="Pools" hasInfo></Title>
+    return (<div style={{...props.style}}>
+        <Title title="Pools" extraInfo={"Steam charts provide a visual comparison of" +
+        " total value locked for different liquidity pools. All pools listed belong to the Trader JOE DEX from Avalanche C-chain"}/>
 
         <HStack>
             {activePools.length>0 && (<div style={{
