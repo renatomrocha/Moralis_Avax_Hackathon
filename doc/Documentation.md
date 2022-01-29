@@ -22,6 +22,18 @@ The [Moralis+Avalanche Hackathon]() already requires that the app for the hackat
 
 There exist multiple block explorers and dashboards that provide data and insights on the Avalanche blockchain. Notable systems include [SnowTrace](https://snowtrace.io/), developed by [AvaLabs](https://www.avalabs.org/), []() and [](). While these tools are excellent, we, as the developer team, did _not_ encounter a website/app that provides the utility and insights we had in mind. The Avalytics project thus involves the design, development, deployment, and communication of such an analytics dashboard app, with many firsts in comparion to its peers.
 
+## Unique Value Offerings
+
+Avalytics brings the following value offerings to Avalanche and blockchain industry:
+
+Avalytics is the first integrated analytics dashboard 
+- dedicated to the Avalance C-Chain ecosystem
+- developed using Moralis
+- that analyzes TraderJoe pools
+- that implements novel interactive and animated visualizations used for the first time in blockchain industry
+- that boosts Avalanche DEX reporting capabilities with CEX features, such as candle charts
+- with extensive documentation available publicly on github
+
 ## Design Principles
 
 When designing the app, [DDP: Decentralisation Design Principles](https://github.com/thisisbullish/ddp) by [thisisbullish](https://github.com/thisisbullish) was taken as a guiding source. The app does not contain any smart contracts as of January 2022, so these decentralization design principles will be especially important if any smart contracts are implemented.
@@ -139,6 +151,7 @@ There exist several **Avalanche analytics dashboards** that report/visualize dat
  - [Avax Projects](https://www.avax-projects.com/) is an interesting website that provides detailed and up-to-date information on projects and tokens on the Avalanche blockchain. Especially the categories in this website can be used for categorizing the tokens in Avalytics.
  
 In addition to the above analytics websites/apps that report on Avalanche, several other **analytics dashboards for other blockchains**, can be a source of inspiration and ideas, in developing Avalytics into the future:
+- [Bloks](https://bloks.io/dapps) is an inspiring block explorer for the EOS blockchain, with extensive analytics provided at the speed of light. This project can be source of many ideas to be implemented within Avalytics.
 - [Crypto.com DeFi Dashboard - Gas Fees:](https://crypto.com/defi/dashboard/gas-fees) This online service displays not only the Ethereum gas fees but also the gas fees for different swap pairs.
 - [EthereumPrice.org:](https://ethereumprice.org/gas/) This website displays gas price over time, and time of the day. Especially the visualization of fees through heat map is impressive. 
 - [Matteo Leibowitz's Dune Analytics Dashboards:](https://dune.xyz/MatteoLeibowitz/uniswap-community) This rich collection of dashboards display several statistics for the Uniswap ecosystem. 
@@ -166,7 +179,7 @@ The following resources/libraries can be used for data extraction or for getting
 - Users can be allowed to select other [color palettes](https://www.crazyegg.com/blog/website-color-palettes/) for the visualizations. These palettes can include pallets that are suitable for [color blindness](https://www.color-blindness.com/), similar to [R packages for color blindness](https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/). Another possibility is to use [color palettes inspired by photos of nature](https://sarahrenaeclark.com/color-palettes/).
 - Several other analyses categories and types can be added to the app. These extensions include analysis of Whales, MemPools, Bridges, and other networks, in comparison and conjunction with Avalanche C-Chain. There can even be detailed analytics for Avalanche Dapps, as the top Dapp directory, [DappRadar](https://dappradar.com/s) -as of January 2022- does not list [Avalanche Dapps](https://dappradar.com/search/avalanche), returning empty results page.
 - Sliding news tickers can be added, at least as a footer in the main Dashboard screen, that would display prices of Avalanche C-Chain tokens dynamically. Several Javascript libraries can be used to this end, including [react-ticker](https://github.com/AndreasFaust/react-ticker), [dynamic-marquee](https://github.com/tjenkinson/dynamic-marquee), and [react-native-text-ticker](https://github.com/deanhet/react-native-text-ticker).
-- Several other calculations, especially with respect to volatiliy, and specifically the ["VIX Fear-Greed Index"](https://youtu.be/56gI9mMOczw) calculations can be done through collecting more data with other API, such as [Binance Market Data endpoints](https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#market-data-endpoints) and [FTX Grouped Orderbooks](https://docs.ftx.com/#grouped-orderbooks).
+- Several other calculations, especially with respect to volatiliy, and specifically the ["VIX Index"](https://youtu.be/56gI9mMOczw) and other [Fear & Greed indicators](https://money.cnn.com/data/fear-and-greed/) calculations can be done through collecting more data with other API, such as [Binance Market Data endpoints](https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#market-data-endpoints) and [FTX Grouped Orderbooks](https://docs.ftx.com/#grouped-orderbooks).
 - Other visual analytics methods can be implemented using alternative libraries, including Python visualization/animation/storytelling libraries (such as [seaborn](https://seaborn.pydata.org/examples/index.html)) whose output may be displayed on the frontend within Avalytics.
 - Advanced data analytics methods and [machine learning (ML)](https://www.coursera.org/collections/machine-learning) algorithms, including predictive and even prescriptive analytics, can be implemented within Avalytics into the future, using some of the [top data science software libraries](https://towardsdatascience.com/8-booming-data-science-libraries-you-must-watch-out-in-2022-cec2dbb42437).
 - Computed statistics can be published on [ChainLink](Chainlink: https://chain.link) and other oracles. One simple example would be publishing the correlation between AVAX and ETH (or WETH.e) prices as feeds.
