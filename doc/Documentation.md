@@ -112,10 +112,13 @@ The following are sample code for the visualizations presented throughout the Av
 
 ## Related Work
 
-As mentioned earlier, there exist websites/apps that report/visualize the Ethereum gas fees. Some notable ones are the following:
-- [Crypto.com DeFi Dashboard - Gas Fees:](https://crypto.com/defi/dashboard/gas-fees) This online service is most related to our proposed app, as it displays not only the Ethereum gas fees but also the gas fees for different swap pairs.
-- [EthereumPrice.org:](https://ethereumprice.org/gas/) This website displays gas price over time, and time of the day. Especially the visualization of fees through heat map is impressive. While the information provided in SwapGasFees app overlaps with the information provided at EthereumPrice.org, the interface is designed to yield much more insights, through benchmarking. Furthermore, the mentioned website displays only Ethereum gas price and not the swap fees, whereas the SwapGasFees app designed in this project displays the latter.
-- [Matteo Leibowitz's Dune Analytics Dashboards:](https://dune.xyz/MatteoLeibowitz/uniswap-community) This rich collection of dashboards display several statistics for the Uniswap ecosystem. In comparison to this collection, the goal of the SwapGasFees project was to develop a single intuitive dashboard app that presents only the most essential few visualizations.
+There exist several websites/apps that report/visualize data about the Avalanche network. Some notable ones are the following:
+- [WhaleStats](https://www.whalestats.com/analysis-of-the-top-1000-avalanche-wallets) provides several insights into the Avalanche Whales, using interesting iand innovative visualizations, such as treemaps to display Total holdings of all tokens (except Avalanche). Analyses such as AVAX transfers in/out of wallets, Stablecoin transfers in/out of wallets, Most widely held token can be interesting to port into Avalytics.
+
+In addition to the above analytics websites/apps that report on Avalanche, several other analytics dashboards, developed for other blockchains, can be a source of inspiration and ideas, in developing Avalytics into the future:
+- [Crypto.com DeFi Dashboard - Gas Fees:](https://crypto.com/defi/dashboard/gas-fees) This online service displays not only the Ethereum gas fees but also the gas fees for different swap pairs.
+- [EthereumPrice.org:](https://ethereumprice.org/gas/) This website displays gas price over time, and time of the day. Especially the visualization of fees through heat map is impressive. 
+- [Matteo Leibowitz's Dune Analytics Dashboards:](https://dune.xyz/MatteoLeibowitz/uniswap-community) This rich collection of dashboards display several statistics for the Uniswap ecosystem. 
 
 ## Other Resources: 
 
@@ -127,6 +130,11 @@ The following resources/libraries can be used for data extraction from Uniswap:
 - [BitQuery](https://graphql.bitquery.io/ide) (to query data from blockchains)
 - [Flipside Crypto](https://app.flipsidecrypto.com) (to query data from blockchains)
 - [GraphQL](https://medium.com/coinmonks/get-uniswap-data-using-the-graph-79d0c6f7b9f2) (to extract data from Uniswap)
+
+**API and App-Development Platforms**
+
+
+- [Alchemy](https://www.alchemy.com/) is an alternative platform to develop blockchain applications rapidly. However, as of January 2022, it does not support Avalanche.
 
 ## Future Plans for Avalytics
 
