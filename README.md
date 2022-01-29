@@ -15,9 +15,9 @@ The app was designed, developed, and implemented during the period of [Moralis+A
 
 ## Project Sources and Presentation:
 
-- [Avalytics app](https://renatomrocha.github.io/Moralis_Avax_Hackathon/) is running live under github.io.
-- [Documentation](./doc/Documentation.md) describes the project and the Avalytics app.
-- [Tutorial](./doc/Tutorial.md) describes how to use the Avalytics app, explaining step by step, the different screens.
+- **[Avalytics app]**(https://renatomrocha.github.io/Moralis_Avax_Hackathon/) is running live under github.io.
+- **[Documentation]**(./doc/Documentation.md) describes the project and the Avalytics app.
+<!--- - [Tutorial](./doc/Tutorial.md) describes how to use the Avalytics app, explaining step by step, the different screens. --->
 - [GitHub Page](https://github.com/renatomrocha/Moralis_Avax_Hackathon)
 - [Slide Deck](https://app.decktopus.com/share/...) and the 
 - [YouTube Video](https://youtu.be/...) for the project.
