@@ -54,7 +54,21 @@ According to this illustration,
 6. Data queried from the consumption layer is visualized within the Avalytics app, using [D3.js](https://d3js.org/) and [Flourish Studio](https://flourish.studio/) Javascript libraries.
 
 
-## Backend: Databases under Moralis
+## Backend: Data under Moralis 
+
+**Token Selection**
+
+The data for Avalytics is stored in a Moralis Avalanche server. Older data of finer resolution is archived under AWS. Data at the `Staging Layer` is processed with Python under AWS and saved to the `Consumption Stage`, again under Moralis.
+
+The tokens to be included in the dashboard were selected based on a procedure with multiple criteria. Firstly, a database of all major Avalanche tokens was constructed, to include top tokens as suggested by [SnowTrace](https://snowtrace.io) and [Avalanche Tokens under CoinMarketCap](https://coinmarketcap.com/view/avalanche-ecosystem/), as follows:
+
+![Token Selection Sheet](./img/TokenSelectionSheet.png)
+
+The tokens were shortlisted according to several criteria, including SnowTrace rank, CoinMarketCap rank, availability in Moralis, and whether the token's issuer is a sponsor of the Morali+Avalanche hackathon or not. Only some stable coins were selected as representative. Some tokens, such as [SushiSwap (SUSHI.e)](https://coinmarketcap.com/currencies/sushiswap/) and [SnowBall Finance (SNOB)](https://coinmarketcap.com/currencies/snowball-finance/), even though being significant, were later removed due to gaps in / problems with data collection.
+
+**Data Tables Under the Moralis Server**
+
+The following data tables were constructed under the Moralis server:
 
 
 
