@@ -16,6 +16,7 @@
 12. Presented visualizations and results can be described automatically using AI-generated text narrations, using [GPT-3](https://openai.com/blog/openai-api/) or other text-generation/NLP (Natural Language Processing) libraries, or APIs that build on those libraries, such as the [Rytr API](https://rytr.me/developers/api#register) for automated text generation. Such text can also be transformed into voice through text-to-speech technology and libraries.
 13. On the documentation side, the developed code, especially the Javascript code can be visually documented using [SmartDraw's Automated Class Diagrams Extensions](htpps://www.smartdraw.com/developers/extensions/class-diagram.htm)
 14. On the documentation side, the documentation can be put into a better format using [GitBook](https://gitbook.com), just like the [GitBook documentation of TraderJoe](https://docs.traderjoexyz.com/main/welcome/master).
+15. Many other opportunities for improvement have been identified through brain storming sessions and are available as internal notes.
 
 **Index**
 
