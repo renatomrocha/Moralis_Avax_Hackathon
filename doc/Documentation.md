@@ -2,7 +2,7 @@
 
 [Avalytics app](https://renatomrocha.github.io/Moralis_Avax_Hackathon/) is **an analytics dashboard to** interactively and dynamically **display changes in prices and market caps** of tokens on the [Avalanche C-Chain](https://uniswap.org) blockchain. Avalytics also provides analytical insights into the [liquidity pools](https://traderjoexyz.com/pool) in the [TraderJoe](https://traderjoexyz.com) decentralized exchange (DEX).
 
-## Background: Avalanche, C-Chain, and Avalytics
+## Background: Avalanche, C-Chain, Moralis, and Avalytics
 
 [Avalanche](https://www.avax.network) is the one of the most popular Layer 1 blockchain networks in the world, which has unique advantages over other blockchain. Most importantly, Avalanche is one of the top Layer 1 networks which has resolved the ["blockchain trilemma"](https://www.gemini.com/cryptopedia/blockchain-trilemma-decentralization-scalability-definition), by achieving decentralization, scalability, and security at the same time.
 
@@ -12,9 +12,11 @@ The first blockchain with smart contract capability was Ethereum, yet the Ethere
 
 A clear advantage of Avalanche over Ethereum and most other Layer 1 blockchain networks is the very low gas fees needed for Avalanche transactions. This is due to Avalanche readily having achieved scalability, in addition to decentralization and security, as mentioned earlier. Another advantage of Avalanche is that tokens from other networks, can be imported into Avalance as ["wrapped tokens" through bridges](https://docs.avax.network/learn/avalanche-bridge-faq/), and transacted on the Avalanche C-Chain, at much lower cost. For example, Ethereum ETH tokens on the Ethereum network can be wrapped by the Avalanche C-Chain as WETH.e tokens and transacted on the Avalanche network, together with native Avalanche tokens (tokens minted and transacted natively in Avlaanche) such as Avalaunch (XAVA) and Pangolin (PNG). Due to these listed advantages and many others, Avalanche is positioned as a contender to achieve its [primary vision](https://www.youtube.com/watch?v=yaXR3kwSS9c) of digitally tokenizing all the assets in the world.
 
-Since the swap gas fees vary over time continuously, and sometimes significantly, it is important to have an analytics tool that can provide insights on how the gas fees are changing over time. 
+The main motivation for Avalytics was the absence of a dedicated analytics dashboard for the Avalanche ecosystem. Given the experience and expertise of the team members with data analytics, addressing this gap was identified as the target of the Avalytics project.
 
-While there exist some websites/apps that report/visualize the Ethereum gas fees, to the author's best knowledge, there does _not_ exist a website/app that shows swap gas fees for the Unicode ecosystem. This project involves the design and communication of such an analytics app, as a first Dapp of its kind.
+The [Moralis+Avalanche Hackathon]() already requires that the app for the hackathon is developed using Moralis and Avalanche. Yet, Moralis would still be a viable alternative for developing the Avalytics app even if this requirement was not there. Building apps with Moralis consists of much [simpler steps](https://www.youtube.com/watch?v=S60H2GMRaRY) and can relieve developers from many of the burden of blockchain programming, significantly reducing product-to-market time and improving product quality. Moralis allows blockchain developers to stand on the shoulders of blockchain giants and gurus, and rapidly find a place in this new and exciting industry.
+
+While there exist multiple block explorers and dashboards that provide data and insights on the Avalanche blockchain, we, as the developer team, did _not_ encounter a website/app that provides the utility and insights we had in mind. The Avalytics project thus involves the design, development, deployment, and communication of such an analytics dashboard app, with many firsts in comparion to its peers.
 
 ## Design Principles
 
