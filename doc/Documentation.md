@@ -1,6 +1,6 @@
 ## Avalytics Documentation
 
-## Project Background: Avalanche Blockchain, C-Chain, and Avalytics
+## Background: Avalanche, C-Chain, and Avalytics
 
 [Avalanche](https://www.avax.network) is the one of the most popular Layer 1 blockchain networks in the world, which has unique advantages over other blockchain. Most importantly, Avalanche is one of the top Layer 1 networks which has resolved the ["blockchain trilemma"](https://www.gemini.com/cryptopedia/blockchain-trilemma-decentralization-scalability-definition), by achieving decentralization, scalability, and security at the same time.
 
