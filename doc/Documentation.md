@@ -27,12 +27,12 @@ There exist multiple block explorers and dashboards that provide data and insigh
 Avalytics brings the following value offerings to Avalanche and blockchain industry:
 
 Avalytics is the first integrated analytics dashboard 
-- dedicated to the Avalance C-Chain ecosystem
-- developed using Moralis
-- that analyzes TraderJoe pools
-- that implements novel interactive and animated visualizations used for the first time in blockchain industry
-- that boosts Avalanche DEX reporting capabilities with CEX features, such as candle charts
-- with extensive documentation available publicly on github
+1. dedicated to the Avalance C-Chain ecosystem
+2. developed using Moralis
+3. that analyzes TraderJoe pools
+4. that implements novel interactive and animated visualizations used for the first time in blockchain industry
+5. that boosts Avalanche DEX reporting capabilities with CEX features, such as candle charts
+6. with extensive documentation available publicly on github
 
 ## Design Principles
 
