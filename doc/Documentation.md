@@ -39,6 +39,8 @@ As a result of the extensive research and planning, many new visualizations have
 - [Stacked area chart / Streamgraph](https://observablehq.com/@d3/streamgraph) for visualizing changes over time in total value locked (TVL) in [liquidity pools](https://traderjoexyz.com/pool) within the [TraderJoe](https://traderjoexyz.com) decentralized exchange (DEX). 
 - [Bar chart race](https://app.flourish.studio/templates#template-bar-chart-race) for visualizing changes in market cap of Avalanche C-Chain tokens.
 
+In designing and implementing the system, best effort was done to adhere to some of the [best practices of coding](https://code.tutsplus.com/tutorials/top-15-best-practices-for-writing-super-readable-code--net-8118).
+
 ## Avalytics System Architecture
 
 Avalytics' system architecture is illustrated in the following figure:
@@ -139,6 +141,7 @@ In addition to the above analytics websites/apps that report on Avalanche, sever
 - [Crypto.com DeFi Dashboard - Gas Fees:](https://crypto.com/defi/dashboard/gas-fees) This online service displays not only the Ethereum gas fees but also the gas fees for different swap pairs.
 - [EthereumPrice.org:](https://ethereumprice.org/gas/) This website displays gas price over time, and time of the day. Especially the visualization of fees through heat map is impressive. 
 - [Matteo Leibowitz's Dune Analytics Dashboards:](https://dune.xyz/MatteoLeibowitz/uniswap-community) This rich collection of dashboards display several statistics for the Uniswap ecosystem. 
+- [ChainCrunch](https://dashboard.chaincrunch.cc/public/dashboard/cc7a0d94-7f70-46f4-aae4-2f8810430931#theme=night) is a basic dashboard for Solana.
 
 ## Other Resources: 
 
@@ -157,7 +160,7 @@ The following resources/libraries can be used for data extraction or for getting
 ## Future Plans for Avalytics
 
 - Users can be allowed to download source data used in creating the visualizations, possibly at a minor charge, opening the door for revenue and datanomics.
-- Users can be allowed to select other [color palettes](https://www.crazyegg.com/blog/website-color-palettes/) for the visualizations. These palettes can include pallets that are suitable for [color blindness](https://www.color-blindness.com/), similar to [R packages for color blindness](https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/).
+- Users can be allowed to select other [color palettes](https://www.crazyegg.com/blog/website-color-palettes/) for the visualizations. These palettes can include pallets that are suitable for [color blindness](https://www.color-blindness.com/), similar to [R packages for color blindness](https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/). Another possibility is to use [color palettes inspired by photos of nature](https://sarahrenaeclark.com/color-palettes/).
 - Several other analyses categories and types can be added to the app. These extensions include analysis of Whales, MemPools, Bridges, and other networks, in comparison and conjunction with Avalanche C-Chain.
 - Sliding news tickers can be added, at least as a footer in the main Dashboard screen, that would display prices of Avalanche C-Chain tokens dynamically. Several Javascript libraries can be used to this end, including [react-ticker](https://github.com/AndreasFaust/react-ticker), [dynamic-marquee](https://github.com/tjenkinson/dynamic-marquee), and [react-native-text-ticker](https://github.com/deanhet/react-native-text-ticker).
 - Several other calculations, especially with respect to volatiliy, and specifically the ["VIX Fear-Greed Index"](https://youtu.be/56gI9mMOczw) calculations can be done through collecting more data with other API, such as [Binance Market Data endpoints](https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#market-data-endpoints) and [FTX Grouped Orderbooks](https://docs.ftx.com/#grouped-orderbooks).
