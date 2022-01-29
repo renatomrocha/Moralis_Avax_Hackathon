@@ -16,7 +16,7 @@ Avalytics is the first integrated analytics dashboard
 **Index**
 
 1. [Background](Background.md)
-2. [Unique Value Offerings](UniqueValueOfferings.md)
+2. **Unique Value Offerings**
 3. [Design Principles](DesignPrinciples.md)
 4. [System Architecture](SystemArchitecture.md)
 5. [Backend: Data under Moralis](Backend.md)
