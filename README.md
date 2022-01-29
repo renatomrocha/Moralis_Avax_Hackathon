@@ -25,9 +25,9 @@ The app was designed, developed, and implemented during the period of [Moralis+A
 
 ## Avalytics Screenshots
 
-![Bar Chart Race](AvalyticsScreenshotBarChartRace.png)
+![Bar Chart Race](./doc/img/AvalyticsScreenshotBarChartRace.png)
 
-![Stacked Area Chart](AvalyticsScreenshotStackedAreaChart.png)
+![Stacked Area Chart](./doc/img/AvalyticsScreenshotStackedAreaChart.png)
 
 ## Avalytics Team
 
