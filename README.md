@@ -1,4 +1,5 @@
 <!--- # Moralis_Avax_Hackathon --->
+
 ![Avalytics Logo](.doc/img/AvalyticsLogo1Mini.png)
 
 # Avalytics: An Analytics Dashboard for the Avalanche C-Chain
