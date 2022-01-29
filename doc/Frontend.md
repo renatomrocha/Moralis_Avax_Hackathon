@@ -22,8 +22,8 @@ The following are sample code for the visualizations presented throughout the Av
 <ul>
   <li>Visualizations for the <b>Dashboard</b> tab</li>
       <ul>
-        <li><a href="https://www.d3-graph-gallery.com/graph/line_basic.html" target="_blank">Line chart</a></li>
-        <li><a href="https://www.d3-graph-gallery.com/pie" target="_blank">Pie chart</a></li>
+        <li><a href="https://www.d3-graph-gallery.com/graph/line_basic.html" target="_blank">Line chart</a></li> (to display recent prices of important tokens)
+        <li><a href="https://www.d3-graph-gallery.com/pie" target="_blank">Pie chart</a></li> (to display market caps of coins with highest market cap)
       </ul> 
   <li>Visualizations for the <b>Tokens</b> tab</li>
       <ul>
