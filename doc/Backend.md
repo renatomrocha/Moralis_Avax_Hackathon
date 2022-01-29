@@ -42,7 +42,7 @@ With the current data, due to fine-resolution data being moved to AWS, the Moral
 2. [Unique Value Offerings](UniqueValueOfferings.md)
 3. [Design Principles](DesignPrinciples.md)
 4. [System Architecture](SystemArchitecture.md)
-5. [Backend: Data under Moralis](Backend.md)
+5. **Backend: Data under Moralis**
 6. [Frontend: UI and Visual Analytics](Frontend.md)
 7. [Technology/Tool Stack](TechnologyStack.md)
 8. [Related Projects](RelatedProjects.md)
