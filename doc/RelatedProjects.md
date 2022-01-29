@@ -18,8 +18,9 @@ In addition to the above analytics websites/apps that report on Avalanche, sever
 - [Crypto.com DeFi Dashboard - Gas Fees:](https://crypto.com/defi/dashboard/gas-fees) This online service displays not only the Ethereum gas fees but also the gas fees for different swap pairs.
 - [EthereumPrice.org:](https://ethereumprice.org/gas/) This website displays gas price over time, and time of the day. Especially the visualization of fees through heat map is impressive. 
 - [Matteo Leibowitz's Dune Analytics Dashboards:](https://dune.xyz/MatteoLeibowitz/uniswap-community) This rich collection of dashboards display several statistics for the Uniswap ecosystem. 
--  [ChainCrunch](https://dashboard.chaincrunch.cc/public/dashboard/cc7a0d94-7f70-46f4-aae4-2f8810430931#theme=night) is a basic dashboard for Solana.
+- [ChainCrunch](https://dashboard.chaincrunch.cc/public/dashboard/cc7a0d94-7f70-46f4-aae4-2f8810430931#theme=night) is a basic dashboard for Solana.
 - [Dune Analytics](https://dune.xyz/panta_rhei/NFt) provides insights into NFTs through analytics. Such analyses can be implemented within Avalytics, as well.
+- [SwapGasFees](https://showcase.ethglobal.com/unicode/swapgasfees) is an analytics dashboard designed by one of the team members, to analyze Ethereum gas fees. The app was only designed and documented during EthGlobal's [Unicode Hackathon 2021](https://showcase.ethglobal.com/unicode), but not implemented.
 
 **Index**
 
