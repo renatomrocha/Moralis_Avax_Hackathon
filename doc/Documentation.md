@@ -19,4 +19,6 @@ This documentation presents details on the Avalytics app and project.
 9. [Other Resources](OtherResources.md)
 10. [Future Plans for Avalytics](FuturePlans.md)
 
+<hline></hline>
+
 [Back to Main GitHub Page](../README.md) | [Back to Documentation Index Page](Documentation.md)
