@@ -23,6 +23,11 @@
 
 The app was designed, developed, and implemented during the period of [Moralis+Avalanche Hackathon](https://moralis.io/avalanche-hackathon/) by the project team. This documentation describes the application and presents a blue print of how the system can be developed into the future over an extended time period. The design also provides a template for Avalanche and other blockchains on how a dashboard with innovative features can be developed to analyze on-chain and possibly other data.
 
+## Avalytics Screenshots
+
+![Bar Chart Race](AvalyticsScreenshotBarChartRace.png)
+
+![Stacked Area Chart](AvalyticsScreenshotStackedAreaChart.png)
 
 ## Avalytics Team
 
