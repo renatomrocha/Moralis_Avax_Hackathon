@@ -16,14 +16,17 @@ While there exist some websites/apps that report/visualize the Ethereum gas fees
 
 ## Design Principles
 
+
 When designing the user interface, the [Gestalt Principles](https://www.interaction-design.org/literature/topics/gestalt-principles) of School of [M. Wertheimer (Wertheimer, 2020)](https://link.springer.com/book/10.1007/978-3-030-36063-4) and the knowledge visualization guidelines of [Eppler and Burkhard (2008)](https://www.igi-global.com/chapter/knowledge-visualization/25136) were applied. 
 
-For selecting the visualizations most suitable for each analysis, the [D3 Visualization Gallery](https://observablehq.com/@d3/gallery) available under [ObservableHQ](https://observablehq.com/) were scanned and the following guideline documents were used as reference:
+For selecting the visualizations most suitable for each analysis, the [D3 Visualization Gallery](https://observablehq.com/@d3/gallery) available under [ObservableHQ](https://observablehq.com/) and [Flourish Studio Examples](https://flourish.studio/) were scanned and the following guideline documents were used as reference:
 - [From Data to Viz](https://www.data-to-viz.com/)
 - [The Data Visualization Catalogue](https://datavizcatalogue.com/search.html)
 - [Visual Vocabulary](https://public.tableau.com/views/VisualVocabulary/VisualVocabulary?:showVizHome=no)
 - [Power BI Visuals Reference](https://www.sqlbi.com/ref/power-bi-visuals-reference/) 
  
+As a result of the extensive research and planning, many new visualizations have been implemented in Avalytics, the the best knowledge of the project team's knowledge, for the first time in the blockchain world. These innovative unique visualizations include:
+
 
 ## Avalytics System Architecture
 
@@ -83,8 +86,9 @@ Now let us look into both of these interfaces, and explain each.
 
 ## Frontend: Visual Analytics
 
-The main library to be used for visualizations is selected as [D3.js](https://d3js.org):
+The main library to be used for visualizations are selected as [D3.js](https://d3js.org) and [Flourish Studio](https://flourish.studio/): 
 - [D3 Visualization Gallery](https://observablehq.com/@d3/gallery) (JavaScript library for manipulating documents based on data)
+- [Flourish Studio](https://flourish.studio/) (JavaScript library and platform for creating interactive charts, maps, and stories from data)
 
 The following are sample code for the visualizations presented throughout the SwapGasFees app:
 
