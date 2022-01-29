@@ -1,6 +1,6 @@
 ## Avalytics Documentation
 
-## Uniswap and Swap Fees
+## Avalanche Blockchain, C-Chain, and Avalytics
 
 [Uniswap](https://uniswap.org) is the by far most popular decentralized exchange in the world, enabling swaps (exchanges) of many different tokens and coins on the Ethereum layer 1 blockchain network.
 
@@ -20,7 +20,11 @@ For selecting the visualizations most suitable for each analysis, the [D3 Visual
 - [Visual Vocabulary](https://public.tableau.com/views/VisualVocabulary/VisualVocabulary?:showVizHome=no)
 - [Power BI Visuals Reference](https://www.sqlbi.com/ref/power-bi-visuals-reference/) 
  
-## Data Extraction
+
+## Avalytics System Architecture
+
+
+## Backend: Data Extraction and Processing
 
 The following resources/libraries can be used for data extraction from Uniswap:
 
@@ -29,7 +33,11 @@ The following resources/libraries can be used for data extraction from Uniswap:
 - [Flipside Crypto](https://app.flipsidecrypto.com) (to query data from blockchains)
 - [GraphQL](https://medium.com/coinmonks/get-uniswap-data-using-the-graph-79d0c6f7b9f2) (to extract data from Uniswap)
 
-## UI Design 
+## Backend: Database under the Moralis Server
+
+
+## Frontend: UI Design
+
 
 This section describes the basic design of the user interface (UI) for the proposed SwapGasFees app. 
 - A separate detailed [tutorial](Tutorial.md) describes the working of the designed app, explaining step by step, the different screens of the app. 
@@ -69,7 +77,7 @@ Now let us look into both of these interfaces, and explain each.
 ![](./figures/SwapGasFees_Design_07.png)
 
 
-## Visualizations
+## Frontend: Visual Analytics
 
 The main library to be used for visualizations is selected as [D3.js](https://d3js.org):
 - [D3 Visualization Gallery](https://observablehq.com/@d3/gallery) (JavaScript library for manipulating documents based on data)
@@ -99,7 +107,7 @@ The following are sample code for the visualizations presented throughout the Sw
   </ul> 
 </ul> 
 
-## Suggested Technology Stack
+## Technology/Tool Stack
 
 - For the **backend**, the above data extraction tools can be tested, and the one that provides the fastest and most reliable results can be selected.
 - For the **frontend**, the easiest thing to do would be to fork the Uniswap front-end code and do modifications on that. 
