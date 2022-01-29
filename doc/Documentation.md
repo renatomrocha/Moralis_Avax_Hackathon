@@ -1,4 +1,6 @@
-## Avalytics Documentation
+![Avalytics Logo](./doc/img/AvalyticsLogo1Mini.png)
+
+## Documentation
 
 [Avalytics app](https://renatomrocha.github.io/Moralis_Avax_Hackathon/) is **an analytics dashboard to** interactively and dynamically **display changes in prices and market caps** of tokens on the [Avalanche C-Chain](https://uniswap.org) blockchain. Avalytics also provides analytical insights into the [liquidity pools](https://traderjoexyz.com/pool) in the [TraderJoe](https://traderjoexyz.com) decentralized exchange (DEX).
 
