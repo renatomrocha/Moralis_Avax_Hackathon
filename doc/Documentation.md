@@ -80,13 +80,13 @@ The following are sample code for the visualizations presented throughout the Av
 <ul>
   <li>Visualizations for the <b>Dashboard</b> tab</li>
       <ul>
-        <li><a href="https://observablehq.com/@mbostock/the-impact-of-vaccines" target="_blank">Line chart</a></li>
-        <li><a href="https://observablehq.com/@d3/calendar" target="_blank">Pie chart</a></li>
+        <li><a href="https://www.d3-graph-gallery.com/graph/line_basic.html" target="_blank">Line chart</a></li>
+        <li><a href="https://www.d3-graph-gallery.com/pie" target="_blank">Pie chart</a></li>
       </ul> 
   <li>Visualizations for the <b>Tokens</b> tab</li>
       <ul>
-        <li><a href="https://observablehq.com/@tezzutezzu/world-history-timeline" target="_blank">Line chart</a> (to see the token prices over selected time period at a selected time resolution)</li>
-        <li><a href="https://observablehq.com/@tezzutezzu/world-history-timeline" target="_blank">Candlestick chart</a> (to see the token prices over selected time period at a selected time resolution)</li>
+        <li><a href="https://www.d3-graph-gallery.com/graph/line_basic.html" target="_blank">Line chart</a> (to see the token prices over selected time period at a selected time resolution)</li>
+        <li><a href="https://observablehq.com/@d3/candlestick-chart" target="_blank">Candlestick chart</a> (to see the token prices over selected time period at a selected time resolution)</li>
       </ul> 
   <li>Visualizations for the <b>Multiple Tokens</b> tab</li>
  <ul>
