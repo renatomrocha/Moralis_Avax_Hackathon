@@ -9,10 +9,12 @@
 
 ## Project Sources and Presentation:
 
+<!---
 <ul>
 <li><a href="https://renatomrocha.github.io/Moralis_Avax_Hackathon/" target="_blank">AVALYTICS APP</a></li>
 <li><a href="./doc/Documentation.md" target="_blank">DOCUMENTATION</a></li>
 </ul>
+--->
 
 - [**AVALYTICS APP**](https://renatomrocha.github.io/Moralis_Avax_Hackathon/) is running live under github.io.
 - [**DOCUMENTATION**](./doc/Documentation.md) describes the project and the Avalytics app.
