@@ -18,7 +18,7 @@ There exist multiple block explorers and dashboards that provide data and insigh
 
 **Index**
 
-1. **Background**
+1. Background
 2. [Unique Value Offerings](UniqueValueOfferings.md)
 3. [Design Principles](DesignPrinciples.md)
 4. [System Architecture](SystemArchitecture.md)
