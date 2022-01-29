@@ -108,14 +108,19 @@ The following are sample code for the visualizations presented throughout the Av
 - For the **backend cloud service**, [Amazon Web Services (AWS)](https://aws.amazon.com/) was used.
 - For the **frontend app**, [React.js](https://reactjs.org/) Javascript library was used. 
 - For the **frontend visual analytics**, [D3.js](https://d3js.org/) and [Flourish Studio](https://flourish.studio) Javascript libraries/platofmrs were used. The [D3 Visualization Gallery](https://observablehq.com/@d3/gallery) at [Observable HQ](https://observablehq.com/@d3/) provides sample source codes for all the essential charts of D3.js, including those implemented in Avalytics.
-- Token images were obtained from [CoinGecko](https://coingecko.com).
+- **Token images** were obtained from [CoinGecko](https://coingecko.com).
+- **Task management** was tracked through listing tasks in Google Sheets and entering the progress over time.
+- **Communication** was done mainly through a [Discord](https://discord.com) group.
 
-## Related Work
+## Related Projects
 
-There exist several websites/apps that report/visualize data about the Avalanche network. Some notable ones are the following:
-- [WhaleStats](https://www.whalestats.com/analysis-of-the-top-1000-avalanche-wallets) provides several insights into the Avalanche Whales, using interesting iand innovative visualizations, such as treemaps to display Total holdings of all tokens (except Avalanche). Analyses such as AVAX transfers in/out of wallets, Stablecoin transfers in/out of wallets, Most widely held token can be interesting to port into Avalytics.
+The main **block explorer** for Avalanche is [SnowTrace](https://snowtrace.io/).
 
-In addition to the above analytics websites/apps that report on Avalanche, several other analytics dashboards, developed for other blockchains, can be a source of inspiration and ideas, in developing Avalytics into the future:
+There exist several **Avalanche analytics dashboards** that report/visualize data about the Avalanche network. Some notable ones are the following:
+- [Apy.vision](https://apy.vision/) provides _very_ extensive analytics reports regarding liquidity pools, including the Avalanche pools.
+- [WhaleStats](https://www.whalestats.com/analysis-of-the-top-1000-avalanche-wallets) provides several insights into the Avalanche Whales, using interesting iand innovative visualizations, such as treemaps to display Total holdings of all tokens (except Avalanche). Analyses such as Rich List, AVAX transfers in/out of wallets, Stablecoin transfers in/out of wallets, Most widely held token can be interesting to adopt into the Avalytics app. Treemap visualization can also be implemented within Avalytics, as it is quite informative.
+
+In addition to the above analytics websites/apps that report on Avalanche, several other **analytics dashboards for other blockchains**, can be a source of inspiration and ideas, in developing Avalytics into the future:
 - [Crypto.com DeFi Dashboard - Gas Fees:](https://crypto.com/defi/dashboard/gas-fees) This online service displays not only the Ethereum gas fees but also the gas fees for different swap pairs.
 - [EthereumPrice.org:](https://ethereumprice.org/gas/) This website displays gas price over time, and time of the day. Especially the visualization of fees through heat map is impressive. 
 - [Matteo Leibowitz's Dune Analytics Dashboards:](https://dune.xyz/MatteoLeibowitz/uniswap-community) This rich collection of dashboards display several statistics for the Uniswap ecosystem. 
@@ -124,15 +129,13 @@ In addition to the above analytics websites/apps that report on Avalanche, sever
 
 **Data Extraction and Processing**
 
-The following resources/libraries can be used for data extraction from Uniswap:
+The following resources/libraries can be used for data extraction or for getting inspiration/ideas:
 
-- The most **important** resource is the [Uniswap v3 contract maps](https://j1mmy.fi), which document the Pool Contract, Factory Contract, and Position Manager.
+- [GraphQL](https://graphql.org/2) (to index/extract data from Avalanche)
 - [BitQuery](https://graphql.bitquery.io/ide) (to query data from blockchains)
 - [Flipside Crypto](https://app.flipsidecrypto.com) (to query data from blockchains)
-- [GraphQL](https://medium.com/coinmonks/get-uniswap-data-using-the-graph-79d0c6f7b9f2) (to extract data from Uniswap)
 
 **API and App-Development Platforms**
-
 
 - [Alchemy](https://www.alchemy.com/) is an alternative platform to develop blockchain applications rapidly. However, as of January 2022, it does not support Avalanche.
 
@@ -143,7 +146,7 @@ The following resources/libraries can be used for data extraction from Uniswap:
 - Several other analyses categories and types can be added to the app. These extensions include analysis of Whales, MemPools, Bridges, and other networks, in comparison and conjunction with Avalanche C-Chain.
 - Sliding news tickers can be added, at least in the main Dashboard screen, that would display prices of Avalanche C-Chain tokens over time. Several Javascript libraries can be used to this end, including [react-ticker](https://github.com/AndreasFaust/react-ticker), [dynamic-marquee](https://github.com/tjenkinson/dynamic-marquee), and [react-native-text-ticker](https://github.com/deanhet/react-native-text-ticker).
 - Several other calculations, especially with respect to volatiliy, and specifically the ["VIX Fear-Greed Index"](https://youtu.be/56gI9mMOczw) calculations can be done through collecting more data with other API, such as [Binance Market Data endpoints](https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#market-data-endpoints) and [FTX Grouped Orderbooks](https://docs.ftx.com/#grouped-orderbooks).
-
+- On the documentation side, the developed code, especially the Javascript code can be visually documented using [SmartDraw's Automated Class Diagrams Extensions](htpps://www.smartdraw.com/developers/extensions/class-diagram.htm)
 
 <hline>
 </hline>
