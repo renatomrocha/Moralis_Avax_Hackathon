@@ -150,21 +150,24 @@ In addition to the above analytics websites/apps that report on Avalanche, sever
 The following resources/libraries can be used for data extraction or for getting inspiration/ideas:
 
 - [GraphQL](https://graphql.org/2) (to index/extract data from Avalanche)
-- [BitQuery](https://graphql.bitquery.io/ide) (to query data from blockchains)
+- [BitQuery](https://graphql.bitquery.io/ide) (to query data from blockchains, currently not supporting Avalanche)
 - [Flipside Crypto](https://app.flipsidecrypto.com) (to query data from blockchains)
 
 **API and App-Development Platforms**
 
 - [Alchemy](https://www.alchemy.com/) is an alternative platform to develop blockchain applications rapidly. However, as of January 2022, it does not support Avalanche.
+- [Infura](https://infura.io/) is an alternative platform, which does not support Avalanche as of January 2022.
 
 ## Future Plans for Avalytics
 
 - Users can be allowed to download source data used in creating the visualizations, possibly at a minor charge, opening the door for revenue and datanomics.
 - Users can be allowed to select other [color palettes](https://www.crazyegg.com/blog/website-color-palettes/) for the visualizations. These palettes can include pallets that are suitable for [color blindness](https://www.color-blindness.com/), similar to [R packages for color blindness](https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/). Another possibility is to use [color palettes inspired by photos of nature](https://sarahrenaeclark.com/color-palettes/).
-- Several other analyses categories and types can be added to the app. These extensions include analysis of Whales, MemPools, Bridges, and other networks, in comparison and conjunction with Avalanche C-Chain.
+- Several other analyses categories and types can be added to the app. These extensions include analysis of Whales, MemPools, Bridges, and other networks, in comparison and conjunction with Avalanche C-Chain. There can even be detailed analytics for Avalanche Dapps, as the top Dapp directory, [DappRadar](https://dappradar.com/s) -as of January 2022- does not list [Avalanche Dapps](https://dappradar.com/search/avalanche), returning empty results page.
 - Sliding news tickers can be added, at least as a footer in the main Dashboard screen, that would display prices of Avalanche C-Chain tokens dynamically. Several Javascript libraries can be used to this end, including [react-ticker](https://github.com/AndreasFaust/react-ticker), [dynamic-marquee](https://github.com/tjenkinson/dynamic-marquee), and [react-native-text-ticker](https://github.com/deanhet/react-native-text-ticker).
 - Several other calculations, especially with respect to volatiliy, and specifically the ["VIX Fear-Greed Index"](https://youtu.be/56gI9mMOczw) calculations can be done through collecting more data with other API, such as [Binance Market Data endpoints](https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#market-data-endpoints) and [FTX Grouped Orderbooks](https://docs.ftx.com/#grouped-orderbooks).
 - Advanced data analytics methods and [machine learning (ML)](https://www.coursera.org/collections/machine-learning) algorithms, including predictive and even prescriptive analytics, can be implemented within Avalytics into the future, using some of the [top data science software libraries](https://towardsdatascience.com/8-booming-data-science-libraries-you-must-watch-out-in-2022-cec2dbb42437).
+- Computed statistics can be published on [ChainLink](Chainlink: https://chain.link) and other oracles. One simple example would be publishing the correlation between AVAX and ETH (or WETH.e) prices as feeds.
+- Computed statistics can be published as webhooks, allowing RPA tools to connect to these hooks and do many interesting things, including automated notification/signal/alter push messages to social media.
 - On the documentation side, the developed code, especially the Javascript code can be visually documented using [SmartDraw's Automated Class Diagrams Extensions](htpps://www.smartdraw.com/developers/extensions/class-diagram.htm)
 
 <hline>
