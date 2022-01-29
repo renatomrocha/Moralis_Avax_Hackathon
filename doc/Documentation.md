@@ -1,5 +1,7 @@
 ## Avalytics Documentation
 
+[Avalytics app](https://renatomrocha.github.io/Moralis_Avax_Hackathon/) is **an analytics dashboard to** interactively and dynamically **display changes in prices and market caps** of tokens on the [Avalanche C-Chain](https://uniswap.org) blockchain. Avalytics also provides analytical insights into the [liquidity pools](https://traderjoexyz.com/pool) in the [TraderJoe](https://traderjoexyz.com) decentralized exchange (DEX).
+
 ## Background: Avalanche, C-Chain, and Avalytics
 
 [Avalanche](https://www.avax.network) is the one of the most popular Layer 1 blockchain networks in the world, which has unique advantages over other blockchain. Most importantly, Avalanche is one of the top Layer 1 networks which has resolved the ["blockchain trilemma"](https://www.gemini.com/cryptopedia/blockchain-trilemma-decentralization-scalability-definition), by achieving decentralization, scalability, and security at the same time.
@@ -16,7 +18,8 @@ While there exist some websites/apps that report/visualize the Ethereum gas fees
 
 ## Design Principles
 
-When designing the app, 
+When designing the app, [DDP: Decentralisation Design Principles](https://github.com/thisisbullish/ddp) by [thisisbullish](https://github.com/thisisbullish) was taken as a guiding source. The app does not contain any smart contracts as of January 2022, so these decentralization design principles will be especially important if any smart contracts are implemented.
+
 When designing the user interface, the [Gestalt Principles](https://www.interaction-design.org/literature/topics/gestalt-principles) of School of [M. Wertheimer (Wertheimer, 2020)](https://link.springer.com/book/10.1007/978-3-030-36063-4) and the knowledge visualization guidelines of [Eppler and Burkhard (2008)](https://www.igi-global.com/chapter/knowledge-visualization/25136) were applied. 
 
 For selecting the visualizations most suitable for each analysis, the [D3 Visualization Gallery](https://observablehq.com/@d3/gallery) available under [ObservableHQ](https://observablehq.com/) and [Flourish Studio Examples](https://flourish.studio/) were scanned and the following guideline documents were used as reference:
