@@ -28,12 +28,12 @@ The following are sample code for the visualizations presented throughout the Av
   <li>Visualizations for the <b>Tokens</b> tab</li>
       <ul>
         <li><a href="https://www.d3-graph-gallery.com/graph/line_basic.html" target="_blank">Line chart</a> (to see the token prices over selected time period at a selected time resolution)</li>
-        <li><a href="https://observablehq.com/@d3/candlestick-chart" target="_blank">Candlestick chart</a> (to see the token prices over selected time period at a selected time resolution)</li>
+        <li><a href="https://observablehq.com/@d3/candlestick-chart" target="_blank">Candlestick chart</a> (to see the token prices over selected time period at a selected time resolution, as candlestick chart)</li>
       </ul> 
   <li>Visualizations for the <b>Multiple Tokens</b> tab</li>
  <ul>
-        <li><a href="https://observablehq.com/@d3/realtime-horizon-chart" target="_blank">Timeline visualization</a> (to analyze daily price changes in selected tokens, where users can see the actual values by holding the cursor above the rectangles)</li>
-        <li><a href="https://plnkr.co/edit/RJk5vmROVAJGPHIPutVR?p=preview&preview" target="_blank">Correlogram</a> (to analyze correlation between tokens, calculated based on daily price changes for the last 30 days time period)</li>
+        <li><a href="https://observablehq.com/@d3/realtime-horizon-chart" target="_blank">Timeline visualization</a> (to analyze daily percentage price changes in selected tokens, where users can see the actual values by holding the cursor above the rectangles)</li>
+        <li><a href="https://plnkr.co/edit/RJk5vmROVAJGPHIPutVR?p=preview&preview" target="_blank">Correlogram</a> (to analyze correlation between tokens, calculated based on daily price changes for the last four week time period)</li>
         <li><a href="https://app.flourish.studio/templates#template-bar-chart-race" target="_blank">Bar chart race</a> (to analyze change in market cap over time, where native tokens are shown with red and non-native (wrapped) tokens are shown in blue)</li>
   </ul> 
   <li>Visualizations for the <b>Pools</b> tab</li>
