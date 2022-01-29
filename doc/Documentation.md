@@ -53,32 +53,25 @@ According to this illustration,
 5. The data available at the consumption layer is queried on the frontend with Javascript, using React.js. 
 6. Data queried from the consumption layer is visualized within the Avalytics app, using [D3.js](https://d3js.org/) and [Flourish Studio](https://flourish.studio/) Javascript libraries.
 
-## Backend: Data Extraction and Processing
 
-The following resources/libraries can be used for data extraction from Uniswap:
+## Backend: Databases under Moralis
 
-- The most **important** resource is the [Uniswap v3 contract maps](https://j1mmy.fi), which document the Pool Contract, Factory Contract, and Position Manager.
-- [BitQuery](https://graphql.bitquery.io/ide) (to query data from blockchains)
-- [Flipside Crypto](https://app.flipsidecrypto.com) (to query data from blockchains)
-- [GraphQL](https://medium.com/coinmonks/get-uniswap-data-using-the-graph-79d0c6f7b9f2) (to extract data from Uniswap)
-
-## Backend: Database under the Moralis Server
 
 
 ## Frontend: UI Design
 
 
-This section describes the basic design of the user interface (UI) for the proposed SwapGasFees app. 
-- A separate detailed [tutorial](Tutorial.md) describes the working of the designed app, explaining step by step, the different screens of the app. 
-- The full UI design can be downloaded as a pdf file from [here](./figures/SwapGasFees_Design.pdf).
+This section describes the basic design of the user interface (UI) for the Avalytics app. 
+- A separate detailed [tutorial](Tutorial.md) describes the working of the app, explaining step by step, the different screens of the app. 
 
-There are two main screens/interfaces in the app:
+There are four main screens/interfaces in the app:
 
-- **Interface 1:** Analytics for gas fees for a selected swap pair  (under the `Swap`, `Pools`, and `Favorites` tabs) 
-- **Interface 2:** Analytics for gas fees and Uniswap pools, in general (under the `Charts` tab)
+- **Dashboard:** Basic information about top tokens on Avalanche C-Chain, including Market Cap (Top 5), top Gainers and Losers.  (under the `Dashboard` tab)
+- **Tokens:** Price charts for individual tokens, both as line charts and candle-stick charts. The charts can be filtered for selected time period and time resolution.  (under the `Tokens` tab)
+- **Multiple Tokens:** Price changes and analytics for multiple tokens at once. Includes timeline visualization, correlation, and bar chart animation. (under the `Multiple Tokens` tab)
+- **Pools:** Analytics for  [liquidity pools](https://traderjoexyz.com/pool) in the [TraderJoe](https://traderjoexyz.com) decentralized exchange (DEX). (under the `Pools` tab)
 
 Now let us look into both of these interfaces, and explain each.
-
 
 ## Interface 1: Swap Gas Fees
 1. After the `Show Swap Fees` button is clicked, the app extracts data from a database populated apriori, and displays two visualizations. 
@@ -149,6 +142,17 @@ As mentioned earlier, there exist websites/apps that report/visualize the Ethere
 - [Crypto.com DeFi Dashboard - Gas Fees:](https://crypto.com/defi/dashboard/gas-fees) This online service is most related to our proposed app, as it displays not only the Ethereum gas fees but also the gas fees for different swap pairs.
 - [EthereumPrice.org:](https://ethereumprice.org/gas/) This website displays gas price over time, and time of the day. Especially the visualization of fees through heat map is impressive. While the information provided in SwapGasFees app overlaps with the information provided at EthereumPrice.org, the interface is designed to yield much more insights, through benchmarking. Furthermore, the mentioned website displays only Ethereum gas price and not the swap fees, whereas the SwapGasFees app designed in this project displays the latter.
 - [Matteo Leibowitz's Dune Analytics Dashboards:](https://dune.xyz/MatteoLeibowitz/uniswap-community) This rich collection of dashboards display several statistics for the Uniswap ecosystem. In comparison to this collection, the goal of the SwapGasFees project was to develop a single intuitive dashboard app that presents only the most essential few visualizations.
+
+## Other Resources: 
+
+**Data Extraction and Processing**
+
+The following resources/libraries can be used for data extraction from Uniswap:
+
+- The most **important** resource is the [Uniswap v3 contract maps](https://j1mmy.fi), which document the Pool Contract, Factory Contract, and Position Manager.
+- [BitQuery](https://graphql.bitquery.io/ide) (to query data from blockchains)
+- [Flipside Crypto](https://app.flipsidecrypto.com) (to query data from blockchains)
+- [GraphQL](https://medium.com/coinmonks/get-uniswap-data-using-the-graph-79d0c6f7b9f2) (to extract data from Uniswap)
 
 ## Future Plans for Avalytics
 
