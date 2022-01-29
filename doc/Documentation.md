@@ -83,8 +83,27 @@ The tokens were shortlisted according to several criteria, including SnowTrace r
 
 **Data Tables Under the Moralis Server**
 
-The following data tables were constructed under the Moralis server:
+The following data tables were constructed under the Moralis server, as shown on the left-hand side of the following screenshot:
 
+![Moralis List Of Data Tables](./img/MoralisListOfDataTables.png)
+
+The data tables and the data in them can be summarized as follows:
+- `DexTokenPairControl`: List of TraderJoe liquidity token pairs, for which data is collected
+- `DexTokenPairDetails`: Details of of TraderJoe liquidity token pairs
+- `DexTokenPairLiquidity`: Current data on TraderJoe liquidity token pairs, especially total value locked (TVL) and prices
+- `SummaryControl`: Database of what type of data is collected for which token.
+- `Token15Min`: Price, total supply, and market cap data for selected tokens, at a 15-minute time resolution. The formula used is (Market Cap) = (Price) x (Total Supply), where total supply excludes burned tokens.
+- `Token1Day`: Price, total supply, and market cap data for selected tokens, at a 1-day time resolution. 
+- `Token1Hour`: Price, total supply, and market cap data for selected tokens, at a 1-hour time resolution. 
+- `Token4Hour`: Price, total supply, and market cap data for selected tokens, at a 4-hour time resolution. 
+- `TokenDetails`: Details of the selected tokens, for which data is collected.
+- `TokenLogos`: Logos of the selected tokens, for which data is collected.
+- `TokenPriceCorrelation`: Correlation between selected tokens, based on daily prices over the last 4 weeks.
+- `TokenPrices`: Token prices used in correlation calculations, for the last 4 weeks.
+
+With the current data, due to fine-resolution data being moved to AWS, the Moralis server is far from being fully utilized, as shown in the following screenshot:
+
+![MoralisServerStatistics](./img/MoralisServerStatistics.png)
 
 
 ## Frontend: UI and Visual Analytics
