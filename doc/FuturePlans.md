@@ -28,7 +28,7 @@
 7. [Technology/Tool Stack](TechnologyStack.md)
 8. [Related Projects](RelatedProjects.md)
 9. [Other Resources](OtherResources.md)
-10. [Future Plans for Avalytics](FuturePlans.md)
+10. **Future Plans for Avalytics**
 
 <hline></hline>
 
