@@ -6,7 +6,7 @@
 
 The following resources/libraries can be used for data extraction or for getting inspiration/ideas:
 
-- [GraphQL](https://graphql.org/2) (to index/extract data from Avalanche)
+- [GraphQL](https://graphql.org/) (to index/extract data from Avalanche)
 - [BitQuery](https://graphql.bitquery.io/ide) (to query data from blockchains, currently not supporting Avalanche)
 - [Flipside Crypto](https://app.flipsidecrypto.com) (to query data from blockchains)
 
