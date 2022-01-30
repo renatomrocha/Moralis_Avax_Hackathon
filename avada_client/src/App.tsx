@@ -3,7 +3,7 @@ import "./App.css";
 import Moralis from "moralis";
 import {useMoralis} from "react-moralis";
 import Tokens from "./components/Tokens";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route, Routes} from "react-router-dom";
 import TokenView from "./components/TokenView";
 import CandleStickTemplate from "./components/charts/candlestick/CandleStickTemplate";
 import {appId, serverUrl} from "./index";
@@ -47,7 +47,7 @@ function App() {
     return (
         <Flex style={{backgroundColor: ColorPalette.backgroundColor, height: '100vh', fontStyle: 'nunito'}}>
 
-            <BrowserRouter>
+            <HashRouter>
 
                 <Grid h="95vh" w='99vw' templateColumns='repeat(10, 1fr)'>
 
@@ -73,7 +73,7 @@ function App() {
                     </GridItem>
                 </Grid>
                 {/*</div>*/}
-            </BrowserRouter>
+            </HashRouter>
         </Flex>
     )
 
