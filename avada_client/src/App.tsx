@@ -23,7 +23,9 @@ import {MultipleTokens} from "./components/MultipleTokens";
 import PoolView from "./components/PoolView";
 import {ColorPalette} from "./components/styles/color_palette";
 import UnderConstruction from "./components/genericComponents/UnderConstruction";
-
+import whales_bl from './images/whales_bl.png';
+import mempools_bl from './images/mempools_bl.png';
+import bridges_bl from './images/bridges_bl.png';
 
 function App() {
     Moralis.initialize(appId);
@@ -61,10 +63,10 @@ function App() {
                             <Route path="/multiTokens" element={<MultipleTokens style={{marginLeft: 30}}/>}/>
                             <Route path="/token/:address" element={<TokenView style={{marginLeft: 30}}/>}/>
 
-                            <Route path="/pools" element={<PoolView style={{marginLeft: 30}}/>}/>
-                            <Route path="/whales" element={<UnderConstruction/>}/>
-                            <Route path="/memPools" element={<UnderConstruction/>}/>
-                            <Route path="/bridges" element={<UnderConstruction/>}/>
+                            <Route path="/pools" element={<PoolView style={{marginLeft: 30}} />}/>
+                            <Route path="/whales" element={<UnderConstruction icon={whales_bl} name={'Whales'}/>}/>
+                            <Route path="/memPools" element={<UnderConstruction icon={mempools_bl} name={'MemPools'}/>}/>
+                            <Route path="/bridges" element={<UnderConstruction icon={bridges_bl} name={'Bridges'}/>}/>
                             <Route path="/statistics" element={<CandleStickTemplate/>}/>
 
                         </Routes>

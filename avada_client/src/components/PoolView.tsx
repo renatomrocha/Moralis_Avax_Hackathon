@@ -26,7 +26,7 @@ const PoolView = (props:any) => {
     const [activePools,setActivePools] = useState<any>([]);
     const [keys, setKeys] = useState<string[]>([]);
     const [lastRequestLength, setLastRequestLength] = useState<any>(0);
-    const [initialOffset, setInitialOffset] = useState((Date.now() - 30 * 24 * 60 * 60 * 1000) / 1000); // 30 days in the past in seconds
+    const [initialOffset, setInitialOffset] = useState((Date.now() - 60 * 24 * 60 * 60 * 1000) / 1000); // 30 days in the past in seconds
     const [startDate, setStartDate] = useState<any>(dateFromTimeStamp(initialOffset));
     const [endDate, setEndDate] = useState(dateFromTimeStamp(Date.now() / 1000));
     const [endOffset, setEndOffset] = useState(Math.round(Date.now() / 1000));
@@ -47,6 +47,53 @@ const PoolView = (props:any) => {
             console.log("Active pool is: ", activePools);
         }
     },[poolList])
+
+
+
+    // useEffect(() => {
+    //     console.log("Fetching new data!!!!");
+    //     if(activePools.length > 0 ) {
+    //         getInfoForPoolsForPair(activePools[activePools.length -1].pairAddress, initialOffset, endOffset)
+    //             .then((d)=>{
+    //                 const newArr : any[] = [];
+    //                 const exis
+    //
+    //                 const newKey = 'tvl'+d[0].symbol0+'-'+d[0].symbol1;
+    //                 console.log("Current data : ", data);
+    //                 if(data.length >0) {
+    //                     d.map((nd:any, idx:number) => {
+    //                         const obj : any = {};
+    //                         obj[newKey] = nd.tvl0 + nd.tvl1;
+    //                         Object.assign(data[idx],{...obj})
+    //                         // newArr.push(obj);
+    //                     })
+    //                     setData(()=>[...data]);
+    //
+    //                 } else {
+    //                     d.map((nd:any, idx:number) => {
+    //                         const obj : any = {};
+    //                         obj[newKey] = nd.tvl0 + nd.tvl1;
+    //                         obj["timestamp"] = nd.timestamp;
+    //                         newArr.push(obj);
+    //                     })
+    //                     setData(()=>[...newArr]);
+    //                 }
+    //                 keys.push(newKey)
+    //                 setKeys(keys);
+    //             })
+    //     }
+    // }, [initialOffset, endOffset])
+
+    const onDateDrag = (date: any) => {
+        setStartDate(dateFromTimeStamp(date[0]))
+        setEndDate(dateFromTimeStamp(date[1]))
+    }
+
+    const onChangeDate = (date: any) => {
+        setInitialOffset(date[0]);
+        setEndOffset(date[1]);
+
+    }
 
     const handleCheckBoxChange = (e:any,idx:number) => {
         console.log("CheckBoxChanged to: ", e.target.checked);
@@ -72,7 +119,7 @@ const PoolView = (props:any) => {
         if(activePools.length > 0){
 
             if(activePools.length > lastRequestLength) {
-                getInfoForPoolsForPair(activePools[activePools.length -1].pairAddress)
+                getInfoForPoolsForPair(activePools[activePools.length -1].pairAddress, initialOffset, endOffset)
                     .then((d)=>{
                         const newArr : any[] = [];
                         const newKey = 'tvl'+d[0].symbol0+'-'+d[0].symbol1;
@@ -163,8 +210,8 @@ const PoolView = (props:any) => {
 
         </HStack>
         <HStack>
-        <DateSlider style={{marginTop: 50}} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate}
-    initialOffset={initialOffset} setInitialOffset={setInitialOffset} endOffset={endOffset} setEndOffset={setEndOffset} sliderStep={24 * 60 * 60}/>
+    {/*    <DateSlider style={{marginTop: 50}} on startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} onChangeDate={onChangeDate} onDateDrag={onDateDrag}*/}
+    {/*initialOffset={initialOffset} setInitialOffset={setInitialOffset} endOffset={endOffset} setEndOffset={setEndOffset} sliderStep={24 * 60 * 60}/>*/}
         <ExportIcon/>
         </HStack>
         {/*{poolList.map((t:any, idx: number) =>*/}

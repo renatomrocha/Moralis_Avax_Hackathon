@@ -12,6 +12,7 @@ import {HeatMap} from "./heatmap/HeatMap";
 import React, {useEffect, useState} from "react";
 import {dateFromTimeStamp} from "../../utils/dateUtils";
 import {fetchTokensForHeatMap, getTokenList} from "../../services/tokenService";
+import AvalyticsSpinner from "../genericComponents/AvalyticsSpinner";
 
 
 const HeatMapWrapper = () => {
@@ -140,7 +141,7 @@ const HeatMapWrapper = () => {
 
             {tokenList.length > 0 && (<div style={{marginLeft: 60}}>
                 {isLoading && (<div style={{position: 'absolute', marginLeft: 550, marginTop: 300}}>
-                    <AvadaSpinner/></div>)}
+                    <AvalyticsSpinner style={{width:80, height: 80}}/></div>)}
 
                 <HeatMap tokensList={tokenList} data={tokenPrices}/>
 
@@ -186,8 +187,7 @@ const HeatMapWrapper = () => {
         </div>)}
 
         {isLoading &&
-        <AvadaSpinner style={{width: '100%', height: "100%", marginTop: 100, marginLeft: 500}}
-                      message={`Loading price history`}/>}</>)
+        <AvalyticsSpinner style={{width:80, height: 80}}/>}</>)
 
 
 }

@@ -55,13 +55,16 @@ export const getInfoForPools = async (date?: any) => {
 }
 
 
-export const getInfoForPoolsForPair = async (address?: any, date?: any) => {
+export const getInfoForPoolsForPair = async (address?: any, initialDate?: any, finalDate?: any) => {
 
     const PoolInfo = Moralis.Object.extend("DexTokenPairLiquidity");
     const query = new Moralis.Query(PoolInfo);
     query.select("dexName", "symbol0","symbol1","reserve0","reserve1","tvl0","tvl1","timeStamp");
-    if(date) {
-        query.greaterThan("timeStamp", date);
+    if(initialDate) {
+        query.greaterThan("timeStamp", initialDate);
+    }
+    if(finalDate) {
+        query.lessThan("timeStamp", finalDate);
     }
     query.limit(5000);
     query.equalTo("pairAddress", address);

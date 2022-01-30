@@ -4,20 +4,7 @@ import React from "react";
 import {dateFromTimeStamp} from "../../utils/dateUtils";
 
 
-const DateSlider = ({startDate, setStartDate,endDate, setEndDate, initialOffset, setInitialOffset, endOffset, setEndOffset, sliderStep, style} : any) => {
-
-
-
-    const onDateDrag = (date: any) => {
-        setStartDate(dateFromTimeStamp(date[0]))
-        setEndDate(dateFromTimeStamp(date[1]))
-    }
-
-    const onChangeDate = (date: any) => {
-        setInitialOffset(date[0]);
-        setEndOffset(date[1]);
-        console.log("Fetch data again");
-    }
+const DateSlider = ({startDate, setStartDate,endDate, setEndDate, initialOffset, setInitialOffset, endOffset, setEndOffset, sliderStep, style, onDateDrag, onChangeDate} : any) => {
 
 
     return ( <div style={{

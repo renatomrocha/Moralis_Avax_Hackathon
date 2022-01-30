@@ -12,7 +12,7 @@ import mempools from '../../images/mempools.png';
 import bridges from '../../images/bridges.png';
 import logo_1 from '../../images/logo_1.png';
 import logo_2 from '../../images/logo_2.png';
-
+import logo from '../../images/logo.png';
 import {ColorPalette} from "../styles/color_palette";
 
 
@@ -61,6 +61,9 @@ export function Sidebar({navSize, setNavSize}:any) {
             >
               <HStack spacing='8px' margin={5}>
                   {/*<Text display={ navSize=='large'?'flex':'none'} fontWeight={'bold'} fontSize='2xl' color={ColorPalette.navFontColor} ml={10} mt={5}>AVALYTICS</Text>*/}
+                  <div style={{paddingTop:20}} >
+                      <img width={60} height={60} src={logo}/>
+                  </div>
                   <div style={{width:220, height:60, paddingTop:20, paddingRight:20}} >
                     <img src={logo_2}/>
                   </div>
@@ -85,14 +88,12 @@ export function Sidebar({navSize, setNavSize}:any) {
                 alignItems="flex-start"
                 mb={4}
             >
-                {/*<Divider display={navSize=='small'? "none":"flex"}/>*/}
-                {/*<Flex mt={4} align="center">*/}
-                {/*    <Avatar size="sm"/>*/}
-                {/*    <Flex flexDir="column" ml={4} display={navSize=='small'? "none":"flex"}>*/}
-                {/*        <Heading as="h3" size="sm">Renato</Heading>*/}
-                {/*        <Text color="gray">Admin</Text>*/}
-                {/*    </Flex>*/}
-                {/*</Flex>*/}
+                <Divider display={navSize=='small'? "none":"flex"}/>
+                <Flex mt={4} align="center">
+                    <Flex flexDir="column" ml={4} display={navSize=='small'? "none":"flex"}>
+                        <Text color="gray" cursor={'pointer'} onClick={()=>console.log("Team...")}>Team</Text>
+                    </Flex>
+                </Flex>
 
             </Flex>
 

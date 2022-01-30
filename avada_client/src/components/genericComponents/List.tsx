@@ -45,7 +45,7 @@ function EntityList(props: any) {
         {!props.noHead && (
             <Thead>
                 <Tr>
-                    {props.entityProps.map((ep:any, idx:number)=> {
+                    {props.entityProps.filter((ep:any)=>!ep.dontDisplay).map((ep:any, idx:number)=> {
                         return(<Th key={idx}>{ep.name}</Th>)
                     })}
                 </Tr>
@@ -54,9 +54,12 @@ function EntityList(props: any) {
         <Tbody>
             {props.entityList.map((entity: any, idx: number)=> {
                 return(<Tr key={idx} style={selected==idx?{backgroundColor:ColorPalette.highlight, borderRadius:"10px", cursor:'pointer'}:{}}
-                           onMouseEnter={(e)=> handleHover(e, idx)} onMouseLeave={()=> setSelected(null)} >
+                           onMouseEnter={(e)=> handleHover(e, idx)} onMouseLeave={()=> setSelected(null)}
+                           onClick={()=>navigate(`/token/${entity.address}`)}>
+                    {/*TODO Need to fix ^^^^^ this to be generic*/}
 
-                    {props.entityProps.map((ep:any,i:number)=> {
+
+                    {props.entityProps.filter((ep:any)=>!ep.dontDisplay).map((ep:any,i:number)=> {
                         return(<Th key={i}>{ep.type=='img'?<img style={{width:30, height:30}} src={entity[ep.value]}/>:ep.postProcess?ep.postProcess(entity[ep.value]):entity[ep.value]}</Th>)
                     })}
                 </Tr>)

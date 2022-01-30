@@ -32,6 +32,7 @@ import {FaFontAwesome} from "react-icons/all";
 import {faFileExport, faFileDownload} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import ExportIcon from "./genericComponents/ExportIcon";
+import AvalyticsSpinner from "./genericComponents/AvalyticsSpinner";
 
 enum CHART_TYPES_ENUM {
     LINE,
@@ -212,7 +213,7 @@ function TokenView(props:any)  {
 
 
             <div style={{margin:30, marginLeft:60, borderColor:'gray.200',top:100, borderRadius:50, borderWidth:2,paddingTop:40, width: 1400, height:550}}>
-                {isLoading && <div style={{alignItems:'center', justifyItems:"center"}}><AvadaSpinner style={{width:'100%', height: "100%", marginTop:100, marginLeft:500}} message={`Loading price history`}/></div>}
+                {isLoading && <div style={{height:'100%', alignItems:'center', justifyItems:"center"}}><AvalyticsSpinner style={{width:80, height: 80}} message={`Loading price history`}/></div>}
 
                 {(!isLoading && tokenPrices.length) && <div >
                 {chartType === CHART_TYPES_ENUM.LINE && <BasicChart data={tokenPrices.map(d=>d.price)} dates={dates} xDomain={dates}  width={1200} height={450} />}

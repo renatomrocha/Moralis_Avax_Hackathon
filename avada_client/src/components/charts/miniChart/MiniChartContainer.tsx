@@ -6,6 +6,7 @@ import AvadaSpinner from "../../genericComponents/AvadaSpinner";
 import {ColorPalette} from "../../styles/color_palette";
 import {useNavigate} from "react-router-dom";
 import {get24HourPercentageChange} from "../../../services/dashboardService";
+import AvalyticsSpinner from "../../genericComponents/AvalyticsSpinner";
 
 
 export default function     MiniChartContainer ({address, width, height}:any) {
@@ -66,7 +67,7 @@ export default function     MiniChartContainer ({address, width, height}:any) {
     return (<div onMouseEnter={()=>setBorderColor(pctChange > 0 ? ColorPalette.green : ColorPalette.red)} onMouseLeave={()=>setBorderColor('gray.200')}>
 
             {isLoading && (<Box border="1px" borderColor={borderColor}  borderRadius={30} padding={5} >
-                <AvadaSpinner/>
+                <AvalyticsSpinner style={{width:40, height:40}}/>
             </Box>)}
 
         {(data && plotColor) && (
