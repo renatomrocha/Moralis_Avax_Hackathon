@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Avalytics",
+  "name": "An analytics platform for Avalanche C-chain",
   "icons": [
     {
       "src": "favicon.ico",
