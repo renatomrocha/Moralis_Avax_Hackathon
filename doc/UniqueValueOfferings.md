@@ -1,4 +1,4 @@
-![Avalytics Logo](./img/AvalyticsLogo1Mini.png)
+![Avalytics Logo](./img/AvalyticsLogoMini.png) ![Avalytics Logo](./img/AvalyticsLogo1Mini.png)
 
 ## Unique Value Offerings
 
