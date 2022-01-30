@@ -47,7 +47,7 @@ function Tokens(props:any)  {
 
     return (
         <div style={{...props.style}}>
-            <Title title="Tokens" extraInfo={"Listing of several tokens currently circulating on the Avalanche C-chain"}/>
+            <Title title="Tokens on  Avalanche C-Chain" extraInfo={"Listing of several tokens currently circulating on the Avalanche C-chain"}/>
             {tokenList.length>0 &&
                 <TokenList tokenList={tokenList} sort={sortTokens}/>}
         </div>

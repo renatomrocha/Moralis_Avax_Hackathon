@@ -41,12 +41,12 @@ export function MultipleTokens(props: any) {
         <div>
 
             <div style={{...props.style}}>
-                <Title title="Multiple Tokens" extraInfo={"Comparative analysis between several tokens. Switch between tabs to access different metrics"}/>
+                <Title title="Multiple Tokens on Avalanche C-Chain" extraInfo={"Comparative analysis between several tokens. Switch between tabs to access different metrics"}/>
 
                 <Tabs variant='soft-rounded' onChange={(index) => console.log("Changed to tab: ", index)} isLazy>
                     <TabList>
                         <Tab>Percentage Change History</Tab>
-                        <Tab>Correlation</Tab>
+                        <Tab>Correlation Analysis</Tab>
                         <Tab>Market Cap History</Tab>
                     </TabList>
 

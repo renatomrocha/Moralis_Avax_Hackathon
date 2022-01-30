@@ -181,7 +181,7 @@ const PoolView = (props:any) => {
 
 
     return (<div style={{...props.style}}>
-        <Title title="Pools" extraInfo={"Steam charts provide a visual comparison of" +
+        <Title title="Pool Liquidity (Total Value Locked - TVL) on TraderJoe" extraInfo={"Steam charts provide a visual comparison of" +
         " total value locked for different liquidity pools. All pools listed belong to the Trader JOE DEX from Avalanche C-chain"}/>
 
         <HStack>
