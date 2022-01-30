@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Moralis_Avax_Hackathon/static/css/main.86d06bbc.chunk.css",
-    "main.js": "/Moralis_Avax_Hackathon/static/js/main.7c5a5a38.chunk.js",
-    "main.js.map": "/Moralis_Avax_Hackathon/static/js/main.7c5a5a38.chunk.js.map",
+    "main.js": "/Moralis_Avax_Hackathon/static/js/main.7f93ba98.chunk.js",
+    "main.js.map": "/Moralis_Avax_Hackathon/static/js/main.7f93ba98.chunk.js.map",
     "runtime-main.js": "/Moralis_Avax_Hackathon/static/js/runtime-main.4482bca1.js",
     "runtime-main.js.map": "/Moralis_Avax_Hackathon/static/js/runtime-main.4482bca1.js.map",
     "static/css/2.ecdd39c8.chunk.css": "/Moralis_Avax_Hackathon/static/css/2.ecdd39c8.chunk.css",
@@ -32,6 +32,6 @@
     "static/css/2.ecdd39c8.chunk.css",
     "static/js/2.7b25e54a.chunk.js",
     "static/css/main.86d06bbc.chunk.css",
-    "static/js/main.7c5a5a38.chunk.js"
+    "static/js/main.7f93ba98.chunk.js"
   ]
 }
