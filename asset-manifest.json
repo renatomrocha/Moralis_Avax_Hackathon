@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/Moralis_Avax_Hackathon/static/css/main.86d06bbc.chunk.css",
-    "main.js": "/Moralis_Avax_Hackathon/static/js/main.7f93ba98.chunk.js",
-    "main.js.map": "/Moralis_Avax_Hackathon/static/js/main.7f93ba98.chunk.js.map",
+    "main.js": "/Moralis_Avax_Hackathon/static/js/main.5e52143d.chunk.js",
+    "main.js.map": "/Moralis_Avax_Hackathon/static/js/main.5e52143d.chunk.js.map",
     "runtime-main.js": "/Moralis_Avax_Hackathon/static/js/runtime-main.4482bca1.js",
     "runtime-main.js.map": "/Moralis_Avax_Hackathon/static/js/runtime-main.4482bca1.js.map",
     "static/css/2.ecdd39c8.chunk.css": "/Moralis_Avax_Hackathon/static/css/2.ecdd39c8.chunk.css",
-    "static/js/2.7b25e54a.chunk.js": "/Moralis_Avax_Hackathon/static/js/2.7b25e54a.chunk.js",
-    "static/js/2.7b25e54a.chunk.js.map": "/Moralis_Avax_Hackathon/static/js/2.7b25e54a.chunk.js.map",
+    "static/js/2.6e828863.chunk.js": "/Moralis_Avax_Hackathon/static/js/2.6e828863.chunk.js",
+    "static/js/2.6e828863.chunk.js.map": "/Moralis_Avax_Hackathon/static/js/2.6e828863.chunk.js.map",
     "static/js/3.f259e671.chunk.js": "/Moralis_Avax_Hackathon/static/js/3.f259e671.chunk.js",
     "static/js/3.f259e671.chunk.js.map": "/Moralis_Avax_Hackathon/static/js/3.f259e671.chunk.js.map",
     "index.html": "/Moralis_Avax_Hackathon/index.html",
     "static/css/2.ecdd39c8.chunk.css.map": "/Moralis_Avax_Hackathon/static/css/2.ecdd39c8.chunk.css.map",
     "static/css/main.86d06bbc.chunk.css.map": "/Moralis_Avax_Hackathon/static/css/main.86d06bbc.chunk.css.map",
-    "static/js/2.7b25e54a.chunk.js.LICENSE.txt": "/Moralis_Avax_Hackathon/static/js/2.7b25e54a.chunk.js.LICENSE.txt",
+    "static/js/2.6e828863.chunk.js.LICENSE.txt": "/Moralis_Avax_Hackathon/static/js/2.6e828863.chunk.js.LICENSE.txt",
     "static/media/bridges.58d7d2cb.png": "/Moralis_Avax_Hackathon/static/media/bridges.58d7d2cb.png",
     "static/media/bridges_bl.1e2e791e.png": "/Moralis_Avax_Hackathon/static/media/bridges_bl.1e2e791e.png",
     "static/media/charts.4404929f.png": "/Moralis_Avax_Hackathon/static/media/charts.4404929f.png",
@@ -30,8 +30,8 @@
   "entrypoints": [
     "static/js/runtime-main.4482bca1.js",
     "static/css/2.ecdd39c8.chunk.css",
-    "static/js/2.7b25e54a.chunk.js",
+    "static/js/2.6e828863.chunk.js",
     "static/css/main.86d06bbc.chunk.css",
-    "static/js/main.7f93ba98.chunk.js"
+    "static/js/main.5e52143d.chunk.js"
   ]
 }
