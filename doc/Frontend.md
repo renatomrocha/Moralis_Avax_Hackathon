@@ -3,7 +3,6 @@
 ## Frontend: UI and Visual Analytics
 
 This section describes the basic design of the user interface (UI) for the Avalytics app and the visual analytics methods used. 
-- A separate detailed [tutorial](Tutorial.md) describes the working of the app, explaining step by step, the different screens of the app. 
 
 There are four main screens/interfaces in the app:
 
