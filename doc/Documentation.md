@@ -1,4 +1,4 @@
-![Avalytics Logo](./img/AvalyticsLogo1Mini.png)
+![Avalytics Logo](./doc/img/AvalyticsLogoMini.png) ![Avalytics Logo](./doc/img/AvalyticsLogo1Mini.png)
 
 ## Documentation
 
