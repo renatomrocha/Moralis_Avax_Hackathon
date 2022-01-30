@@ -41,7 +41,7 @@ export default function SteamGraph(props) {
 
     const buildChart = (chartData) => {
         var margin = {top: 20, right: 30, bottom: 0, left: 100},
-            width = 1300 - margin.left - margin.right,
+            width = 1200 - margin.left - margin.right,
             height = 600 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page

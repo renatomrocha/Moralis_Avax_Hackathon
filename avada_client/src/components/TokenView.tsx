@@ -33,6 +33,7 @@ import {faFileExport, faFileDownload} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import ExportIcon from "./genericComponents/ExportIcon";
 import AvalyticsSpinner from "./genericComponents/AvalyticsSpinner";
+import Title from "./genericComponents/Title";
 
 enum CHART_TYPES_ENUM {
     LINE,
@@ -202,7 +203,11 @@ function TokenView(props:any)  {
 
 
     return (
-        <div style={{justifyContent:'center'}}>
+        <div style={{justifyContent:'center', marginLeft: 30}}>
+
+            {tokenInfo && <Title title={`${tokenInfo.symbol} on  Avalanche C-Chain`} extraInfo={"Analysis of token prices over a selected time period at a selected time resolution."}/>}
+
+
             {tokenInfo && (<div style={{margin:20, fontSize:'1.3em', fontWeight:'bold' , alignItems:'center'}}>
                 <HStack>
                     <img src={tokenInfo.logoUrl} style={{width:60, height:60, margin:10}}/>

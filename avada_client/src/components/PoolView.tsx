@@ -184,7 +184,7 @@ const PoolView = (props:any) => {
         <Title title="Pool Liquidity (Total Value Locked - TVL) on TraderJoe" extraInfo={"Steam charts provide a visual comparison of" +
         " total value locked for different liquidity pools. All pools listed belong to the Trader JOE DEX from Avalanche C-chain"}/>
 
-        <HStack>
+        <HStack style={{marginTop:60}}>
             {activePools.length>0 && (<div style={{
                 height: 600,
                 overflowY: 'scroll',
@@ -204,7 +204,7 @@ const PoolView = (props:any) => {
             </div>)}
 
 
-            <div style={{height:600, borderWidth:1, borderRadius:20, marginLeft: 60,marginBottom:20}}>
+            <div style={{height:600, width: 1200, borderWidth:1, borderRadius:20, marginLeft: 60,marginBottom:20}}>
                 {data.length > 0 && <SteamGraph data={data} keys={keys}/>}
             </div>
 

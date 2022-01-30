@@ -173,7 +173,7 @@ const BasicChart = (props: any) => {
                             Dollars: ${dollarAt(mouseCoords.y, chart_dims)}
                         </tspan>
                     </text>
-                    <CrossHairs style={{stroke:"#892CDC",strokeWidth:2}} x={mouseCoords.x} y={mouseCoords.y} chart_dims={{pixel_width: width, pixel_height: height}} />
+                    <CrossHairs style={{stroke:ColorPalette.mainColor,strokeWidth:2}} x={mouseCoords.x} y={mouseCoords.y} chart_dims={{pixel_width: width, pixel_height: height}} />
                 </svg>
 
             </div>

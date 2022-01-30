@@ -206,7 +206,7 @@ const Chart = props => {
                     Dollars: ${dollarAt(mouseCoords.y)}
                 </tspan>
             </text>
-            <CrossHairs style={{stroke:"black",strokeWidth:2}} x={mouseCoords.x} y={mouseCoords.y} chart_dims={chart_dims} />
+            <CrossHairs style={{stroke:ColorPalette.mainColor,strokeWidth:2}} x={mouseCoords.x} y={mouseCoords.y} chart_dims={chart_dims} />
         </svg>
     );
 };

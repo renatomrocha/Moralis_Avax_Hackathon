@@ -11,7 +11,7 @@ export function Dashboard(props:any) {
 
 
     return(<div style={{...props.style}}>
-        <Title title="Dashboard for Avalanche C-Chain" extraInfo={"Summary dashboard for Avalanche C-chain"}/>
+        <Title title="Dashboard for Avalanche C-Chain" extraInfo={"Display of recent prices of important tokens,  market caps of coins with highest market cap, and top gainers and losers with respect to daily price."}/>
 
         <HStack style={{marginTop:40}}  spacing={10}>
             <div style={{width:350,height:250}}>

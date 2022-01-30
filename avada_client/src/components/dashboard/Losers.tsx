@@ -6,7 +6,7 @@ export function Losers(props:any) {
 
     return(<div style={{...props.style}}>
 
-    <List title="Losers (daily price)" getter={getTopLosers} entityProps={[{name:"", value:'logoUrl', type:'img'},{name:"Symbol",value:"symbol"},{name:"% Change (24h)", value: "pctChange", postProcess:(a:any)=>(a*100).toFixed(2)+'%'}]}/>
+    <List title="Losers" getter={getTopLosers} entityProps={[{name:"", value:'logoUrl', type:'img'},{name:"Symbol",value:"symbol"},{name:"% Change (24h)", value: "pctChange", postProcess:(a:any)=>(a*100).toFixed(2)+'%'}]}/>
 
 
     </div>)
