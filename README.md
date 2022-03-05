@@ -13,6 +13,7 @@
 <ul>
 <li><a href="https://renatomrocha.github.io/Moralis_Avax_Hackathon/" target="_blank">AVALYTICS APP</a></li>
 <li><a href="./doc/Documentation.md" target="_blank">DOCUMENTATION</a></li>
+<li><a href="https://youtu.be/T_t6d0LbjQ8" target="_blank">YOUTUBE VIDEO</a></li>
 </ul>
 --->
 
