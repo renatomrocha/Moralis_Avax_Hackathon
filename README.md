@@ -2,7 +2,7 @@
 
 ![Avalytics Logo](./doc/img/AvalyticsLogoMini.png) ![Avalytics Logo](./doc/img/AvalyticsLogo1Mini.png)
 
-# An Analytics Dashboard for the Avalanche C-Chain
+# Avalytics.io: An Analytics Dashboard for the Avalanche C-Chain
 
 <hline>
 </hline>
@@ -19,6 +19,7 @@
 
 - [**AVALYTICS APP**](https://renatomrocha.github.io/Moralis_Avax_Hackathon/) is running live under github.io.
 - [**DOCUMENTATION**](./doc/Documentation.md) describes the project and the Avalytics app.
+- [**YOUTUBE VIDEO**](https://youtu.be/T_t6d0LbjQ8) is the demo video.
 <!--- - [Tutorial](./doc/Tutorial.md) describes how to use the Avalytics app, explaining step by step, the different screens. --->
 <!---
 - [GitHub Page](https://github.com/renatomrocha/Moralis_Avax_Hackathon)
