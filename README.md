@@ -19,7 +19,7 @@
 
 - [**AVALYTICS DAPP**](https://renatomrocha.github.io/Moralis_Avax_Hackathon/) is running live under github.io.
 - [**DOCUMENTATION**](./doc/Documentation.md) describes the project and the Avalytics app.
-- [**YOUTUBE VIDEO**](https://youtu.be/T_t6d0LbjQ8) is the demo video.
+- [**YOUTUBE VIDEO**](https://youtu.be/T_t6d0LbjQ8) is the pitch deck & video with a demo.
 <!--- - [Tutorial](./doc/Tutorial.md) describes how to use the Avalytics app, explaining step by step, the different screens. --->
 <!---
 - [GitHub Page](https://github.com/renatomrocha/Moralis_Avax_Hackathon)
